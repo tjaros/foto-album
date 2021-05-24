@@ -56,23 +56,14 @@ module.exports = {
         cookieDomain: "example.com",
       },
     },
-    {
-      resolve: "gatsby-plugin-sentry",
-      options: {
-        dsn: "YOUR_SENTRY_DSN_URL",
-        // Optional settings, see https://docs.sentry.io/clients/node/config/#optional-settings
-        environment: process.env.NODE_ENV,
-        enabled: (() => ["production", "stage"].indexOf(process.env.NODE_ENV) !== -1)()
-      }
-    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
     {
       resolve: `gatsby-plugin-postcss`,
       options: {
-        postCssPlugins: [require("tailwindcss"), require("autoprefixer")]
-      }
+        postCssPlugins: [require("tailwindcss"), require("autoprefixer")],
+      },
     },
     {
       resolve: `gatsby-plugin-purgecss`,
@@ -81,6 +72,6 @@ module.exports = {
         develop: false,
         tailwind: true,
       },
-    }
+    },
   ],
 }
