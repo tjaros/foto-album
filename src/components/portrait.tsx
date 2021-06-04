@@ -2,9 +2,9 @@ import React from "react"
 
 const Portrait = ({ imageLink, personName }) => {
   return (
-    <div className="flex flex-col px-5 items-center pb-4 md:pb-0">
+    <div className="flex flex-col items-center px-5 pb-4 md:pb-0">
       <div className="flex flex-row">
-        <img srcSet={imageLink} className="object-fill h-80 w-72 rounded-md" />
+        <img srcSet={imageLink} className="object-fill rounded-md h-80 w-72" />
       </div>
       <div className="flex flex-row">
         <p>{personName}</p>
