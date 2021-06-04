@@ -1,24 +1,24 @@
 import Portrait from "./portrait"
 import React from "react"
 
-const Category = props => {
+type Data = { imageLink: String; personName: String }
+
+const Category = ({ data, categoryName }) => {
   return (
     <div className="flex flex-col pb-16 items-center">
-      <h1 className="text-5xl pb-10 font-semibold">{props.categoryName}</h1>
-      <div className="flex flex-row pb-10">
-        <Portrait src={props.imageLinks[0]} name={props.names[0]} />
-        <Portrait src={props.imageLinks[1]} name={props.names[1]} />
-        <Portrait src={props.imageLinks[2]} name={props.names[2]} />
-        <Portrait src={props.imageLinks[3]} name={props.names[3]} />
+      <h1 className="text-5xl pb-10 font-semibold">{categoryName}</h1>
+      <div className="flex flex-col md:flex-row pb-10">
+        {data.slice(0, 4).map((e: Data) => {
+          return <Portrait imageLink={e.imageLink} personName={e.personName} />
+        })}
       </div>
-      <div className="flex flex-row pb-10">
-        <Portrait src={props.imageLinks[4]} name={props.names[4]} />
-        <Portrait src={props.imageLinks[5]} name={props.names[5]} />
-        <Portrait src={props.imageLinks[6]} name={props.names[6]} />
-        <Portrait src={props.imageLinks[7]} name={props.names[7]} />
+      <div className="flex flex-col md:flex-row pb-10">
+        {data.slice(4, 8).map((e: Data) => {
+          return <Portrait imageLink={e.imageLink} personName={e.personName} />
+        })}
       </div>
       <div className="flex flex-row">
-        <button className="w-32 h-12 outline-black">
+        <button className="w-32 h-12 border-2 border-black border-solid rounded-md">
           <p>All</p>
         </button>
       </div>
