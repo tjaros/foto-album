@@ -1,7 +1,5 @@
 import React from "react"
-
-import Layout from "../components/layout"
-import SEO from "../components/seo"
+import { Layout, MetaData } from "../components"
 import Category from "../components/category"
 
 const categories = new Array(4).fill({
@@ -15,7 +13,7 @@ const categories = new Array(4).fill({
 const Categories = () => {
   return (
     <Layout>
-      <SEO title="Categories" />
+      <MetaData title="Categories" />
       <div className="flex flex-col">
         {categories.map(e => {
           return (<Category data={e.data} categoryName={e.categoryName} />)
