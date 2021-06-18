@@ -1,0 +1,63 @@
+{
+  "exclude": ["./public/*", "gatsby*", "*config*", "./node_modules/*"],
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "ES2020",
+    "lib": [
+      "es5",
+      "es6",
+      "es2015",
+      "es2016",
+      "es2017",
+      "es2018",
+      "es2020",
+      "esnext",
+      "DOM",
+      "DOM.Iterable",
+      "ScriptHost"
+    ],
+    "allowJs": true,
+    "checkJs": true,
+    "jsx": "react-jsxdev",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "noEmit": true,
+    "outDir": "./dev/dist/lib",
+    "rootDir": "./src",
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "moduleResolution": "node",
+
+    "rootDirs": ["./", "./src"],
+    "typeRoots": ["./types", "./@types", "node_modules/@types"],
+    "types": ["node", "react", "react-dom"],
+
+    "esModuleInterop": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "forceConsistentCasingInFileNames": true,
+
+    "preserveConstEnums": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "pretty": true,
+
+    "allowSyntheticDefaultImports": true,
+    "declarationDir": "dev/dist/types"
+  }
+}
