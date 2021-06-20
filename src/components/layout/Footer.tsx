@@ -28,7 +28,7 @@ const Footer: React.FC = () => {
         {footerLinks.map(({ url, description }) => (
           <a
             href={url}
-            className="py-2 text-2xl text-white no-underline md:py-0 md:px-4"
+            className="py-2 text-lg text-white no-underline lg:text-2xl md:py-0 md:px-4"
             key={description}>
             {description}
           </a>
@@ -38,7 +38,7 @@ const Footer: React.FC = () => {
         {socialMedia.map(({ url, type }) => {
           const Icon = socialIcons[type] || FaGlobe;
           return (
-            <a key={type} href={url} className="px-4 text-2xl text-white no-underline">
+            <a key={type} href={url} className="px-4 text-white no-underline">
               <Icon size="3rem" />
             </a>
           );

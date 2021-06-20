@@ -8,7 +8,7 @@ const SearchBar = () => {
     <div className={`${isExpanded ? `bg-white text-black` : `bg-transparent text-white`} flex rounded-md`}>
       <label
         htmlFor="header-search-bar"
-        className="hidden"
+        className="hidden text-lg text-white lg:text-2xl"
       >
         Search
         </label>
