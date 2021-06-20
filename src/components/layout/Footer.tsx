@@ -1,8 +1,7 @@
-import { React, useState } from "react"
+import React, { useState } from "react"
 import { FaFacebook, FaInstagram, FaGlobe } from "react-icons/fa"
 
 function Footer() {
-  useState(false)
   return (
     <div className="flex flex-col items-center text-white bg-black h-72">
       <nav className="flex flex-row pt-12 justify-evenly">
