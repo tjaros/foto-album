@@ -1,16 +1,17 @@
-import React from "react";
+import React from 'react';
 
 interface ProfilePictureProps {
-    name: string;
-    imageLink: string;
+  name: string;
+  imageLink: string;
 }
 
-const ProfilePicture = ({ name, imageLink }: ProfilePictureProps) => {
-    return (
-        <div className="h-60 w-60">
-            <img src={imageLink} alt={`${name}'s profile picture`} className="w-full h-full rounded-full" />
-        </div>
-    );
-};
+const ProfilePicture: React.FC<ProfilePictureProps> = ({
+  name,
+  imageLink,
+}: ProfilePictureProps) => (
+  <div className="h-60 w-60">
+    <img src={imageLink} alt={`${name}'s profile`} className="w-full h-full rounded-full" />
+  </div>
+);
 
 export default ProfilePicture;

@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 
-const ContactMeButton = () => {
-    return (
-        <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold w-36 h-12 rounded-full">
-            Contact Me
-        </button>
-    );
-};
+const ContactMeButton: React.FC = () => (
+  <button
+    type="button"
+    className="h-12 font-bold text-white bg-gray-900 rounded-full hover:bg-gray-800 w-36"
+  >
+    Contact Me
+  </button>
+);
 
 export default ContactMeButton;

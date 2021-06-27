@@ -1,11 +1,12 @@
-import React from "react";
+import React from 'react';
 
-const FollowButton = () => {
-    return (
-        <button className="bg-gray-900 hover:bg-gray-800 text-white font-bold w-36 h-12 rounded-full mt-8">
-            Follow Me
-        </button>
-    );
-};
+const FollowButton: React.FC = () => (
+  <button
+    type="button"
+    className="h-12 mt-8 font-bold text-white bg-gray-900 rounded-full hover:bg-gray-800 w-36"
+  >
+    Follow Me
+  </button>
+);
 
 export default FollowButton;
