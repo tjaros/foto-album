@@ -2,7 +2,7 @@
   "name": "pb138-foto-album",
   "private": true,
   "description": "Lewd foto album in Gatsby",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "Lukáš Gorazd Hrodek, Michal Barnišin, Tomáš Jaroš, Katarína Bulková",
   "main": "index.tsx",
   "dependencies": {
