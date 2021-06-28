@@ -1,16 +1,15 @@
-// Gatsby supports TypeScript natively!
-import React from "react"
-import { PageProps, Link } from "gatsby"
+/* eslint-disable react/jsx-one-expression-per-line */
+import React from 'react';
+import { PageProps, Link } from 'gatsby';
+import { MetaData, Layout } from '../components';
 
-import { MetaData, Layout } from '/src/components'
-
-const SecondPage = (props: PageProps) => (
+const SecondPage: React.FC<PageProps> = ({ path }) => (
   <Layout>
     <MetaData title="Page two" />
     <h1>Hi from the second page</h1>
-    <p>Welcome to page 2 ({props.path})</p>
+    <p>Welcome to page 2 ({ path })</p>
     <Link to="/">Go back to the homepage</Link>
   </Layout>
-)
+);
 
-export default SecondPage
+export default SecondPage;
