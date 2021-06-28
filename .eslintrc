@@ -22,7 +22,8 @@
   "plugins": ["@typescript-eslint", "react", "jsx-a11y"],
   "rules": {
     "react/prop-types": "off",
-    "@typescript-eslint/comma-dangle": "off"
+    "@typescript-eslint/comma-dangle": "off",
+    "react/jsx-closing-bracket-location": "off"
   },
   "settings": {
     "react": {
