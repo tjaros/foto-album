@@ -21,6 +21,7 @@
   },
   "plugins": ["@typescript-eslint", "react", "jsx-a11y"],
   "rules": {
+    "object-curly-newline": "warn",
     "react/prop-types": "off",
     "@typescript-eslint/comma-dangle": "off",
     "react/jsx-closing-bracket-location": "off",
