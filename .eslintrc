@@ -21,7 +21,8 @@
   },
   "plugins": ["@typescript-eslint", "react", "jsx-a11y"],
   "rules": {
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "@typescript-eslint/comma-dangle": "off"
   },
   "settings": {
     "react": {
