@@ -4,17 +4,17 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import SearchBar from './searchBar';
 import UserLogin from './userLogin';
 
-const Header = () => {
+const headerLinks = [
+  { description: 'Models', url: '/models' },
+  { description: 'Photographers', url: '/photographers' },
+];
+
+const Header: React.FC = () => {
   // when on small screens, determines wheter users see hamburger menu or it is expanded
   const [isExpanded, toggleExpansion] = useState(false);
 
-  const links = [
-    { name: 'Models', link: '/models' },
-    { name: 'Photographers', link: '/photographers' },
-  ];
-
   return (
-    <header className="sticky top-0 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:px-8">
+    <header className="sticky top-0 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
         <button
           onClick={() => toggleExpansion(!isExpanded)}
@@ -35,13 +35,13 @@ const Header = () => {
         } w-full lg:flex lg:items-center lg:w-auto space-x-2`}
       >
         <nav className="flex flex-col p-4 lg:items-center lg:p-0 lg:pr-4 lg:flex-row">
-          {links.map((navLink, i) => (
+          {headerLinks.map(({ description, url }) => (
             <Link
-              key={i}
-              to={navLink.link}
-              className="block pt-4 mr-4 text-white lg:inline-block lg:pt-0"
+              key={description}
+              to={url}
+              className="block pt-4 mr-4 text-lg text-white lg:text-2xl lg:inline-block lg:pt-0"
             >
-              {navLink.name}
+              {description}
             </Link>
           ))}
           <div className="hidden lg:inline-block">
