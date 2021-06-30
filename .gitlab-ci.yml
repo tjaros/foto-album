@@ -1,0 +1,57 @@
+# Runs on latest node image available
+image: node
+
+# This folder is cached between builds
+cache:
+  paths:
+    - node_modules/
+
+# Specifies the order of checks
+stages:
+  - install-libs
+  - static-analysis
+  - build
+  - test
+
+# Downloads npm modules and installs gatsby
+init:
+  tags:
+    - shared-fi
+  stage: install-libs
+  script:
+    - npm i
+    - npm install -g gatsby-cli    
+    - gatsby -v
+
+# Runs eslint
+eslit:
+  tags:
+    - shared-fi
+  stage: static-analysis
+  dependencies: 
+    - init
+  script:
+    - npm run lint
+
+# Attempts to build the gatsby app
+build:
+  tags:
+    - shared-fi
+  stage: build    
+  artifacts:
+    untracked: true
+  dependencies: 
+    - init
+  script:
+    - npm run build
+
+# Runs test
+test:
+  tags:
+    - shared-fi
+  stage: test
+  dependencies: 
+    - init
+    - build
+  script:
+    - CI=true npm run test
