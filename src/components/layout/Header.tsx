@@ -1,8 +1,8 @@
 import { Link } from 'gatsby';
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import SearchBar from './searchBar';
-import UserLogin from './userLogin';
+import SearchBar from './SearchBar';
+import UserLogin from './UserLogin';
 
 const headerLinks = [
   { description: 'Models', url: '/models' },
