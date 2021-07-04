@@ -54,7 +54,7 @@ eslint:
 # Attempts to build the gatsby app
 build:
   <<: *fi-runner
-  stage: build     
+  stage: build
   needs: [eslint]
   script:
     - ls
@@ -66,7 +66,7 @@ build:
 # Runs test
 test:
   <<: *fi-runner
-  stage: test 
+  stage: test
   needs: [build]
   script:
     - ls
