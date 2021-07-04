@@ -1,5 +1,5 @@
 import React from 'react';
-import Portrait from './portrait';
+import Portrait from './Portrait';
 
 type Data = { imageLink: string; personName: string };
 

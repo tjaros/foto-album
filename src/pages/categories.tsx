@@ -1,6 +1,5 @@
 import React from 'react';
-import { Layout, MetaData } from '../components';
-import Category from '../components/category';
+import { Layout, MetaData, Category } from '../components';
 
 const categories = new Array(4).fill({
   data: Array(8).fill({
