@@ -1,12 +1,12 @@
 import { Link } from 'gatsby';
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import SearchBar from './searchBar';
-import UserLogin from './userLogin';
+import SearchBar from './SearchBar';
+import UserLogin from './UserLogin';
 
 const headerLinks = [
   { description: 'Models', url: '/models' },
-  { description: 'Photographers', url: '/photographers' },
+  { description: 'Photographers', url: '/photographers' }
 ];
 
 const Header: React.FC = () => {
@@ -16,10 +16,7 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
-        <button
-          onClick={() => toggleExpansion(!isExpanded)}
-          className="px-3 py-2 text-white"
-        >
+        <button type="button" onClick={() => toggleExpansion(!isExpanded)} className="px-3 py-2 text-white">
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
@@ -31,16 +28,14 @@ const Header: React.FC = () => {
       </div>
       <div
         className={`${
-          isExpanded ? `block` : `hidden`
-        } w-full lg:flex lg:items-center lg:w-auto space-x-2`}
-      >
+          isExpanded ? 'block' : 'hidden'
+        } w-full lg:flex lg:items-center lg:w-auto space-x-2`}>
         <nav className="flex flex-col p-4 lg:items-center lg:p-0 lg:pr-4 lg:flex-row">
           {headerLinks.map(({ description, url }) => (
             <Link
               key={description}
               to={url}
-              className="block pt-4 mr-4 text-lg text-white lg:text-2xl lg:inline-block lg:pt-0"
-            >
+              className="block pt-4 mr-4 text-lg text-white lg:text-2xl lg:inline-block lg:pt-0">
               {description}
             </Link>
           ))}
