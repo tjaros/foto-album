@@ -1,0 +1,73 @@
+# Runs on latest node image available
+image: node
+
+# Makes jobs marked with group fi-runner run on shared fi machine
+.fi-runner: &fi-runner
+  tags:
+    - shared-fi
+
+# Prevents gitlab from removing cached files on git clean
+variables:
+  GIT_CLEAN_FLAGS: -x -f -e **
+
+# Cache for node_modules and shared files, add paths when created - probably needs to clear sometimes
+cache:
+  # shared between jobs on a branch
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+
+# Defines stages
+stages:
+  - .pre
+  - static-analysis
+  - build
+  - test
+
+# Installs npm modules and gatsby
+install-dependencies:
+  <<: *fi-runner
+  stage: .pre
+  script:
+    - |
+      if [[ -d node_modules ]]; then
+        echo Skipping downloading modules
+        exit 0
+      fi
+    - npm i
+    - npm i gatsby-cli
+    # For debugging
+    - npx gatsby -v
+  cache:
+    key: shared-cache
+    paths:
+      - node_modules/
+
+# Runs eslint
+eslint:
+  <<: *fi-runner
+  stage: static-analysis
+  needs: [install-dependencies]
+  script:
+    - ls
+    - npm run lint
+
+# Attempts to build the gatsby app
+build:
+  <<: *fi-runner
+  stage: build
+  needs: [eslint]
+  script:
+    - ls
+    - npm run build
+  cache:
+    key: $CI_COMMIT_REF_SLUG
+    untracked: true
+
+# Runs test
+test:
+  <<: *fi-runner
+  stage: test
+  needs: [build]
+  script:
+    - ls
+    - CI=true npm run test
