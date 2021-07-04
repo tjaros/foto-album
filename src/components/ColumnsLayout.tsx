@@ -8,20 +8,20 @@ interface ColumnsLayoutProps {
 }
 
 /**
- * Organise children into columns with same width. 
- * 
- * @param nColumns number of columns to create
- * @param className additional classes to add to the columns wrapper
- * @param children elements to be organized into columns, with flat structure
+ * Organise children into columns with same width.
  */
 const ColumnsLayout: React.FC<ColumnsLayoutProps> = ({ nColumns = 3, className = '', children }) => {
   const childrenArray = React.Children.toArray(children);
   const columsChildren = range(nColumns).map((whichColumn) => (
-      childrenArray.filter((_, idx) => idx % nColumns === whichColumn)
+    childrenArray.filter((_, idx) => idx % nColumns === whichColumn)
   ));
   return (
     <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 ${className}`}>
-        {columsChildren.map((column, i) => <div className="flex-1" key={i}>{column}</div>)}
+      {columsChildren.map((column) => (
+        <div className="flex-1">
+          {column}
+        </div>
+      ))}
     </div>
   );
 };
