@@ -1,29 +1,45 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
+import { useForm } from 'react-hook-form';
+import { Link } from 'gatsby';
 
 const SearchBar: React.FC = () => {
-  const [isExpanded, toggleExpansion] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { register, handleSubmit } = useForm();
+  // eslint-disable-next-line no-console
+  const onSubmit = (data: unknown): void => console.log(data);
 
   return (
     <div
       className={`${
         isExpanded ? 'bg-white text-black' : 'bg-transparent text-white'
       } flex rounded-md`}>
-      <label htmlFor="search-bar" className="text-lg text-white lg:text-2xl">
-        Search
-      </label>
-      <input
-        id="search-bar"
-        type="text"
-        className={`${isExpanded ? 'block' : 'hidden'} w-64 px-4 bg-transparent`}
-        placeholder="Type your search"
-      />
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row">
+        <label htmlFor="header-search-bar" className="hidden text-lg text-white lg:text-2xl">
+          Search
+        </label>
+        <input
+          // eslint-disable-next-line react/jsx-props-no-spreading
+          {...register('header-search-bar')}
+          type="text"
+          className={`${isExpanded ? 'flex' : 'hidden'} w-64 px-4 bg-transparent`}
+          placeholder="Type your search"
+        />
+        <button
+          type="submit"
+          className={`${isExpanded ? 'flex' : 'hidden'} items-center px-3 py-2`}>
+          <FaSearch title="Search models and photographers" />
+        </button>
+      </form>
       <button
         type="button"
-        onClick={() => toggleExpansion(!isExpanded)}
-        className="flex items-center px-3 py-2">
+        onClick={() => setIsExpanded(true)}
+        className={`${isExpanded ? 'hidden' : 'hidden md:flex'} items-center px-3 py-2`}>
         <FaSearch title="Search models and photographers" />
       </button>
+      <Link to="/search" className="items-center px-3 py-2 text-white no-underline md:hidden">
+        <FaSearch title="Search models and photographers" />
+      </Link>
     </div>
   );
 };

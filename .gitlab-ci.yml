@@ -1,54 +1,69 @@
-# Runs on latest node image available
+# Run on latest node image available
 image: node
 
-# Makes jobs marked with group fi-runner run on shared fi machine
+# Prevent gitlab from removing cached files on git clean
+variables:
+  GIT_CLEAN_FLAGS: -x -f -e **
+
+
+######################################
+#            G R O U P S             #
+######################################
+
+# Make jobs marked with group fi-runner run on shared fi machine
 .fi-runner: &fi-runner
   tags:
     - shared-fi
 
-# Prevents gitlab from removing cached files on git clean
-variables:
-  GIT_CLEAN_FLAGS: -x -f -e **
+# Run jobs on merge request
+.mr-only: &mr-only
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-# Cache for node_modules and shared files, add paths when created - probably needs to clear sometimes
+# Run only on master
+.master-only: &master-only
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+
+######################################
+#             C A C H E              #
+######################################
+
+# These folders are cached between builds
 cache:
-  # shared between jobs on a branch
-  key: $CI_COMMIT_REF_SLUG
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
+    - node_modules/
+    - .cache/
+    - public/
 
-# Defines stages
+
+######################################
+#              J O B S               #
+######################################
+
 stages:
   - .pre
   - static-analysis
   - build
   - test
 
-# Installs npm modules and gatsby
-install-dependencies:
+# Install npm modules and gatsby
+npm:install:
   <<: *fi-runner
   stage: .pre
   script:
-    - |
-      if [[ -d node_modules ]]; then
-        echo Skipping downloading modules
-        exit 0
-      fi
-    - npm i
-    - npm i gatsby-cli
-    # For debugging
+    - npm ci    
+    - npm install gatsby-cli -g
     - npx gatsby -v
-  cache:
-    key: shared-cache
-    paths:
-      - node_modules/
 
-# Runs eslint
+# Run eslint
 eslint:
   <<: *fi-runner
   stage: static-analysis
-  needs: [install-dependencies]
+  needs: ["npm:install"]
   script:
-    - ls
     - npm run lint
 
 # Attempts to build the gatsby app
@@ -57,11 +72,10 @@ build:
   stage: build
   needs: [eslint]
   script:
-    - ls
     - npm run build
-  cache:
-    key: $CI_COMMIT_REF_SLUG
-    untracked: true
+  artifacts:
+    paths:
+      - public/
 
 # Runs test
 test:
@@ -69,5 +83,4 @@ test:
   stage: test
   needs: [build]
   script:
-    - ls
     - CI=true npm run test
