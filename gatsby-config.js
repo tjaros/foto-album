@@ -1,3 +1,7 @@
+require('dotenv') .config({
+  path: '.env'
+});
+
 module.exports = {
   siteMetadata: {
     title: `pb138-foto-album`,
@@ -12,6 +16,17 @@ module.exports = {
         name: `images`,
         path: `${__dirname}/src/images`
       }
+    },
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "STRAPI",
+        // This is the field under which it's accessible
+        fieldName: "strapi",
+        // URL to query from
+        url: process.env.STRAPI_GRAPHQL_ENDPOINT || "http://localhost:1337/graphql",
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
