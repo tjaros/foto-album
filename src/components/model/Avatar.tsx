@@ -12,7 +12,9 @@ const Avatar: React.FC<AvatarProps> = ({ name, avatarLink }) => {
   return (
     <div className="h-60 w-60">
       <img src={avatarLink} alt={`${name} avatar`} className="w-full h-full rounded-full" />
-      <button className="relative left-3/4 -top-1/4 w-10 h-10 z-0"
+      <button
+        className="relative left-3/4 -top-1/4 w-10 h-10 z-0"
+        type="button"
         onClick={() => {
           setFollow(!followed);
         }}>

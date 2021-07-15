@@ -1,6 +1,8 @@
-import {atom} from "recoil";
+import { atom } from 'recoil';
 
-export const modelCurrentTabAtom = atom({
-    key: 'modelCurrentTab',
-    default: 'Albums'
-})
+const modelCurrentTabAtom = atom({
+  key: 'modelCurrentTab',
+  default: 'Albums'
+});
+
+export default modelCurrentTabAtom;

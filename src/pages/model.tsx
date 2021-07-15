@@ -1,8 +1,10 @@
 import React from 'react';
 import { Layout } from '../components';
-import { Albums, ModelInfo, ModelNav, WorkedWith } from '../components/model';
+import {
+  Albums, ModelInfo, ModelNav, WorkedWith
+} from '../components/model';
 
-const model: React.FC = ({ pageContext }: any) => {
+const model: React.FC = ({ pageContext }) => {
   const stats = {
     age: pageContext.age,
     height: pageContext.height,

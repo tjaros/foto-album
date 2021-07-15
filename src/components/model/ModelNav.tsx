@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import { useSetRecoilState } from 'recoil';
 
-import { modelCurrentTabAtom } from '../../recoil/model';
+import modelCurrentTabAtom from '../../recoil/model';
 
 const navItems = ['Albums', 'Worked With'];
 
@@ -21,11 +21,12 @@ const ModelNav: React.FC = () => {
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
-      {navItems.map(item => (
+      {navItems.map((item) => (
         <button
           className={`text-2xl text-white px-4 pb-1 md:pb-0 md:block ${
             isExpanded ? 'block' : 'hidden'
           }`}
+          type="button"
           onClick={() => setCurrentTab(item)}>
           {item}
         </button>
