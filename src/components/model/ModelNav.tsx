@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
 
-import {FaTimes, FaBars} from "react-icons/fa";
+import { FaTimes, FaBars } from 'react-icons/fa';
+import { useSetRecoilState } from 'recoil';
 
-const navItems = ['Album', 'Worked With'];
+import { modelCurrentTabAtom } from '../../recoil/model';
+
+const navItems = ['Albums', 'Worked With'];
 
 const ModelNav: React.FC = () => {
+  const setCurrentTab = useSetRecoilState(modelCurrentTabAtom);
   const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <nav className="flex flex-col mt-4 md:mt-0 items-center justify-center w-full md:mt-20 bg-black rounded md:flex-row md:h-16">
       <div className="md:hidden ">
@@ -17,13 +22,13 @@ const ModelNav: React.FC = () => {
         </button>
       </div>
       {navItems.map(item => (
-        <a
+        <button
           className={`text-2xl text-white px-4 pb-1 md:pb-0 md:block ${
             isExpanded ? 'block' : 'hidden'
           }`}
-          href={item}>
+          onClick={() => setCurrentTab(item)}>
           {item}
-        </a>
+        </button>
       ))}
     </nav>
   );

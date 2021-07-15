@@ -8,6 +8,7 @@ export interface ModelStats {
   hairColor: string;
   bustLine: number;
   waistLine: number;
+  hipLine: number;
 }
 
 export interface ModelInfoProps {
@@ -56,6 +57,9 @@ const ModelInfo: React.FC<ModelInfoProps> = ({
           </span>
           <span>
             <b>Waist line: </b> {stats.waistLine} cm
+          </span>
+          <span>
+            <b>Hip line: </b> {stats.hipLine} cm
           </span>
         </div>
       </div>
