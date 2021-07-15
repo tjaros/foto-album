@@ -15,15 +15,22 @@ variables:
   tags:
     - shared-fi
 
+# Run always, commits, merge request and on master
+.run-always: &run-always
+  rules:
+    - when: always
+
 # Run jobs on merge request
 .mr-only: &mr-only
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
 
-# Run only on master
-.master-only: &master-only
+# Run manually only on master
+.master-manual: &master-manual
   rules:
     - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+      allow_failure: true
 
 
 ######################################
@@ -48,10 +55,17 @@ stages:
   - static-analysis
   - build
   - test
+  - deploy
+
+# Display node and npm version
+before_script:
+  - node -v
+  - npm -v
 
 # Install npm modules and gatsby
 npm:install:
   <<: *fi-runner
+  <<: *run-always
   stage: .pre
   script:
     - npm ci    
@@ -61,6 +75,7 @@ npm:install:
 # Run eslint
 eslint:
   <<: *fi-runner
+  <<: *run-always
   stage: static-analysis
   needs: ["npm:install"]
   script:
@@ -69,18 +84,29 @@ eslint:
 # Attempts to build the gatsby app
 build:
   <<: *fi-runner
+  <<: *mr-only
   stage: build
   needs: [eslint]
   script:
     - npm run build
-  artifacts:
-    paths:
-      - public/
 
 # Runs test
 test:
   <<: *fi-runner
+  <<: *mr-only
   stage: test
   needs: [build]
   script:
     - CI=true npm run test
+
+# Build and deploy on master only
+pages:
+  <<: *fi-runner
+  <<: *master-manual
+  stage: deploy
+  needs: [eslint]
+  script:
+    - npm run build -- --prefix-paths
+  artifacts:
+    paths:
+      - public/
