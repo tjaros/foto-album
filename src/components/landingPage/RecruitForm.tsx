@@ -1,10 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
 
 const RecruitForm: React.FC = () => {
-    const [values, setValues] = useState({
-        first_name:'', last_name:'', age:'', phone:'', email:'', description:''
-    });
+    // const [values, setValues] = useState({
+    //     first_name:'', last_name:'', age:'', phone:'', email:'', description:''
+    // });
     return (
         <div className="flex items-center h-1/4 w-1/2 border-2 border-black">
             <div className="w-full bg-white shadow-lg p-8 ">

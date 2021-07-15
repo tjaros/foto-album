@@ -6,9 +6,7 @@ import '../../css/style.css';
 const Layout: React.FC = ({ children }) => (
   <>
     <Header />
-    <main className="max-w-7xl px-4 m-auto lg:px-8 ">
-      {children}
-    </main>
+    <main className="">{children}</main>
     <Footer />
   </>
 );

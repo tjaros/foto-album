@@ -1,10 +1,15 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { MetaData, Layout, ColumnsLayout } from '../components';
+import { LandingNavPanel, LandingPictureMain, RecruitComponent } from '../components/landingPage';
+import LandingPicture from '../components/landingPage/LandingPicture';
 
 const IndexPage: React.FC = () => (
   <Layout>
-    <MetaData title="Home" />
+    <LandingPictureMain />
+    <LandingNavPanel />
+    <RecruitComponent />
+    {/* <MetaData title="Home" />
     <h1>Hi people</h1>
     <ColumnsLayout>
       <p>1</p>
@@ -16,9 +21,9 @@ const IndexPage: React.FC = () => (
     </ColumnsLayout>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
-    <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>{/* <Image /> */}</div>
-    <Link to="/page-2/">Go to page 2</Link>
-    <Link to="/using-typescript/">Go to &quot;Using TypeScript&quot;</Link>
+    <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>{/* <Image /> *</div>/}
+    // <Link to="/page-2/">Go to page 2</Link>
+    // <Link to="/using-typescript/">Go to &quot;Using TypeScript&quot;</Link> */}
   </Layout>
 );
 
