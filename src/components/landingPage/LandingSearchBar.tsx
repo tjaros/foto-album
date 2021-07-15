@@ -3,9 +3,9 @@ import { FaSearch } from 'react-icons/fa';
 
 const LandingSearchBar: React.FC = () => {
   return (
-    <form className="flex rounded-md w-1/2 ">
+    <form className="flex rounded-md w-3/4 md:w-1/2">
       <input
-        className="placeholder-white font-bold bg-gray-800 bg-opacity-50 text-white p-2 w-full "
+        className="placeholder-white text-xs md:text:base font-bold bg-gray-800 bg-opacity-50 text-white p-2 w-full "
         type="text"
         placeholder="Photos, artists, categories"
       />
