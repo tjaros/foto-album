@@ -7,16 +7,16 @@ import SocialMedia, { SocialMediaLink } from './SocialMedia';
 
 interface Author {
   name: string;
-  availability: string[];
-  about: string;
+  location: string;
+  bio: string;
   imageLink: string;
   socialMediaLinks: SocialMediaLink[];
 }
 
 const AuthorInfo: React.FC<Author> = ({
   name,
-  availability,
-  about,
+  location,
+  bio,
   imageLink,
   socialMediaLinks,
 }) => (
@@ -30,11 +30,11 @@ const AuthorInfo: React.FC<Author> = ({
       <h1 className="self-center text-4xl font-bold md:self-start">{name}</h1>
       <div className="flex flex-col pt-6 md:flex-row md:pt-3">
         <span className="flex flex-col text-xl font-bold align-bottom md:px-4">Available:</span>
-        <p className="flex flex-col text-xl align-bottom">{availability.join(', ')}</p>
+        <p className="flex flex-col text-xl align-bottom">{location}</p>
       </div>
       <div className="flex flex-col pt-4 md:flex-row md:pt-2">
         <span className="flex flex-col text-xl font-bold align-bottom md:px-4">About Me:</span>
-        <p className="flex flex-col max-w-xl text-xl align-bottom">{about}</p>
+        <p className="flex flex-col max-w-xl text-xl align-bottom">{bio}</p>
       </div>
     </div>
     <div className="flex flex-col pt-6">
