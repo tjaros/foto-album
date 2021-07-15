@@ -1,5 +1,5 @@
-require('dotenv') .config({
-  path: '.env'
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`
 });
 
 module.exports = {
@@ -25,7 +25,7 @@ module.exports = {
         // This is the field under which it's accessible
         fieldName: "strapi",
         // URL to query from
-        url: process.env.STRAPI_GRAPHQL_ENDPOINT || "http://localhost:1337/graphql",
+        url: process.env.STRAPI_GRAPHQL_ENDPOINT,
       },
     },
     {
