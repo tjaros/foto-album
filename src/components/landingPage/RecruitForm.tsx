@@ -5,7 +5,7 @@ const RecruitForm: React.FC = () => {
     //     first_name:'', last_name:'', age:'', phone:'', email:'', description:''
     // });
     return (
-        <div className="flex items-center h-1/4 w-1/2 border-2 border-black">
+        <div className="flex items-center h-1/4 w-screen  border-2 border-black">
             <div className="w-full bg-white shadow-lg p-8 ">
             <h2 className="block w-full text-center text-grey-darkest mb-6">Join us!</h2>
             <form className="space-y-4 text-xs mb-4 md:flex md:flex-wrap md:justify-between" action="/" method="post">
