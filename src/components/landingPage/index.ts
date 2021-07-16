@@ -1,5 +1,6 @@
 import LandingPictureMain from "./LandingPictureMain";
-import { LandingNavPanel } from "./LandingNavPanel";
+import RegisteredLandingNavPanel from "./RegisteredLandingNavPanel";
 import RecruitComponent from "./RecruitComponent";
+import UnregisteredLandingNavPanel from "./UnregisteredLandingNavPanel";
 
-export { LandingPictureMain, LandingNavPanel, RecruitComponent };
+export { LandingPictureMain, RegisteredLandingNavPanel, UnregisteredLandingNavPanel, RecruitComponent };

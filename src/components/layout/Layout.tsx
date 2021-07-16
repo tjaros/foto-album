@@ -6,7 +6,7 @@ import '../../css/style.css';
 const Layout: React.FC = ({ children }) => (
   <>
     <Header />
-    <main className="">{children}</main>
+    <main>{children}</main>
     <Footer />
   </>
 );

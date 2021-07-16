@@ -1,14 +1,19 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { MetaData, Layout, ColumnsLayout } from '../components';
-import { LandingNavPanel, LandingPictureMain, RecruitComponent } from '../components/landingPage';
-import LandingPicture from '../components/landingPage/LandingPicture';
+import { RegisteredLandingNavPanel, UnregisteredLandingNavPanel, LandingPictureMain, RecruitComponent } from '../components/landingPage';
+import PicturesFeed from '../components/landingPage/PicturesFeed';
+
+
 
 const IndexPage: React.FC = () => (
   <Layout>
     <LandingPictureMain />
-    <LandingNavPanel />
+    <UnregisteredLandingNavPanel />
+    <RegisteredLandingNavPanel />
+    <PicturesFeed />
     <RecruitComponent />
+
     {/* <MetaData title="Home" />
     <h1>Hi people</h1>
     <ColumnsLayout>
