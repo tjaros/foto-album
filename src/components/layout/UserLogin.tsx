@@ -1,27 +1,19 @@
 import React from 'react';
-import { FaUser } from 'react-icons/fa';
-import { authData, isLoggedIn, loginUrl, logout } from '../../utils/auth';
+import { FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { useAuth } from '../../hooks/useAuth';
 
 const UserLogin: React.FC = () => {
-  if (isLoggedIn()) {
-    const { username } = authData();
-    return (
-      <button
-        type="button"
-        onClick={() => logout()}
-        className="flex items-center text-white lg:p-2">
-        <FaUser title={username!} className="hidden lg:block" />
-        <span className="block lg:hidden">Logout</span>
-      </button>
-    );
-  }
+  const { isLoggedIn, login, logout } = useAuth();
+  const Icon = isLoggedIn ? FaSignOutAlt : FaUser;
+  const text = isLoggedIn ? 'Logout' : 'Login';
+
+  console.log('logged:', isLoggedIn);
+
   return (
-    <a
-      href={loginUrl}
-      className="flex items-center text-white lg:p-2">
-      <FaUser className="hidden lg:block" />
-      <span className="block lg:hidden">Login</span>
-    </a>
+    <button type="button" onClick={isLoggedIn ? logout : login} className="flex items-center text-white lg:p-2">
+      <Icon title={text} className="hidden lg:block" />
+      <span className="block lg:hidden">{text}</span>
+    </button>
   );
 };
 

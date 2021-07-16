@@ -1,22 +1,55 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
-import queryString from 'query-string';
-import { handleAuthentication } from '../../utils/auth';
+import { useSetRecoilState } from 'recoil';
+import { authentication, AuthUser } from '../../hooks/useAuth';
+
+interface StrapiAuthResponse {
+  jwt: string;
+  user: AuthUser;
+}
 
 const Auth0: React.FC<PageProps> = ({ location }) => {
-  const navigateHome = () => navigate('/');
-  const { access_token: accessToken } = queryString.parse(location.search);
+  const setAuthData = useSetRecoilState(authentication);
+  const [correctAuth, setCorrectAuth] = useState<boolean>(true);
 
-  if (!accessToken) {
-    navigateHome();
-  } else {
-    const token = typeof accessToken === 'string' ? accessToken : accessToken[0];
-    handleAuthentication(token, navigateHome, navigateHome);
-  }
+  useEffect(() => {
+    const strapiCallback = `${process.env.STRAPI_BACKEND}/auth/auth0/callback${location.search}`;
+    fetch(strapiCallback)
+      .then((res) => {
+        if (res.status !== 200) {
+          throw new Error(`Couldn't login to Strapi. Status: ${res.status}`);
+        }
+        return res;
+      })
+      .then((res) => res.json())
+      .then((res: StrapiAuthResponse) => setAuthData({ isLoggedIn: true, ...res }))
+      .then(() => navigate('/'))
+      .catch((err) => {
+        setCorrectAuth(false);
+        console.log('Failed to authenticate', err);
+      });
+  }, []);
 
   return (
-    <div className="flex items-center w-screen h-screen justify-items-center">
-      <p className="text-xl">Logging you in...</p>
+    <div className="flex flex-col items-center justify-center w-screen h-screen">
+      <div className="flex flex-col pb-4 mx-6 border shadow justify-items-center">
+        <p className="p-4 text-xl font-semibold tracking-tight text-center text-white bg-black">
+          LOGO
+        </p>
+        <p className="m-6 text-xl text-center">
+          {correctAuth
+            ? 'Logging you in...'
+            : 'Error during authentication. Click below to continue not logged in.'}
+        </p>
+        {!correctAuth && (
+          <button
+            type="button"
+            onClick={() => navigate('/')}
+            className="p-3 m-auto text-white bg-black rounded">
+            Continue
+          </button>
+        )}
+      </div>
     </div>
   );
 };
