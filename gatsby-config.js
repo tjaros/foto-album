@@ -3,6 +3,7 @@ require('dotenv').config({
 });
 
 module.exports = {
+  pathPrefix: `/pb138-foto-album`,
   siteMetadata: {
     title: `pb138-foto-album`,
     description: `Lewd foto album in Gatsby`,
