@@ -1,7 +1,6 @@
 import React from 'react';
 import { Layout } from '../components';
-import AuthorInfo from '../components/photographer/AuthorInfo';
-import AuthorPageNav from '../components/photographer/AuthorPageNav';
+import { AuthorInfo, AuthorPageNav, Photos } from '../components/photographer';
 import { SocialMediaLink, SocialMediaType } from '../components/photographer/SocialMedia';
 
 const links: SocialMediaLink[] = [
@@ -20,11 +19,7 @@ const Photographer: React.FC = ({ pageContext }) => (
         socialMediaLinks={links}
       />
       <AuthorPageNav />
-      <div className="flex flex-col">
-        {
-          // TODO Content
-        }
-      </div>
+      <Photos photographerId={pageContext.id} />
     </div>
   </Layout>
 );

@@ -28,6 +28,7 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `);
+  console.log("Generating /photographer/ pages");
   data.strapi.photographers.forEach(photographer => {
     console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
     actions.createPage({
