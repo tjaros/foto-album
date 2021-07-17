@@ -2,7 +2,7 @@
   "name": "pb138-foto-album",
   "private": true,
   "description": "Lewd foto album in Gatsby",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "author": "Lukáš Gorazd Hrodek, Michal Barnišin, Tomáš Jaroš, Katarína Bulková",
   "main": "index.tsx",
   "dependencies": {
@@ -62,6 +62,7 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "prettier": "prettier --check \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint src/ --ext .ts,.js,.jsx,.tsx",
+    "fix":  "eslint src/ --ext .ts,.js,.jsx,.tsx --fix",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
