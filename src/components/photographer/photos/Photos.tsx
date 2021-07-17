@@ -80,9 +80,7 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
   if (error) return <div>Could not load the photots...</div>;
 
   return (
-    <div onScroll={() => data.albums && handleScroll}>
-      {data && <SequenceGrids items={flatten(data.albums)} />}
-    </div>
+    <SequenceGrids items={flatten(data.albums)} />
   );
 };
 

@@ -33,7 +33,7 @@ exports.createPages = async ({ actions, graphql }) => {
     console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
     actions.createPage({
       path: `/photographer/${photographer.slug}/`,
-      component: require.resolve(`./src/pages/photographer.tsx`),
+      component: require.resolve(`./src/templates/photographer.tsx`),
       context: photographer
     });
   });
