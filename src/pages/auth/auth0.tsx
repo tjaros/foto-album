@@ -28,7 +28,7 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
         setCorrectAuth(false);
         console.log('Failed to authenticate', err);
       });
-  }, []);
+  }, [location.search, setAuthData]);
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">
