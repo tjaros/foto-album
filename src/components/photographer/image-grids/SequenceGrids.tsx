@@ -14,7 +14,7 @@ const components = [
 const SequenceGrids: React.FC<SequenceGridsProps> = ({
   items,
   className = '',
-  sequence = [0, 1, 0, 2]
+  sequence = [0, 2, 1]
 }) => {
   let index = 0;
   return (
@@ -22,7 +22,7 @@ const SequenceGrids: React.FC<SequenceGridsProps> = ({
       {items.map(({ urls, alt }) => {
         const Chosen: React.FC<ImageGridsProps> = components[sequence[index]].comp;
         index = (index + 1) % sequence.length;
-        return <Chosen urls={urls} alt={alt} />;
+        return <Chosen key={`${alt}+${index}+${JSON.stringify(urls)}`} urls={urls} alt={alt} />;
       })}
     </div>
   );

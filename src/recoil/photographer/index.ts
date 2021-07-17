@@ -5,9 +5,4 @@ const photographerCurrentTabAtom = atom({
   default: 'Photos'
 });
 
-export const photographerLastUsedImageGridAtom = atom({
-  key: 'photographerLastImageGrid',
-  default: undefined
-});
-
 export default photographerCurrentTabAtom;
