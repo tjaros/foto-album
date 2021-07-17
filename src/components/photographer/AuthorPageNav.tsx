@@ -4,7 +4,7 @@ import { useSetRecoilState } from 'recoil';
 
 import photographerCurrentTabAtom from '../../recoil/photographer';
 
-const navItems = ['Photos', 'Advertising', 'Reviews', 'Worked With'];
+const navItems = ['Photos', 'Reviews', 'Worked With'];
 
 const AuthorPageNav: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);

@@ -79,9 +79,7 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load the photots...</div>;
 
-  return (
-    <SequenceGrids items={flatten(data.albums)} />
-  );
+  return <SequenceGrids items={flatten(data.albums)} />;
 };
 
 export default Photos;

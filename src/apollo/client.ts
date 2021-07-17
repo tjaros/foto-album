@@ -15,6 +15,12 @@ const client = new ApolloClient({
             merge(existing = [], incoming) {
               return [...existing, ...incoming];
             }
+          },
+          reviews: {
+            keyArgs: false,
+            merge(existing = [], incoming) {
+              return [...existing, ...incoming];
+            }
           }
         }
       }
