@@ -1,8 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { useRecoilValue } from 'recoil';
-import modelCurrentTabAtom from '../../recoil/model';
-import Album, { AlbumProps } from './Album';
+import Album from './Album';
 
 interface AlbumsProps {
   modelId: number;
@@ -23,7 +21,7 @@ const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
       albums(where: { model: { id_eq: $modelId } }) {
         id
         name
-        photos( limit: 1) {
+        photos(limit: 1) {
           id
           url
         }
@@ -35,8 +33,10 @@ const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
   if (error) return <div>Could not load albums</div>;
   return (
     <div className="grid grid-cols-2 grid-rows-1">
-      {data && data.albums.map((album: AlbumInterface) => ( <Album key={album.id} name={album.name} photos={album.photos} />
-      ))}
+      {data
+        && data.albums.map((album: AlbumInterface) => (
+          <Album key={album.id} name={album.name} photos={album.photos} />
+        ))}
     </div>
   );
 };

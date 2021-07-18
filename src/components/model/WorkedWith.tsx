@@ -1,8 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { useRecoilValue } from 'recoil';
 import { Portrait, ColumnsLayout } from '..';
-import modelCurrentTabAtom from '../../recoil/model';
 
 interface WorkedWithProps {
   modelId: number;
@@ -32,7 +30,7 @@ const distinct = (albumModels: PhotographerInfo[]) => {
       url: item.photographer.avatar[0].url,
       name: item.photographer.name
     };
-    if (!output.some(x => x.id === obj.id)) {
+    if (!output.some((x) => x.id === obj.id)) {
       output.push(obj);
     }
   });
@@ -58,11 +56,10 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
   const { loading, error, data } = useQuery(GET_PHOTOGRAPHERS, { variables: { modelId } });
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load albums</div>;
-  console.log(data);
   return (
     <ColumnsLayout>
-      {data &&
-        distinct(data.model.albums).map((photographer: PhotographerInfoFlattened) => (
+      {data
+        && distinct(data.model.albums).map((photographer: PhotographerInfoFlattened) => (
           <Portrait
             key={photographer.id}
             personName={photographer.name}
