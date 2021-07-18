@@ -1,7 +1,7 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import fetch from 'cross-fetch';
-import { getToken } from '../utils/auth';
+import { getToken } from '../auth/cookies';
 
 const authLink = setContext((_, { headers }) => {
   const token = getToken();

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
 import { useSetRecoilState } from 'recoil';
-import { authentication, AuthUser } from '../../hooks/useAuth';
-import { setToken } from '../../utils/auth';
+import { setToken } from '../../auth/cookies';
+import { authentication } from '../../auth/store';
+import { AuthUser } from '../../auth/models';
 
 interface StrapiAuthResponse {
   jwt: string;
