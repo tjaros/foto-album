@@ -11,13 +11,13 @@ const client = new ApolloClient({
       Query: {
         fields: {
           albums: {
-            keyArgs: false,
+            keyArgs: ['photographerId'],
             merge(existing = [], incoming) {
               return [...existing, ...incoming];
             }
           },
           reviews: {
-            keyArgs: false,
+            keyArgs: ['photographerId'],
             merge(existing = [], incoming) {
               return [...existing, ...incoming];
             }

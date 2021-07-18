@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Review from './Review';
 
 const REVIEWS_QUERY = gql`
@@ -44,7 +44,7 @@ interface ReviewsProps {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
-  const limit = 3;
+  const [limit, setLimit] = useState(3);
   const {
     data, loading, error, fetchMore
   } = useQuery(REVIEWS_QUERY, {
@@ -59,14 +59,17 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
     const windowStats = Math.ceil(window.innerHeight + window.scrollY);
     const docStats = document.documentElement.scrollHeight;
     const bottom = windowStats >= docStats;
+    const currentLength = data?.reviews?.length || 0;
 
     if (bottom) {
       fetchMore({
         variables: {
-          start: data.reviews.length,
-          limit,
+          start: currentLength,
+          limit: 3,
           photographerId
         }
+      }).then((result) => {
+        setLimit(currentLength + result.data.reviews.length);
       });
     }
   };
