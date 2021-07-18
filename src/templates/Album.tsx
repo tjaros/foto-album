@@ -56,7 +56,9 @@ export const query = graphql`
 const Avatar = ({ url, alt, roleAs }: { url: string; alt: string; roleAs: string }) => (
   <div className="flex flex-col justify-items-center">
     <p className="font-bold text-center">{roleAs}</p>
-    <img className="w-20 h-20 rounded-full" src={url} alt={alt} />
+    <div className="w-20 h-20">
+      <img className="object-cover w-full h-full rounded-full" src={url} alt={alt} />
+    </div>
     <p className="text-center">{alt}</p>
   </div>
 );
@@ -91,15 +93,27 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   return (
     <Layout>
       <MetaData title={`Album ${album.name}`} />
-      <p className="py-6 mx-6 text-6xl font-semibold">{album.name}</p>
+      <h1 className="py-6 mb-4 text-3xl font-medium border-b border-gray-800 md:text-5xl lg:text-6xl ">
+        {album.name}
+      </h1>
+      <p className="py-4 mb-4 md:text-lg">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est sequi quia hic excepturi ipsum
+        assumenda deleniti laudantium perspiciatis facilis rem autem eligendi laboriosam quasi quo,
+        nulla dolores quisquam dolore architecto.
+      </p>
       <ColumnsLayout nColumns={4}>
         {album.photos.map(({ url }, index) => (
-          <button type="button" onClick={() => { setPhotoIndex(index); setOverlayOpen(true); }}>
+          <button
+            type="button"
+            onClick={() => {
+              setPhotoIndex(index);
+              setOverlayOpen(true);
+            }}>
             <img alt="" src={url} key={url} />
           </button>
         ))}
       </ColumnsLayout>
-      <div className="flex flex-row justify-around py-12">
+      <div className="flex flex-row py-12 justify-evenly">
         <SmallPic
           slug={`/photographer/${album.photographer.slug}`}
           url={album.photographer.avatar[0].url}
