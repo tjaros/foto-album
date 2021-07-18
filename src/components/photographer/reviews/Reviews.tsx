@@ -59,7 +59,7 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
     const windowStats = Math.ceil(window.innerHeight + window.scrollY);
     const docStats = document.documentElement.scrollHeight;
     const bottom = windowStats >= docStats;
-    const currentLength = data.reviews.length;
+    const currentLength = data?.reviews?.length || 0;
 
     if (bottom) {
       fetchMore({

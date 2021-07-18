@@ -50,7 +50,7 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
     const windowStats = Math.ceil(window.innerHeight + window.scrollY);
     const docStats = document.documentElement.scrollHeight;
     const bottom = windowStats >= docStats;
-    const currentLength = data.albums.length;
+    const currentLength = data?.albums?.length || 0;
 
     if (bottom) {
       fetchMore({
