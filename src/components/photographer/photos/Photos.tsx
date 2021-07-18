@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import SequenceGrids from '../image-grids';
 
@@ -35,8 +35,7 @@ const GET_PHOTOS_IN_ALBUMS = gql`
 `;
 
 const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
-  const limit = 3;
-
+  const [limit, setLimit] = useState(3);
   const {
     loading, error, fetchMore, data
   } = useQuery(GET_PHOTOS_IN_ALBUMS, {
@@ -51,15 +50,16 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
     const windowStats = Math.ceil(window.innerHeight + window.scrollY);
     const docStats = document.documentElement.scrollHeight;
     const bottom = windowStats >= docStats;
+    const currentLength = data.albums.length;
 
     if (bottom) {
       fetchMore({
         variables: {
-          start: data.albums.length,
-          limit,
+          start: currentLength,
+          limit: 3,
           photographerId
         }
-      });
+      }).then((result) => { setLimit(currentLength + result.data.albums.length); });
     }
   };
 
