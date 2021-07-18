@@ -1,4 +1,5 @@
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { clearToken } from '../utils/auth';
 
 /** The user data as returned from strapi auth. */
 export interface AuthUser {
@@ -44,6 +45,7 @@ export const useAuth = (): Auth => {
 
   const logout = () => {
     console.log('Logging out');
+    clearToken();
     setAuthData({ isLoggedIn: false, user: undefined, jwt: undefined });
   };
 

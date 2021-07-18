@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
 import { useSetRecoilState } from 'recoil';
 import { authentication, AuthUser } from '../../hooks/useAuth';
+import { setToken } from '../../utils/auth';
 
 interface StrapiAuthResponse {
   jwt: string;
@@ -22,7 +23,10 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
         return res;
       })
       .then((res) => res.json())
-      .then((res: StrapiAuthResponse) => setAuthData({ isLoggedIn: true, ...res }))
+      .then((res: StrapiAuthResponse) => {
+        setToken(res.jwt);
+        setAuthData({ isLoggedIn: true, ...res });
+      })
       .then(() => navigate('/'))
       .catch((err) => {
         setCorrectAuth(false);
