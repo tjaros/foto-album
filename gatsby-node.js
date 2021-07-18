@@ -7,9 +7,25 @@
 // You can delete this file if you're not using it
 
 exports.createPages = async ({ actions, graphql }) => {
- const { data } = await graphql(`
-    query AllModels {
+  const { data } = await graphql(`
+    query AllPages {
       strapi {
+        photographers {
+          id
+          name
+          slug
+          location
+          bio
+          published_at
+          avatar {
+            url
+          }
+          socials {
+            type
+            url
+          }
+        }
+
         models {
           id
           name
@@ -33,38 +49,17 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `);
-  constole.log("Generating /model/ pages")
-  data.strapi.models.forEach((model) => {
-    console.log(`name: ${model.name}, slug:${model.slug}`)
+  console.log('Generating /model/ pages');
+  data.strapi.models.forEach(model => {
+    console.log(`name: ${model.name}, s ug:${model.slug}`);
     actions.createPage({
       path: `/model/${model.slug}/`,
-      component: require.resolve(`./src/pages/model.tsx`),
+      component: require.resolve(`./src/templates/model.tsx`),
       context: model
     });
   });
 
-  const { data } = await graphql(`
-    query GetPhotographers {
-      strapi {
-        photographers {
-          id
-          name
-          slug
-          location
-          bio
-          published_at
-          avatar {
-            url
-          }
-          socials {
-            type
-            url
-          }
-        }
-      }
-    }
-  `);
-  console.log("Generating /photographer/ pages");
+  console.log('Generating /photographer/ pages');
   data.strapi.photographers.forEach(photographer => {
     console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
     actions.createPage({

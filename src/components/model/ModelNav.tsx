@@ -23,6 +23,7 @@ const ModelNav: React.FC = () => {
       </div>
       {navItems.map((item) => (
         <button
+          key={JSON.stringify(item)}
           className={`text-2xl text-white px-4 pb-1 md:pb-0 md:block ${
             isExpanded ? 'block' : 'hidden'
           }`}

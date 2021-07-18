@@ -1,10 +1,23 @@
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
 import {
   Albums, ModelInfo, ModelNav, WorkedWith
 } from '../components/model';
+import modelCurrentTabAtom from '../recoil/model';
 
+const renderSwitch = (state, id) => {
+  switch (state) {
+    case 'Albums':
+      return <Albums modelId={id} />;
+    case 'Worked With':
+      return <WorkedWith modelId={id} />;
+    default:
+      return <Albums modelId={id} />;
+  }
+};
 const model: React.FC = ({ pageContext }) => {
+  const currentTab = useRecoilValue(modelCurrentTabAtom);
   const stats = {
     age: pageContext.age,
     height: pageContext.height,
@@ -24,8 +37,7 @@ const model: React.FC = ({ pageContext }) => {
         stats={stats}
       />
       <ModelNav />
-      <Albums modelId={pageContext.id} />
-      <WorkedWith modelId={pageContext.id} />
+      {renderSwitch(currentTab, pageContext.id)}
     </Layout>
   );
 };

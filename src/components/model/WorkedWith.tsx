@@ -8,12 +8,6 @@ interface WorkedWithProps {
   modelId: number;
 }
 
-interface PhotographerInfoFlattened {
-  id: number;
-  url: string;
-  name: string;
-}
-
 interface PhotographerInfo {
   photographer: {
     id: number;
@@ -24,15 +18,21 @@ interface PhotographerInfo {
   };
 }
 
-const distinct = (albumPhotographers: PhotographerInfo[]) => {
+interface PhotographerInfoFlattened {
+  id: number;
+  name: string;
+  url: string;
+}
+
+const distinct = (albumModels: PhotographerInfo[]) => {
   const output: PhotographerInfoFlattened[] = [];
-  albumPhotographers.forEach((item: PhotographerInfo) => {
+  albumModels.forEach((item: PhotographerInfo) => {
     const obj = {
       id: item.photographer.id,
       url: item.photographer.avatar[0].url,
       name: item.photographer.name
     };
-    if (!output.some((x) => x.id === obj.id)) {
+    if (!output.some(x => x.id === obj.id)) {
       output.push(obj);
     }
   });
@@ -41,27 +41,34 @@ const distinct = (albumPhotographers: PhotographerInfo[]) => {
 
 const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
   const GET_PHOTOGRAPHERS = gql`
-    query AlbumsByModelId($modelId: ID!) {
-      albums(where: { model: { id_eq: $modelId } }) {
-        photographer {
-          id
-          name
-          avatar {
-            url
+    query GetCollaborators($modelId: ID!) {
+      model(id: $modelId) {
+        albums {
+          photographer {
+            id
+            name
+            avatar {
+              url
+            }
           }
         }
       }
     }
   `;
-  const currentTab = useRecoilValue(modelCurrentTabAtom);
   const { loading, error, data } = useQuery(GET_PHOTOGRAPHERS, { variables: { modelId } });
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load albums</div>;
+  console.log(data);
   return (
-    <ColumnsLayout className={`${currentTab === 'Worked With' ? '' : 'hidden'}`}>
-      {distinct(data.albums).map((item: PhotographerInfoFlattened) => (
-        <Portrait key={item.id} imageLink={item.url} personName={item.name} />
-      ))}
+    <ColumnsLayout>
+      {data &&
+        distinct(data.model.albums).map((photographer: PhotographerInfoFlattened) => (
+          <Portrait
+            key={photographer.id}
+            personName={photographer.name}
+            imageLink={photographer.url}
+          />
+        ))}
     </ColumnsLayout>
   );
 };

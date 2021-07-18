@@ -8,8 +8,13 @@ interface AlbumsProps {
   modelId: number;
 }
 
-interface AlbumPropsWithId extends AlbumProps {
+interface AlbumInterface {
   id: number;
+  name: string;
+  photos: {
+    id: number;
+    url: string;
+  }[];
 }
 
 const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
@@ -18,21 +23,19 @@ const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
       albums(where: { model: { id_eq: $modelId } }) {
         id
         name
-        photos {
+        photos( limit: 1) {
           id
           url
         }
       }
     }
   `;
-  const currentTab = useRecoilValue(modelCurrentTabAtom);
   const { data, loading, error } = useQuery(GET_ALBUMS, { variables: { modelId } });
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load albums</div>;
   return (
-    <div className={`${currentTab === 'Albums' ? 'grid' : 'hidden'} grid-cols-2 grid-rows-1`}>
-      {data.albums.map((album: AlbumPropsWithId) => (
-        <Album key={album.id} name={album.name} photos={album.photos} />
+    <div className="grid grid-cols-2 grid-rows-1">
+      {data && data.albums.map((album: AlbumInterface) => ( <Album key={album.id} name={album.name} photos={album.photos} />
       ))}
     </div>
   );
