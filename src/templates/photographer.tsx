@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
 import {
-  AuthorInfo, AuthorPageNav, Photos, Reviews
+  AuthorInfo, AuthorPageNav, Photos, Reviews, WorkedWith
 } from '../components/photographer';
 import { SocialMediaLink, SocialMediaType } from '../components/photographer/SocialMedia';
 import photographerCurrentTabAtom from '../recoil/photographer';
@@ -19,6 +19,8 @@ const renderSwitch = (state, id) => {
       return <Photos photographerId={id} />;
     case 'Reviews':
       return <Reviews photographerId={id} />;
+    case 'Worked With':
+      return <WorkedWith photographerId={id} />;
     default:
       return <Photos photographerId={id} />;
   }

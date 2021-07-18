@@ -1,4 +1,5 @@
 import React from 'react';
+import { parseISO, format } from 'date-fns';
 
 import { FaRegStar, FaStar } from 'react-icons/fa';
 
@@ -33,6 +34,7 @@ const Review: React.FC<ReviewProps> = ({
       </div>
     </div>
     <p className="text-2xl">{comment}</p>
+    <p className="pt-6 text-base italic">{format(parseISO(date), 'd. MMMM y')}</p>
   </div>
 );
 export default Review;

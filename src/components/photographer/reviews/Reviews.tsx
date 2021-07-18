@@ -1,6 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import React, { useEffect, useState } from 'react';
-import { FaChevronDown } from 'react-icons/fa';
+import React, { useEffect } from 'react';
 import Review from './Review';
 
 const REVIEWS_QUERY = gql`

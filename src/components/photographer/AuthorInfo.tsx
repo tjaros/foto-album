@@ -1,11 +1,10 @@
 import React from 'react';
 
 import ProfilePicture from './ProfilePicture';
-import FollowButton from './FollowButton';
-import ContactMeButton from './ContactMeButton';
+import Button from './Button';
 import SocialMedia, { SocialMediaLink } from './SocialMedia';
 
-interface Author {
+interface AuthorProps {
   name: string;
   location: string;
   bio: string;
@@ -13,7 +12,7 @@ interface Author {
   socialMediaLinks: SocialMediaLink[];
 }
 
-const AuthorInfo: React.FC<Author> = ({
+const AuthorInfo: React.FC<AuthorProps> = ({
   name,
   location,
   bio,
@@ -23,8 +22,8 @@ const AuthorInfo: React.FC<Author> = ({
   <div className="flex flex-col md:flex-row">
     <div className="flex flex-col items-center gap-1">
       <ProfilePicture name={name} imageLink={imageLink} />
-      <FollowButton />
-      <ContactMeButton />
+      <Button className="mt-8">Follow me!</Button>
+      <Button>Contact me!</Button>
     </div>
     <div className="flex flex-col pt-16 md:pt-2 md:pl-8 md:pr-16">
       <h1 className="self-center text-4xl font-bold md:self-start">{name}</h1>

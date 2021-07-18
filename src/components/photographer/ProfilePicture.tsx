@@ -10,7 +10,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({
   imageLink,
 }: ProfilePictureProps) => (
   <div className="h-60 w-60">
-    <img srcSet={imageLink} alt={`${name}'s profile`} className="w-full h-full rounded-full" />
+    <img srcSet={imageLink} alt={`${name}'s profile`} className="object-cover w-full h-full rounded-full" />
   </div>
 );
 
