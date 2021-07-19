@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import SequenceGrids from '../image-grids';
 
@@ -17,9 +17,9 @@ interface Photo {
 }
 
 const GET_PHOTOS_IN_ALBUMS = gql`
-  query Albums($photographerId: ID!, $start: Int!, $limit: Int!) {
+  query Albums($offset: Int!, $limit: Int!, $photographerId: ID!) {
     albums(
-      start: $start
+      start: $offset
       limit: $limit
       sort: "id:desc"
       where: { photographer: { id_eq: $photographerId } }
@@ -35,39 +35,53 @@ const GET_PHOTOS_IN_ALBUMS = gql`
 `;
 
 const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
-  const [limit, setLimit] = useState(3);
   const {
     loading, error, fetchMore, data
   } = useQuery(GET_PHOTOS_IN_ALBUMS, {
     variables: {
-      start: 0,
-      limit,
+      offset: 0,
+      limit: 3,
       photographerId
     }
   });
 
-  const handleScroll = () => {
-    const windowStats = Math.ceil(window.innerHeight + window.scrollY);
-    const docStats = document.documentElement.scrollHeight;
-    const bottom = windowStats >= docStats;
-    const currentLength = data?.albums?.length || 0;
-
-    if (bottom) {
+  const onLoadMore = () => {
+    if (data) {
       fetchMore({
         variables: {
-          start: currentLength,
-          limit: 3,
+          offset: data.albums.length,
           photographerId
+        },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult || fetchMoreResult.albums === prev.albums) return prev;
+          const newData = {
+            ...prev,
+            albums: [...prev.albums, ...fetchMoreResult.albums]
+          };
+          return newData;
         }
-      }).then((result) => { setLimit(currentLength + result.data.albums.length); });
+      });
+    }
+  };
+
+  const handleOnScroll = () => {
+    const scrollTop = (document.documentElement && document.documentElement.scrollTop)
+     || document.body.scrollTop;
+    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight)
+      || document.body.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
+    const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+    if (scrolledToBottom) {
+      onLoadMore();
     }
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleOnScroll, { passive: true });
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleOnScroll);
     };
   }, [data]);
 
