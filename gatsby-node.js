@@ -6,6 +6,31 @@
 
 // You can delete this file if you're not using it
 
+const createAlbums = async (actions, graphql) => {
+  const { data } = await graphql(`
+    query EnumerateAlbums {
+      strapi {
+        albums {
+          slug
+          id
+        }
+      }
+    }
+  `);
+
+  console.log('Generating /albums/ pages');
+  console.log('-------------------------');
+  console.log(JSON.stringify(data));
+
+  data.strapi.albums.forEach((album) => {
+    actions.createPage({
+      path: `/albums/${album.slug}/`,
+      component: require.resolve('./src/templates/album.tsx'),
+      context: album
+    })
+  });
+}
+
 exports.createPages = async ({ actions, graphql }) => {
   const { data } = await graphql(`
     query AllPages {
@@ -63,10 +88,13 @@ exports.createPages = async ({ actions, graphql }) => {
   console.log('Generating /photographer/ pages');
   data.strapi.photographers.forEach(photographer => {
     console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
+    console.log(photographer);
     actions.createPage({
       path: `/photographer/${photographer.slug}/`,
       component: require.resolve(`./src/templates/photographer.tsx`),
       context: photographer
     });
   });
+  
+  await createAlbums(actions, graphql);
 };

@@ -1,8 +1,10 @@
+import { PageProps } from 'gatsby';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
+import PageNav from '../components/PageNav';
 import {
-  AuthorInfo, AuthorPageNav, Photos, Reviews, WorkedWith
+  AuthorInfo, Photos, Reviews, WorkedWith
 } from '../components/photographer';
 import { SocialMediaLink, SocialMediaType } from '../components/photographer/SocialMedia';
 import photographerCurrentTabAtom from '../recoil/photographer';
@@ -13,7 +15,7 @@ const links: SocialMediaLink[] = [
   { url: 'https://google.com', type: SocialMediaType.WEBSITE }
 ];
 
-const renderSwitch = (state, id) => {
+const renderSwitch = (state: string, id: number) => {
   switch (state) {
     case 'Photos':
       return <Photos photographerId={id} />;
@@ -26,21 +28,21 @@ const renderSwitch = (state, id) => {
   }
 };
 
-const Photographer: React.FC = ({ pageContext }) => {
+const navItems = ['Photos', 'Reviews', 'Worked With'];
+
+const Photographer: React.FC<PageProps> = ({ pageContext }) => {
   const currentTab = useRecoilValue(photographerCurrentTabAtom);
   return (
     <Layout className="m-auto max-w-7xl">
-      <div className="flex flex-col items-center px-8 py-12">
-        <AuthorInfo
-          name={pageContext.name}
-          location={pageContext.location}
-          bio={pageContext.bio}
-          imageLink={pageContext.avatar[0]?.url}
-          socialMediaLinks={links}
-        />
-        <AuthorPageNav />
-        {renderSwitch(currentTab, pageContext.id)}
-      </div>
+      <AuthorInfo
+        name={pageContext.name}
+        availableLocation={pageContext.location}
+        bio={pageContext.bio}
+        imageLink={pageContext.avatar[0]?.url}
+        socialMediaLinks={links}
+      />
+      <PageNav navItems={navItems} recoilState={photographerCurrentTabAtom} />
+      {renderSwitch(currentTab, pageContext.id)}
     </Layout>
   );
 };
