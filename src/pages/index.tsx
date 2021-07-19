@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'gatsby';
 import { MetaData, Layout, ColumnsLayout } from '../components';
 import { RegisteredLandingNavPanel, UnregisteredLandingNavPanel, LandingPictureMain, RecruitComponent } from '../components/landingPage';
-import PicturesFeed from '../components/landingPage/PicturesFeed';
+import { PicturesFeed } from '../components/landingPage/PicturesFeed';
 
 
 

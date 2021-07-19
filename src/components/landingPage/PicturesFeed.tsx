@@ -10,7 +10,6 @@ const Image = ({ url }: { url: string }) => (
     </div>
   );
   
-
 interface modelAvatar {
         avatar: {
             url: string
@@ -34,9 +33,7 @@ avatar.forEach((item: modelAvatar) => {
 return output;
 };
   
-  
-
-const PicturesFeed: React.FC = () => {
+export const PicturesFeed: React.FC = () => {
     const models_query = gql`
         query GET_ALL_AVATARS {
         models {
@@ -51,13 +48,12 @@ const PicturesFeed: React.FC = () => {
         }
         }`;
 
-
     const { loading, error, data} = useQuery(models_query);
 
     if (error) return <div>Failed to load avatars</div>
     if (loading) return <FaTruckLoading></FaTruckLoading>
     return (
-        <ColumnsLayout>
+        <ColumnsLayout >
         {distinct(data.models).map((item: modelAvatarUrl) => (
           <Image url={item.url} />
         ))}
