@@ -44,7 +44,7 @@ const Footer: React.FC = () => (
       })}
     </nav>
     <p className="w-full px-4 py-12 text-center break-words bg-black md:pt-14">
-      All content Copyright © 2000-2021 ??????.com, Inc. made with big pepee by us.
+      All content Copyright © 2000-2021 ModAg, Inc. made with big pepee by us.
     </p>
   </footer>
 );

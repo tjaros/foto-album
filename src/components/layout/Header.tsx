@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import UserLogin from './UserLogin';
+import logo from '../../images/logo--light.svg';
 
 const headerLinks = [
   { description: 'Models', url: '/models' },
@@ -16,12 +17,15 @@ const Header: React.FC = () => {
   return (
     <header className="sticky top-0 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
-        <button type="button" onClick={() => toggleExpansion(!isExpanded)} className="px-3 py-2 text-white">
+        <button
+          type="button"
+          onClick={() => toggleExpansion(!isExpanded)}
+          className="px-3 py-2 text-white">
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
       <div className="flex items-center text-white">
-        <span className="text-xl font-semibold tracking-tight">LOGO</span>
+        <img src={logo} alt="ModAg logo" style={{ height: 'calc(1em + 1rem)' }} />
       </div>
       <div className="lg:hidden">
         <SearchBar />
