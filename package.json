@@ -2,11 +2,12 @@
   "name": "pb138-foto-album",
   "private": true,
   "description": "Lewd foto album in Gatsby",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "author": "Lukáš Gorazd Hrodek, Michal Barnišin, Tomáš Jaroš, Katarína Bulková",
   "main": "index.tsx",
   "dependencies": {
     "@apollo/client": "^3.3.21",
+    "@hookform/resolvers": "^2.6.1",
     "@types/react-helmet": "^6.1.1",
     "autoprefixer": "^10.2.6",
     "cross-fetch": "^3.1.4",
@@ -25,13 +26,16 @@
     "gatsby-source-graphql": "^3.9.0",
     "gatsby-transformer-sharp": "^3.7.1",
     "graphql": "^15.5.0",
+    "mailgun-js": "^0.22.0",
+    "mailgun.js": "^3.5.1",
     "postcss": "^8.3.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-helmet": "^6.1.0",
-    "react-hook-form": "^7.10.0",
+    "react-hook-form": "^7.11.1",
     "react-icons": "^4.2.0",
-    "recoil": "^0.3.1"
+    "recoil": "^0.3.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.5",
@@ -64,7 +68,7 @@
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "prettier": "prettier --check \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint src/ --ext .ts,.js,.jsx,.tsx",
-    "fix":  "eslint src/ --ext .ts,.js,.jsx,.tsx --fix",
+    "fix": "eslint src/ --ext .ts,.js,.jsx,.tsx --fix",
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
@@ -77,5 +81,9 @@
   },
   "bugs": {
     "url": "https://gitlab.fi.muni.cz/xhrodek1/pb138-foto-album/-/issues"
+  },
+  "resolutions": {
+    "graphql": "^15.4.0",
+    "graphql-compose": "^7.25.0"
   }
 }

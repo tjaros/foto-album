@@ -28,16 +28,18 @@ const model: React.FC = ({ pageContext }) => {
     hipLine: pageContext.hipLine
   };
   return (
-    <Layout>
-      <ModelInfo
-        name={pageContext.name}
-        avatarLink={pageContext.avatar.url}
-        location={pageContext.location}
-        description={pageContext.bio}
-        stats={stats}
+    <Layout className="max-w-7xl m-auto">
+      <div className="flex flex-col px-8 py-12">
+        <ModelInfo
+          name={pageContext.name}
+          avatarLink={pageContext.avatar.url}
+          location={pageContext.location}
+          description={pageContext.bio}
+          stats={stats}
       />
-      <ModelNav />
-      {renderSwitch(currentTab, pageContext.id)}
+        <ModelNav />
+        {renderSwitch(currentTab, pageContext.id)}
+      </div>
     </Layout>
   );
 };

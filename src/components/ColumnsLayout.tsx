@@ -16,7 +16,7 @@ const ColumnsLayout: React.FC<ColumnsLayoutProps> = ({ nColumns = 3, className =
     childrenArray.filter((_, idx) => idx % nColumns === whichColumn)
   ));
   return (
-    <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 ${className}`}>
+    <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 md:mr-4 md:ml-4 ${className}`}>
       {columsChildren.map((column) => (
         <div className="flex-1">
           {column}

@@ -40,6 +40,7 @@ exports.createPages = async ({ actions, graphql }) => {
           height
           hairColor
           eyeColor
+          age
           bio
           socials {
             type

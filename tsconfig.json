@@ -58,6 +58,11 @@
     "pretty": true,
 
     "allowSyntheticDefaultImports": true,
-    "declarationDir": "dev/dist/types"
+    "declarationDir": "dev/dist/types",
+    "paths": {
+      "path": [
+        "./node_modules/browserify-zlib"
+      ]
+    }
   }
 }

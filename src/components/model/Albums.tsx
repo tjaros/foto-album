@@ -32,7 +32,7 @@ const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load albums</div>;
   return (
-    <div className="grid grid-cols-2 grid-rows-1">
+    <div className="grid grid-cols-1 md:grid-cols-2 grid-rows-1">
       {data
         && data.albums.map((album: AlbumInterface) => (
           <Album key={album.id} name={album.name} photos={album.photos} />
