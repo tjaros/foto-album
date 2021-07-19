@@ -29,7 +29,7 @@ const renderSwitch = (state, id) => {
 const Photographer: React.FC = ({ pageContext }) => {
   const currentTab = useRecoilValue(photographerCurrentTabAtom);
   return (
-    <Layout>
+    <Layout className="m-auto max-w-7xl">
       <div className="flex flex-col items-center px-8 py-12">
         <AuthorInfo
           name={pageContext.name}

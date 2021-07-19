@@ -28,7 +28,7 @@ const model: React.FC = ({ pageContext }) => {
     hipLine: pageContext.hipLine
   };
   return (
-    <Layout>
+    <Layout className="max-w-7xl m-auto">
       <div className="flex flex-col px-8 py-12">
         <ModelInfo
           name={pageContext.name}
