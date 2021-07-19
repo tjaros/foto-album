@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { ColumnsLayout, Layout, MetaData } from '../components';
+import DescribedAvatar from '../components/album/DescribedAvatar';
+import useWindowSize from '../hooks/useWindowsSize';
 
 // Please note that you can use https://github.com/dotansimha/graphql-code-generator to generate all types from graphQL schema
 interface AlbumPageProps extends PageProps {
@@ -53,32 +55,6 @@ export const query = graphql`
   }
 `;
 
-const Avatar = ({ url, alt, roleAs }: { url: string; alt: string; roleAs: string }) => (
-  <div className="flex flex-col justify-items-center">
-    <p className="font-bold text-center">{roleAs}</p>
-    <div className="w-20 h-20">
-      <img className="object-cover w-full h-full rounded-full" src={url} alt={alt} />
-    </div>
-    <p className="text-center">{alt}</p>
-  </div>
-);
-
-const SmallPic = ({
-  slug,
-  url,
-  name,
-  roleAs
-}: {
-  slug: string;
-  url: string;
-  name: string;
-  roleAs: string;
-}) => (
-  <Link to={slug} className="text-black">
-    <Avatar url={url} alt={name} roleAs={roleAs} />
-  </Link>
-);
-
 const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   data: {
     strapi: { album }
@@ -86,9 +62,8 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
 }) => {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [isOverlayOpen, setOverlayOpen] = useState(false);
+  const [width] = useWindowSize();
   const nPhotos = album.photos.length;
-
-  console.log('rerender', photoIndex, isOverlayOpen);
 
   return (
     <Layout>
@@ -101,7 +76,7 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
         assumenda deleniti laudantium perspiciatis facilis rem autem eligendi laboriosam quasi quo,
         nulla dolores quisquam dolore architecto.
       </p>
-      <ColumnsLayout nColumns={4}>
+      <ColumnsLayout nColumns={Math.min(4, Math.floor(width / 300))}>
         {album.photos.map(({ url }, index) => (
           <button
             type="button"
@@ -114,15 +89,15 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
         ))}
       </ColumnsLayout>
       <div className="flex flex-row py-12 justify-evenly">
-        <SmallPic
+        <DescribedAvatar
           slug={`/photographer/${album.photographer.slug}`}
-          url={album.photographer.avatar[0].url}
+          avatarLink={album.photographer.avatar[0].url}
           name={album.photographer.name}
           roleAs="Photographer"
         />
-        <SmallPic
+        <DescribedAvatar
           slug={`/model/${album.model.slug}`}
-          url={album.model.avatar.url}
+          avatarLink={album.model.avatar.url}
           name={album.model.name}
           roleAs="Model"
         />
