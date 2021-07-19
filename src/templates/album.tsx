@@ -17,7 +17,7 @@ interface AlbumPageProps extends PageProps {
           slug: string;
           avatar: { url: string };
         };
-        photographer: {
+        photographer?: {
           name: string;
           slug: string;
           avatar: { url: string }[];
@@ -89,12 +89,14 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
         ))}
       </ColumnsLayout>
       <div className="flex flex-row py-12 justify-evenly">
-        <DescribedAvatar
-          slug={`/photographer/${album.photographer.slug}`}
-          avatarLink={album.photographer.avatar[0].url}
-          name={album.photographer.name}
-          roleAs="Photographer"
-        />
+        {album.photographer && (
+          <DescribedAvatar
+            slug={`/photographer/${album.photographer.slug}`}
+            avatarLink={album.photographer.avatar[0].url}
+            name={album.photographer.name}
+            roleAs="Photographer"
+          />
+        )}
         <DescribedAvatar
           slug={`/model/${album.model.slug}`}
           avatarLink={album.model.avatar.url}
