@@ -3,16 +3,25 @@ import React from 'react';
 interface PortraitProps {
   imageLink: string;
   personName: string;
+  imageClass?: string;
+  className?: string;
 }
 
-const Portrait: React.FC<PortraitProps> = ({ imageLink, personName }) => (
-  <div className="flex flex-col items-center px-5 pb-4 md:pb-0">
+const Portrait: React.FC<PortraitProps> = ({
+  imageLink,
+  personName,
+  className = '',
+  imageClass = 'h-80 w-72'
+}) => (
+  <div className={`flex flex-col items-center ${className}`}>
     <div className="flex flex-row">
-      <img srcSet={imageLink} alt={personName} className="object-cover rounded-md h-80 w-72" />
+      <img
+        srcSet={imageLink}
+        alt={personName}
+        className={`object-cover rounded-md ${imageClass}`}
+      />
     </div>
-    <div className="flex flex-row">
-      <p className="text-xl font-medium">{personName}</p>
-    </div>
+    <p className="text-xl font-medium text-center text-black">{personName}</p>
   </div>
 );
 

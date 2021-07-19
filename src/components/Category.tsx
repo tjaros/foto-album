@@ -1,31 +1,24 @@
+import { Link } from 'gatsby';
 import React from 'react';
-import Portrait from './Portrait';
+import { TableGrid } from './grid';
 
-type Data = { imageLink: string; personName: string };
-
-interface CategoryPorps {
-  data: Data[];
+interface CategoryProps {
+  className?: string;
   categoryName: string;
 }
 
-const Category: React.FC<CategoryPorps> = ({ data, categoryName }) => (
-  <div className="flex flex-col items-center pb-16">
+/** Display content of one category. Use children to pass photos/other elements.
+ * TODO: create connection to search for all models.
+ */
+const Category: React.FC<CategoryProps> = ({ children, className, categoryName }) => (
+  <div className={`flex flex-col items-center capitalize ${className}`}>
     <h1 className="pb-10 text-5xl font-semibold">{categoryName}</h1>
-    <div className="flex flex-col pb-10 md:flex-row">
-      {data.slice(0, 4).map(({ imageLink, personName }) => (
-        <Portrait imageLink={imageLink} personName={personName} />
-      ))}
-    </div>
-    <div className="flex flex-col pb-10 md:flex-row">
-      {data.slice(4, 8).map(({ imageLink, personName }) => (
-        <Portrait imageLink={imageLink} personName={personName} />
-      ))}
-    </div>
-    <div className="flex flex-row">
-      <button type="button" className="w-32 h-12 border-2 border-black border-solid rounded-md">
-        <p>All</p>
-      </button>
-    </div>
+    <TableGrid className="grid-cols-2 gap-2 md:grid-cols-4">
+      {children}
+    </TableGrid>
+    <Link to="/into-the-unknown" className="flex items-center justify-center w-32 h-12 mt-4 text-black transition-all border-2 border-black border-solid rounded-md hover:text-white hover:bg-black">
+      <span className="text-lg">All</span>
+    </Link>
   </div>
 );
 
