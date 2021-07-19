@@ -1,12 +1,14 @@
+import { PageProps } from 'gatsby';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
 import {
-  Albums, ModelInfo, ModelNav, WorkedWith
+  Albums, ModelInfo, WorkedWith
 } from '../components/model';
+import PageNav from '../components/PageNav';
 import modelCurrentTabAtom from '../recoil/model';
 
-const renderSwitch = (state, id) => {
+const renderSwitch = (state: string, id: number) => {
   switch (state) {
     case 'Albums':
       return <Albums modelId={id} />;
@@ -16,7 +18,8 @@ const renderSwitch = (state, id) => {
       return <Albums modelId={id} />;
   }
 };
-const model: React.FC = ({ pageContext }) => {
+
+const model: React.FC<PageProps> = ({ pageContext }) => {
   const currentTab = useRecoilValue(modelCurrentTabAtom);
   const stats = {
     age: pageContext.age,
@@ -27,19 +30,19 @@ const model: React.FC = ({ pageContext }) => {
     waistLine: pageContext.waistLine,
     hipLine: pageContext.hipLine
   };
+  const navItems = ['Albums', 'Worked With'];
+
   return (
-    <Layout className="max-w-7xl m-auto">
-      <div className="flex flex-col px-8 py-12">
-        <ModelInfo
-          name={pageContext.name}
-          avatarLink={pageContext.avatar.url}
-          location={pageContext.location}
-          description={pageContext.bio}
-          stats={stats}
+    <Layout className="m-auto max-w-7xl">
+      <ModelInfo
+        name={pageContext.name}
+        avatarLink={pageContext.avatar.url}
+        location={pageContext.location}
+        description={pageContext.bio}
+        stats={stats}
       />
-        <ModelNav />
-        {renderSwitch(currentTab, pageContext.id)}
-      </div>
+      <PageNav navItems={navItems} recoilState={modelCurrentTabAtom} />
+      {renderSwitch(currentTab, pageContext.id)}
     </Layout>
   );
 };

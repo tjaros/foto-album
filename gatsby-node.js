@@ -88,6 +88,7 @@ exports.createPages = async ({ actions, graphql }) => {
   console.log('Generating /photographer/ pages');
   data.strapi.photographers.forEach(photographer => {
     console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
+    console.log(photographer);
     actions.createPage({
       path: `/photographer/${photographer.slug}/`,
       component: require.resolve(`./src/templates/photographer.tsx`),

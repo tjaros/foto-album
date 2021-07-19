@@ -1,12 +1,12 @@
 import React from 'react';
+import SocialMedia, { Orientation, SocialMediaLink } from './SocialMedia';
+import AboutMe from '../AboutMe';
+import Avatar from '../Avatar';
+import Bio from '../Bio';
 
-import ProfilePicture from './ProfilePicture';
-import Button from './Button';
-import SocialMedia, { SocialMediaLink } from './SocialMedia';
-
-interface AuthorProps {
+export interface AuthorProps {
   name: string;
-  location: string;
+  availableLocation: string;
   bio: string;
   imageLink: string;
   socialMediaLinks: SocialMediaLink[];
@@ -14,31 +14,21 @@ interface AuthorProps {
 
 const AuthorInfo: React.FC<AuthorProps> = ({
   name,
-  location,
+  availableLocation: location,
   bio,
   imageLink,
-  socialMediaLinks,
+  socialMediaLinks
 }) => (
-  <div className="flex flex-col md:flex-row">
-    <div className="flex flex-col items-center gap-1">
-      <ProfilePicture name={name} imageLink={imageLink} />
-      <Button className="mt-8">Follow me!</Button>
-      <Button>Contact me!</Button>
+  <div className="flex flex-col">
+    <div className="flex flex-col items-center justify-between gap-1 md:flex-row">
+      <AboutMe
+        name={name}
+        location={location}
+        avatar={<Avatar name={name} avatarLink={imageLink} />}
+      />
+      <SocialMedia links={socialMediaLinks} orientation={Orientation.HORIZONTAL} />
     </div>
-    <div className="flex flex-col pt-16 md:pt-2 md:pl-8 md:pr-16">
-      <h1 className="self-center text-4xl font-bold md:self-start">{name}</h1>
-      <div className="flex flex-col pt-6 md:flex-row md:pt-3">
-        <span className="flex flex-col text-xl font-bold align-bottom md:px-4">Available:</span>
-        <p className="flex flex-col text-xl align-bottom">{location}</p>
-      </div>
-      <div className="flex flex-col pt-4 md:flex-row md:pt-2">
-        <span className="flex flex-col text-xl font-bold align-bottom md:px-4">About Me:</span>
-        <p className="flex flex-col max-w-xl text-xl align-bottom">{bio}</p>
-      </div>
-    </div>
-    <div className="flex flex-col pt-6">
-      <SocialMedia links={socialMediaLinks} />
-    </div>
+    <Bio text={bio} className="pt-4 lg:pt-8" />
   </div>
 );
 
