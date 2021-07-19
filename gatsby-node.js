@@ -25,7 +25,7 @@ const createAlbums = async (actions, graphql) => {
   data.strapi.albums.forEach((album) => {
     actions.createPage({
       path: `/albums/${album.slug}/`,
-      component: require.resolve('./src/templates/Album.tsx'),
+      component: require.resolve('./src/templates/album.tsx'),
       context: album
     })
   });
