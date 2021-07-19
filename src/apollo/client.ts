@@ -5,10 +5,12 @@ import { getToken } from '../auth/cookies';
 
 const authLink = setContext((_, { headers }) => {
   const token = getToken();
+  const authorization = token ? { authorization: `Bearer ${token}` } : {};
+
   return {
     headers: {
       ...headers,
-      authorization: `Bearer ${token}`,
+      ...authorization,
     }
   };
 });
