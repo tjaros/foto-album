@@ -6,26 +6,7 @@ const client = new ApolloClient({
     uri: process.env.STRAPI_GRAPHQL_ENDPOINT,
     fetch
   }),
-  cache: new InMemoryCache({
-    typePolicies: {
-      Query: {
-        fields: {
-          albums: {
-            keyArgs: ['photographerId'],
-            merge(existing = [], incoming) {
-              return [...existing, ...incoming];
-            }
-          },
-          reviews: {
-            keyArgs: ['photographerId'],
-            merge(existing = [], incoming) {
-              return [...existing, ...incoming];
-            }
-          }
-        }
-      }
-    }
-  })
+  cache: new InMemoryCache()
 });
 
 export default client;
