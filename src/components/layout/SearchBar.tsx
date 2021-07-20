@@ -26,6 +26,7 @@ const SearchBar: React.FC = () => {
           type="text"
           className={`${isExpanded ? 'flex' : 'hidden'} w-64 px-4 bg-transparent`}
           placeholder="Type your search"
+          required
         />
         <button
           type="submit"

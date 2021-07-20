@@ -8,16 +8,22 @@ const LandingSearchBar: React.FC = () => {
   const onSubmit = (data: unknown): void => {
     navigate('/search?s='.concat(data.search));
   };
-
+  const classString =
+    'text-white focus:border-transparent font-medium bg-gray-900 rounded-l filter backdrop-blur-lg bg-opacity-70';
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex w-3/4 rounded-md md:w-1/2">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex w-3/4 rounded-md md:w-1/2 focus:border-white focus:border">
       <input
         {...register('search')}
-        className="w-full p-2 text-xs font-bold text-white placeholder-white bg-gray-800 bg-opacity-50 md:text:base "
+        className={`w-full p-3  placeholder-gray-200 ${classString} md:text:base`}
         type="text"
         placeholder="Photos, artists, categories"
+        required
       />
-      <button className="p-2 text-white bg-gray-800 opacity-50" type="submit">
+      <button
+        className="p-3 text-white bg-gray-900 rounded-r bg-opacity-70 filter backdrop-blur-lg "
+        type="submit">
         <FaSearch />
       </button>
     </form>

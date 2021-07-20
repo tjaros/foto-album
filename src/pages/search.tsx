@@ -14,11 +14,12 @@ const Search: React.FC = ({ data, location }) => {
   search.addIndex('name');
   search.addDocuments(data.strapi.models);
 
-  const [models, setModels] = useState(search.search(query));
+  const [models, setModels] = useState(query === '' ? data.strapi.models : search.search(query));
   const handleSearch = event => {
     setQuery(event.target.value);
     setModels(event.target.value === '' ? data.strapi.models : search.search(event.target.value));
   };
+  console.log(models);
   // const curColors: Set[string] = new Set();
   // const curHair = new Set();
   // data.strapi.models?.forEach(({ hairColor, eyeColor }) => {
@@ -36,7 +37,7 @@ const Search: React.FC = ({ data, location }) => {
   // };
   return (
     <Layout>
-      <MetaData title={'Search for: ' + query} />
+      <MetaData title={'Search for: '.concat(query)} />
       <div className="max-w-5xl py-20 mx-auto">
         <div className="flex justify-between pb-20">
           <h1 className="text-4xl font-semibold">Model search</h1>
@@ -60,11 +61,16 @@ const Search: React.FC = ({ data, location }) => {
             <option value={color}>{color}</option>
           ))}
         </select> */}
-        <ColumnsLayout>
-          {models.map(model => (
-            <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
-          ))}
-        </ColumnsLayout>
+
+        {models.length > 0 ? (
+          <ColumnsLayout>
+            {models.map(model => (
+              <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
+            ))}
+          </ColumnsLayout>
+        ) : (
+          <h1 className="w-full text-3xl font-bold text-center uppercase">No models found</h1>
+        )}
       </div>
     </Layout>
   );
