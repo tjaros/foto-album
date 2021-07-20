@@ -16,7 +16,7 @@ const Category: React.FC<CategoryProps> = ({ children, className, categoryName }
     <TableGrid className="grid-cols-2 gap-2 md:grid-cols-4">
       {children}
     </TableGrid>
-    <Link to="/into-the-unknown" className="btn-white">
+    <Link to="/search" className="btn-white">
       <span className="text-base md:text-lg">All</span>
     </Link>
   </div>
