@@ -6,7 +6,7 @@ import UserLogin from './UserLogin';
 import logo from '../../images/logo--light.svg';
 
 const headerLinks = [
-  { description: 'Models', url: '/models' },
+  { description: 'Models', url: '/categories' },
   { description: 'Photographers', url: '/photographers' }
 ];
 
@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   const [isExpanded, toggleExpansion] = useState(false);
 
   return (
-    <header className="z-50 sticky top-0 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
+    <header className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
         <button
           type="button"

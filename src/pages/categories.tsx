@@ -45,7 +45,7 @@ const Categories: React.FC<CategoryPageProps> = ({
       {categories.map(({ name, models }) => (
         <Category categoryName={name} key={name} className="pb-8 mt-8 md:pb-12 lg:pb-16">
           {models.map((model) => (
-            <Link to={`/model/${model.slug}`}>
+            <Link to={`/model/${model.slug}`} key={model.slug}>
               <Portrait imageLink={model.avatar.url} personName={model.name} imageClass="h-40 w-35 md:h-60 md:w-53 lg:h-80 lg:w-72" />
             </Link>
           ))}
