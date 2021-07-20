@@ -22,7 +22,7 @@ const PageNav: React.FC<PageNavProps> = ({ navItems, recoilState }) => {
   return (
     <nav className="flex flex-col items-center justify-center w-full my-4 bg-black rounded md:flex-row">
       <div className="flex flex-row items-center w-full pl-4 md:hidden">
-        <span className="text-white">{currentTab}</span>
+        <span className="text-red-600 ">{currentTab}</span>
         <button
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
@@ -30,7 +30,7 @@ const PageNav: React.FC<PageNavProps> = ({ navItems, recoilState }) => {
           {isExpanded ? <FaTimes /> : <FaCaretDown />}
         </button>
       </div>
-      {navItems.map((item) => {
+      {navItems.map(item => {
         if (!isLoggedIn && item.auth) return null;
         return (
           <button

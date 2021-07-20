@@ -1,19 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import '../../css/style.css';
+import ConsentForm from '../ConsentForm';
+import { getData, storeData, Tokens } from '../../auth/cookies';
 
 interface LayoutProps {
   className?: string;
   showSearchbar?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, className = '', showSearchbar }) => (
-  <div className="flex flex-col min-h-screen">
-    <Header showSearchbar={showSearchbar} />
-    <main className={`flex-grow ${className}`}>{children}</main>
-    <Footer />
-  </div>
-);
+const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {
+  const [consent, setConsent] = useState(!!getData(Tokens.NSFW));
+  const giveConsent = () => {
+    storeData(Tokens.NSFW, 'true');
+    setConsent(true);
+  };
+
+  return (
+    <div>
+      {!consent && <ConsentForm onClick={giveConsent} />}
+      <div className={!consent ? 'h-screen overflow-hidden filter blur-sm brightness-75' : ''}>
+        <Header />
+        <main className={className}>{children}</main>
+        <Footer />
+      </div>
+    </div>
+  );
+};
 
 export default Layout;

@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import { MetaData, Layout, ColumnsLayout, Portrait } from '../components';
+import {
+  MetaData, Layout, ColumnsLayout, Portrait
+} from '../components';
 
 export const pageQuery = graphql`
   query GetPhotographers {
