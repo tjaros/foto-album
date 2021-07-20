@@ -1,11 +1,57 @@
 import React, { useState } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import {
-  MetaData, Layout, ColumnsLayout, Portrait
-} from '../components';
+import { MetaData, Layout, ColumnsLayout, Portrait } from '../components';
 
-const Search: React.FC = ({ data, location }) => {
+export const pageQuery = graphql`
+  query Models {
+    strapi {
+      models {
+        id
+        eyeColor
+        avatar {
+          url
+        }
+        categories {
+          name
+        }
+        height
+        hairColor
+        hipLine
+        location
+        name
+        slug
+        age
+        bustLine
+      }
+    }
+  }
+`;
+
+interface Model {
+  id: number;
+  eyeColor: string;
+  avatar: { url: string };
+  categories: { name: string }[];
+  height: number;
+  hairColor: string;
+  hipLine: string;
+  location: string;
+  name: string;
+  slug: string;
+  age: number;
+  bustLine: number;
+}
+
+interface SearchPageProps extends PageProps {
+  data: {
+    strapi: {
+      models: Model[];
+    };
+  };
+}
+
+const Search: React.FC<SearchPageProps> = ({ data, location }) => {
   const [query, setQuery] = useState(new URLSearchParams(location.search).get('s'));
   // const [filter, setFilter] = useState();
   const search = new JsSearch.Search('slug');
@@ -15,10 +61,16 @@ const Search: React.FC = ({ data, location }) => {
   search.addIndex('name');
   search.addDocuments(data.strapi.models);
 
-  const [models, setModels] = useState(query === '' ? data.strapi.models : search.search(query));
-  const handleSearch = (event) => {
+  const [models, setModels] = useState<Model[]>(
+    query === '' || !query ? data.strapi.models : (search.search(query) as Model[])
+  );
+  const handleSearch = (event: { target: HTMLInputElement }) => {
     setQuery(event.target.value);
-    setModels(event.target.value === '' ? data.strapi.models : search.search(event.target.value));
+    setModels(
+      event.target.value === ''
+        ? data.strapi.models
+        : (search.search(event.target.value) as Model[])
+    );
   };
   // const curColors: Set[string] = new Set();
   // const curHair = new Set();
@@ -36,8 +88,8 @@ const Search: React.FC = ({ data, location }) => {
   //   green: '#0DC330'
   // };
   return (
-    <Layout>
-      <MetaData title={'Search for: '.concat(query)} />
+    <Layout showSearchbar={false}>
+      <MetaData title={'Search for: '.concat(query || '')} />
       <div className="max-w-5xl py-20 mx-auto">
         <div className="flex justify-between pb-20">
           <h1 className="text-4xl font-semibold">Model search</h1>
@@ -65,7 +117,9 @@ const Search: React.FC = ({ data, location }) => {
         {models.length > 0 ? (
           <ColumnsLayout>
             {models.map((model) => (
-              <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
+              <Link to={`/model/${model.slug}`}>
+                <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
+              </Link>
             ))}
           </ColumnsLayout>
         ) : (
@@ -77,28 +131,3 @@ const Search: React.FC = ({ data, location }) => {
 };
 
 export default Search;
-
-export const pageQuery = graphql`
-  query Models {
-    strapi {
-      models {
-        id
-        eyeColor
-        avatar {
-          url
-        }
-        categories {
-          name
-        }
-        height
-        hairColor
-        hipLine
-        location
-        name
-        slug
-        age
-        bustLine
-      }
-    }
-  }
-`;

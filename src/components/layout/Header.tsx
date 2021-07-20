@@ -10,7 +10,11 @@ const headerLinks = [
   { description: 'Photographers', url: '/photographers' }
 ];
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  showSearchbar?: boolean;
+}
+
+const Header: React.FC<HeaderProps> = ({ showSearchbar = true }) => {
   // when on small screens, determines wheter users see hamburger menu or it is expanded
   const [isExpanded, toggleExpansion] = useState(false);
   return (
@@ -26,9 +30,11 @@ const Header: React.FC = () => {
       <Link to="/" className="flex items-center text-white">
         <img src={logo} alt="ModAg logo" style={{ height: 'calc(1em + 1rem)' }} />
       </Link>
-      <div className="lg:hidden">
-        <SearchBar />
-      </div>
+      {showSearchbar && (
+        <div className="lg:hidden">
+          <SearchBar />
+        </div>
+      )}
       <div
         className={`${
           isExpanded ? 'block' : 'hidden'
@@ -42,9 +48,11 @@ const Header: React.FC = () => {
               {description}
             </Link>
           ))}
-          <div className="hidden lg:inline-block">
-            <SearchBar />
-          </div>
+          {showSearchbar && (
+            <div className="hidden lg:inline-block">
+              <SearchBar />
+            </div>
+          )}
           <div className="pt-4 mr-4 lg:pt-0">
             <UserLogin />
           </div>
