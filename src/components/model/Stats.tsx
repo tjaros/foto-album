@@ -29,14 +29,16 @@ const Stats: React.FC<StatsProps> = ({ stats, className = '' }) => {
   return (
     <div className={`flex flex-col px-4 pt-4 md:pt-0 ${className}`}>
       <table>
-        {characteristics.map(
-          ({ value, text, unit }) => value && (
-            <tr key={text}>
-              <th>{`${text}: `}</th>
-              <td className="pl-2">{`${value} ${unit || ''}`}</td>
-            </tr>
-          )
-        )}
+        <tbody>
+          {characteristics.map(
+            ({ value, text, unit }) => value && (
+              <tr key={text}>
+                <th>{`${text}: `}</th>
+                <td className="pl-2">{`${value} ${unit || ''}`}</td>
+              </tr>
+            )
+          )}
+        </tbody>
       </table>
     </div>
   );

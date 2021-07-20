@@ -1,17 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
-import { ColumnsLayout, Layout, MetaData } from '../components';
+import { Layout, MetaData } from '../components';
 import DescribedAvatar from '../components/album/DescribedAvatar';
-import useWindowSize from '../hooks/useWindowsSize';
+import Error from '../components/Error';
+import { useAuth } from '../hooks';
+import AlbumPhotos from '../components/album/AlbumPhotos';
 
-// Please note that you can use https://github.com/dotansimha/graphql-code-generator to generate all types from graphQL schema
 interface AlbumPageProps extends PageProps {
   data: {
     strapi: {
       album: {
+        id: number;
         name: string;
+        description: string;
         model: {
           name: string;
           slug: string;
@@ -21,8 +22,7 @@ interface AlbumPageProps extends PageProps {
           name: string;
           slug: string;
           avatar: { url: string }[];
-        };
-        photos: { url: string }[];
+        }
       };
     };
   };
@@ -32,7 +32,9 @@ export const query = graphql`
   query GetAlbumData($id: ID!) {
     strapi {
       album(id: $id) {
+        id
         name
+        description: Description
         model {
           name
           slug
@@ -47,9 +49,6 @@ export const query = graphql`
             url
           }
         }
-        photos {
-          url
-        }
       }
     }
   }
@@ -58,12 +57,17 @@ export const query = graphql`
 const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   data: {
     strapi: { album }
-  }
+  },
 }) => {
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOverlayOpen, setOverlayOpen] = useState(false);
-  const [width] = useWindowSize();
-  const nPhotos = album.photos.length;
+  const { isLoggedIn } = useAuth();
+  if (!isLoggedIn) {
+    return (
+      <Layout>
+        <MetaData title="Forbidden Access" />
+        <Error title="Forbidden Access" description="You must be logged in to see this content" />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
@@ -72,22 +76,9 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
         {album.name}
       </h1>
       <p className="py-4 mb-4 md:text-lg">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Est sequi quia hic excepturi ipsum
-        assumenda deleniti laudantium perspiciatis facilis rem autem eligendi laboriosam quasi quo,
-        nulla dolores quisquam dolore architecto.
+        {album.description}
       </p>
-      <ColumnsLayout nColumns={Math.min(4, Math.floor(width / 300))}>
-        {album.photos.map(({ url }, index) => (
-          <button
-            type="button"
-            onClick={() => {
-              setPhotoIndex(index);
-              setOverlayOpen(true);
-            }}>
-            <img alt="" src={url} key={url} />
-          </button>
-        ))}
-      </ColumnsLayout>
+      <AlbumPhotos albumId={album.id} albumName={album.name} />
       <div className="flex flex-row py-12 justify-evenly">
         {album.photographer && (
           <DescribedAvatar
@@ -104,16 +95,6 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
           roleAs="Model"
         />
       </div>
-      {nPhotos > 0 && isOverlayOpen && (
-        <Lightbox
-          mainSrc={album.photos[photoIndex].url}
-          nextSrc={album.photos[(photoIndex + 1) % nPhotos].url}
-          prevSrc={album.photos[(photoIndex + nPhotos - 1) % nPhotos].url}
-          onCloseRequest={() => setOverlayOpen(false)}
-          onMovePrevRequest={() => setPhotoIndex((photoIndex + nPhotos - 1) % nPhotos)}
-          onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % nPhotos)}
-        />
-      )}
     </Layout>
   );
 };

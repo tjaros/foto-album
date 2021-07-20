@@ -19,7 +19,7 @@
     "ecmaFeatures": { "jsx": true },
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "react", "jsx-a11y"],
+  "plugins": ["@typescript-eslint", "react", "jsx-a11y", "react-hooks"],
   "rules": {
     "object-curly-newline": "warn",
     "react/prop-types": "off",
@@ -34,7 +34,9 @@
       "required": {
         "some": ["nesting", "id"]
       }
-    }]
+    }],
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
   },
   "settings": {
     "react": {
