@@ -4,15 +4,18 @@ import {
   RegisteredLandingNavPanel, UnregisteredLandingNavPanel, LandingPictureMain, RecruitComponent
 } from '../components/landingPage';
 import { PicturesFeed } from '../components/landingPage/PicturesFeed';
+import { useAuth } from '../hooks';
 
-const IndexPage: React.FC = () => (
-  <Layout>
-    <LandingPictureMain />
-    <UnregisteredLandingNavPanel />
-    <RegisteredLandingNavPanel />
-    <PicturesFeed />
-    <RecruitComponent />
-  </Layout>
-);
+const IndexPage: React.FC = () => {
+  const { isLoggedIn } = useAuth();
+  return (
+    <Layout>
+      <LandingPictureMain />
+      {isLoggedIn ? <RegisteredLandingNavPanel /> : <UnregisteredLandingNavPanel />}
+      <PicturesFeed />
+      <RecruitComponent />
+    </Layout>
+  );
+};
 
 export default IndexPage;

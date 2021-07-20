@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaUser } from 'react-icons/fa';
-import useAuth from '../../auth/hooks';
+import { useAuth } from '../../hooks';
 
 /**
  * Handle logging in and out. When logged in, always display username and on click,
