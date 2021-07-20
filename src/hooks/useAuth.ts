@@ -1,28 +1,30 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { clearToken, setLastLocation } from '../auth/cookies';
+import { useRecoilState } from 'recoil';
+import { storeData, getData, clearData, Tokens } from '../auth/cookies';
 import { Auth } from '../auth/models';
-import { authentication } from '../auth/store';
+import isLoggedInState from '../auth/store';
 
 /** Hook that provides authetication data and methods to log in and out. */
 const useAuth = (): Auth => {
-  const { isLoggedIn, jwt, user } = useRecoilValue(authentication);
-  const setAuthData = useSetRecoilState(authentication);
+  const [isLoggedIn, setLogged] = useRecoilState(isLoggedInState);
+  const jwt = getData(Tokens.JWT);
+  const user = getData(Tokens.USER);
 
   const login = () => {
     const loginUrl = `${process.env.STRAPI_BACKEND}/connect/auth0`;
-    setLastLocation(window.location.pathname);
+    storeData(Tokens.LAST_LOCATION, window.location.pathname);
     window.location.replace(loginUrl);
   };
 
   const logout = () => {
-    clearToken();
-    setAuthData({ isLoggedIn: false, user: undefined, jwt: undefined });
+    clearData(Tokens.JWT);
+    clearData(Tokens.USER);
+    setLogged(false);
   };
 
   return {
-    isLoggedIn,
-    jwt,
-    user,
+    isLoggedIn: isLoggedIn && !!getData(Tokens.JWT) && !!getData(Tokens.USER),
+    jwt: jwt || undefined,
+    user: user ? JSON.parse(user) : undefined,
     login,
     logout
   };

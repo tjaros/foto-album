@@ -1,17 +1,24 @@
-const TOKEN_KEY = 'token';
-const LAST_LOCATION_KEY = 'lastLocation';
+export enum Tokens {
+  JWT = 'token',
+  LAST_LOCATION = 'last-location',
+  USER = 'user-data',
+  NSFW = 'nsfw-allowed'
+}
 
-/** Stores token to local storage. */
-export const setToken = (token: string): void => localStorage.setItem(TOKEN_KEY, token);
+const isBrowser = () => typeof window !== undefined;
+
+/** Saves data to persistent storage. */
+export const storeData = (token: Tokens, value: string): void => {
+  if (isBrowser()) localStorage.setItem(token, value);
+};
 
 /** Removes token from local storage. */
-export const clearToken = (): void => localStorage.removeItem(TOKEN_KEY);
+export const clearData = (token: Tokens): void => {
+  if (isBrowser()) localStorage.removeItem(token);
+};
 
 /** Access token from local storage. */
-export const getToken = (): string | null => localStorage.getItem(TOKEN_KEY);
-
-/** Set last location to return to after log in. */
-export const setLastLocation = (url: string): void => localStorage.setItem(LAST_LOCATION_KEY, url);
-
-/** Return the last location. */
-export const getLastLocation = (): string => localStorage.getItem(LAST_LOCATION_KEY) || './';
+export const getData = (token: Tokens): string | null => {
+  if (isBrowser()) return localStorage.getItem(token);
+  return null;
+};
