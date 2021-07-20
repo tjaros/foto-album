@@ -5,12 +5,20 @@
  */
 
 // You can delete this file if you're not using it
-
+const heading = name => {
+  console.log();
+  console.log(`\x1b[1mGenerating \x1b[36m\x1b[1m${name}\x1b[0m\x1b[1m pages:`);
+  console.log('⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻⎻');
+};
+const line = (name, slug) => {
+  console.log(`\x1b[36m\x1b[1m${name}\x1b[0m: \x1b[2mhttp://localhost:8000${slug}\x1b[0m`);
+};
 const createAlbums = async (actions, graphql) => {
   const { data } = await graphql(`
     query EnumerateAlbums {
       strapi {
         albums {
+          name
           slug
           id
         }
@@ -18,18 +26,16 @@ const createAlbums = async (actions, graphql) => {
     }
   `);
 
-  console.log('Generating /albums/ pages');
-  console.log('-------------------------');
-  console.log(JSON.stringify(data));
-
-  data.strapi.albums.forEach((album) => {
+  heading('album');
+  data.strapi.albums.forEach(album => {
+    line(album.name, `/albums/\x1b[1m${album.slug}/`);
     actions.createPage({
       path: `/albums/${album.slug}/`,
       component: require.resolve('./src/templates/album.tsx'),
       context: album
-    })
+    });
   });
-}
+};
 
 exports.createPages = async ({ actions, graphql }) => {
   const { data } = await graphql(`
@@ -75,26 +81,26 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `);
-  console.log('Generating /model/ pages');
+
+  heading('model');
+
   data.strapi.models.forEach(model => {
-    console.log(`name: ${model.name}, s ug:${model.slug}`);
+    line(model.name, `/model/\x1b[1m${model.slug}/`);
     actions.createPage({
       path: `/model/${model.slug}/`,
       component: require.resolve(`./src/templates/model.tsx`),
       context: model
     });
   });
-
-  console.log('Generating /photographer/ pages');
+  heading('photographers');
   data.strapi.photographers.forEach(photographer => {
-    console.log(`name: ${photographer.name}, slug:${photographer.slug}`);
-    console.log(photographer);
+    line(photographer.name, `/photographer/\x1b[1m${photographer.slug}/`);
     actions.createPage({
       path: `/photographer/${photographer.slug}/`,
       component: require.resolve(`./src/templates/photographer.tsx`),
       context: photographer
     });
   });
-  
+
   await createAlbums(actions, graphql);
 };
