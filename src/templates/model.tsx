@@ -61,7 +61,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
   };
 
   return (
-    <Layout className="pb-20 mx-auto max-w-7xl">
+    <Layout className="w-full pb-20 mx-auto max-w-7xl">
       <ModelInfo name={name} avatarLink={url} location={location} description={bio} stats={stats} />
       <PageNav navItems={navItems} recoilState={modelCurrentTabAtom} />
       {renderSwitch(currentTab, id)}

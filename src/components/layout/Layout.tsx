@@ -7,6 +7,7 @@ import { getData, storeData, Tokens } from '../../auth/cookies';
 
 interface LayoutProps {
   className?: string;
+  showSearchbar?: boolean;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { FaTruckLoading } from 'react-icons/fa';
 import { Link } from 'gatsby';
-import ColumnsLayout from '../ColumnsLayout';
+import { ColumnsLayout, Image } from '..';
 
 const MODELS_QUERY = gql`
   query GET_ALL_AVATARS($offset: Int!, $limit: Int!) {
@@ -21,11 +21,11 @@ interface Model {
   slug: string;
   avatar: {
     url: string;
-  }
+  };
 }
 
 interface ModelsData {
-  models: Model[]
+  models: Model[];
 }
 
 const distinct = (models: Model[]): Model[] => {
@@ -34,7 +34,9 @@ const distinct = (models: Model[]): Model[] => {
 };
 
 export const PicturesFeed: React.FC = () => {
-  const { loading, error, data, fetchMore } = useQuery<ModelsData>(MODELS_QUERY, {
+  const {
+    loading, error, data, fetchMore
+  } = useQuery<ModelsData>(MODELS_QUERY, {
     variables: {
       offset: 0,
       limit: 6
@@ -78,11 +80,12 @@ export const PicturesFeed: React.FC = () => {
 
   return (
     <ColumnsLayout>
-      {data && distinct(data.models).map((model) => (
-        <Link to={`model/${model.slug}`} key={model.slug}>
-          <img src={model.avatar.url} alt={model.name} className="w-full" />
-        </Link>
-      ))}
+      {data
+        && distinct(data.models).map((model) => (
+          <Link to={`model/${model.slug}`} key={model.slug}>
+            <Image src={model.avatar.url} name={model.name} className="w-full" />
+          </Link>
+        ))}
     </ColumnsLayout>
   );
 };
