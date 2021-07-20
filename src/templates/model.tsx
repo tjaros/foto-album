@@ -19,7 +19,7 @@ const renderSwitch = (state: string, id: number) => {
   }
 };
 
-const model: React.FC<PageProps> = ({ pageContext }) => {
+const Model: React.FC<PageProps> = ({ pageContext }) => {
   const currentTab = useRecoilValue(modelCurrentTabAtom);
   const stats = {
     age: pageContext.age,
@@ -47,4 +47,4 @@ const model: React.FC<PageProps> = ({ pageContext }) => {
   );
 };
 
-export default model;
+export default Model;
