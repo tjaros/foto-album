@@ -11,7 +11,7 @@ const useAuth = (): Auth => {
 
   const login = () => {
     const loginUrl = `${process.env.STRAPI_BACKEND}/connect/auth0`;
-    storeData(Tokens.LAST_LOCATION, window.location.pathname);
+    storeData(Tokens.LAST_LOCATION, window.location.href);
     window.location.replace(loginUrl);
   };
 

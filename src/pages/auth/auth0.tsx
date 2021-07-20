@@ -28,7 +28,11 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
         storeData(Tokens.JWT, res.jwt);
         storeData(Tokens.USER, JSON.stringify(res.user));
         setLogged(true);
-        navigate(getData(Tokens.LAST_LOCATION) || '/');
+
+        const returnTo = getData(Tokens.LAST_LOCATION);
+        // Handle gitlab server path by navigating with absolut url
+        if (returnTo) window.location.replace(getData(Tokens.LAST_LOCATION) || '/');
+        else navigate(getData(Tokens.LAST_LOCATION) || '/');
       })
       .catch(() => {
         setLogged(false);
