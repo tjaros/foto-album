@@ -2,7 +2,7 @@ import { PageProps } from 'gatsby';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
-import PageNav from '../components/PageNav';
+import PageNav, { NavItem } from '../components/PageNav';
 import {
   AuthorInfo, Photos, Reviews, WorkedWith
 } from '../components/photographer';
@@ -28,21 +28,34 @@ const renderSwitch = (state: string, id: number) => {
   }
 };
 
-const navItems = ['Photos', 'Reviews', 'Worked With'];
+const navItems: NavItem[] = [
+  { text: 'Albums' },
+  { text: 'Reviews', auth: true },
+  { text: 'Worked With' }
+];
+
+interface PhotograpgerData {
+  id: number;
+  name: string;
+  location: string;
+  bio: string;
+  avatar: { url: string }[];
+}
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
   const currentTab = useRecoilValue(photographerCurrentTabAtom);
+  const { name, location, bio, avatar, id } = pageContext as PhotograpgerData;
   return (
     <Layout className="m-auto max-w-7xl">
       <AuthorInfo
-        name={pageContext.name}
-        availableLocation={pageContext.location}
-        bio={pageContext.bio}
-        imageLink={pageContext.avatar[0]?.url}
+        name={name}
+        availableLocation={location}
+        bio={bio}
+        imageLink={avatar[0]?.url}
         socialMediaLinks={links}
       />
       <PageNav navItems={navItems} recoilState={photographerCurrentTabAtom} />
-      {renderSwitch(currentTab, pageContext.id)}
+      {renderSwitch(currentTab, id)}
     </Layout>
   );
 };

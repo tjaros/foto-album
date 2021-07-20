@@ -3,10 +3,13 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
 import { Albums, ModelInfo, WorkedWith } from '../components/model';
-import PageNav from '../components/PageNav';
+import PageNav, { NavItem } from '../components/PageNav';
 import modelCurrentTabAtom from '../recoil/model';
 
-const navItems = ['Albums', 'Worked With'];
+const navItems: NavItem[] = [
+  { text: 'Albums' },
+  { text: 'Worked With' }
+];
 
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
