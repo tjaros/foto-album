@@ -2,11 +2,11 @@ import { PageProps } from 'gatsby';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { Layout } from '../components';
-import {
-  Albums, ModelInfo, WorkedWith
-} from '../components/model';
+import { Albums, ModelInfo, WorkedWith } from '../components/model';
 import PageNav from '../components/PageNav';
 import modelCurrentTabAtom from '../recoil/model';
+
+const navItems = ['Albums', 'Worked With'];
 
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
@@ -19,30 +19,52 @@ const renderSwitch = (state: string, id: number) => {
   }
 };
 
+interface PageContextData {
+  id: number;
+  name: string;
+  avatar: { url: string };
+  location: string;
+  bio: string;
+  age?: number;
+  height?: number;
+  eyeColor?: string;
+  hairColor?: string;
+  bustLine?: number;
+  waistLine?: number;
+  hipLine?: number;
+}
+
 const Model: React.FC<PageProps> = ({ pageContext }) => {
+  const {
+    id,
+    name,
+    age,
+    location,
+    bio,
+    avatar: { url },
+    height,
+    eyeColor,
+    hairColor,
+    bustLine,
+    waistLine,
+    hipLine
+  } = pageContext as PageContextData;
   const currentTab = useRecoilValue(modelCurrentTabAtom);
   const stats = {
-    age: pageContext.age,
-    height: pageContext.height,
-    eyeColor: pageContext.eyeColor,
-    hairColor: pageContext.hairColor,
-    bustLine: pageContext.bustLine,
-    waistLine: pageContext.waistLine,
-    hipLine: pageContext.hipLine
+    age,
+    height,
+    eyeColor,
+    hairColor,
+    bustLine,
+    waistLine,
+    hipLine
   };
-  const navItems = ['Albums', 'Worked With'];
 
   return (
     <Layout className="m-auto max-w-7xl">
-      <ModelInfo
-        name={pageContext.name}
-        avatarLink={pageContext.avatar.url}
-        location={pageContext.location}
-        description={pageContext.bio}
-        stats={stats}
-      />
+      <ModelInfo name={name} avatarLink={url} location={location} description={bio} stats={stats} />
       <PageNav navItems={navItems} recoilState={modelCurrentTabAtom} />
-      {renderSwitch(currentTab, pageContext.id)}
+      {renderSwitch(currentTab, id)}
     </Layout>
   );
 };
