@@ -39,9 +39,9 @@ const RecruitForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full border-black h-1/4 md:w-1/2 md:border-y-2">
+    <div className="flex items-center justify-center w-full my-20 border-black h-1/4 md:w-1/2 md:border-y-2">
       <div className="w-full p-8 bg-white shadow-lg">
-        <h2 className="block w-full mb-6 text-center text-grey-darkest">
+        <h2 className="block w-full mb-6 text-3xl text-center text-grey-darkest">
           Exclusive content is within your reach!
         </h2>
         <span className="block w-full mb-6 text-center text-grey-darkest">
@@ -49,7 +49,7 @@ const RecruitForm: React.FC = () => {
         </span>
         <form
           onSubmit={handleSubmit(onSubmitHandler)}
-          className="form-group mb-4 space-y-4 text-xs md:flex md:flex-wrap md:justify-between">
+          className="mb-4 space-y-4 text-xs form-group md:flex md:flex-wrap md:justify-between">
           <div className="md:w-full center">
             <label className="block text-gray-600" htmlFor="full_name">
               Full Name
@@ -77,7 +77,7 @@ const RecruitForm: React.FC = () => {
               Purpose
             </label>
             <textarea
-              className="w-full px-3 py-2 border border-black focus:outline-none bg-gray-200"
+              className="w-full px-3 py-2 bg-gray-200 border border-black focus:outline-none"
               rows={4}
               {...register('self_description')}
             />
