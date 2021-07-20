@@ -4,7 +4,7 @@ import RegisterForm from '../components/registerPage/RegisterForm';
 
 const recruit: React.FC = () => (
   <Layout>
-    <div className="flex justify-center">
+    <div className="flex justify-center my-40">
       <RegisterForm />
     </div>
   </Layout>
