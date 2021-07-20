@@ -17,8 +17,9 @@ const ColumnsLayout: React.FC<ColumnsLayoutProps> = ({ nColumns = 3, className =
   ));
   return (
     <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 md:mr-4 md:ml-4 ${className}`}>
-      {columsChildren.map((column) => (
-        <div className="flex-1">
+      {columsChildren.map((column, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <div className="flex-1" key={index}>
           {column}
         </div>
       ))}
