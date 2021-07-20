@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { graphql, PageProps } from 'gatsby';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
-import { ColumnsLayout, Layout, MetaData } from '../components';
+import { Layout, MetaData } from '../components';
 import DescribedAvatar from '../components/album/DescribedAvatar';
 import Error from '../components/Error';
-import useWindowSize from '../hooks/useWindowsSize';
 import { useAuth } from '../hooks';
+import AlbumPhotos from '../components/album/AlbumPhotos';
 
 interface AlbumPageProps extends PageProps {
   data: {
     strapi: {
       album: {
+        id: number;
         name: string;
         description: string;
         model: {
@@ -23,10 +22,7 @@ interface AlbumPageProps extends PageProps {
           name: string;
           slug: string;
           avatar: { url: string }[];
-        };
-        collection: {
-          photos: { url: string }[]
-        }[]
+        }
       };
     };
   };
@@ -36,6 +32,7 @@ export const query = graphql`
   query GetAlbumData($id: ID!) {
     strapi {
       album(id: $id) {
+        id
         name
         description: Description
         model {
@@ -52,11 +49,6 @@ export const query = graphql`
             url
           }
         }
-        collection: photo_collections {
-          photos: Photos {
-            url
-          }
-        }
       }
     }
   }
@@ -65,13 +57,9 @@ export const query = graphql`
 const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   data: {
     strapi: { album }
-  }
+  },
 }) => {
   const { isLoggedIn } = useAuth();
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [isOverlayOpen, setOverlayOpen] = useState(false);
-  const [width] = useWindowSize();
-
   if (!isLoggedIn) {
     return (
       <Layout>
@@ -80,9 +68,6 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
       </Layout>
     );
   }
-
-  const { photos } = album.collection[0];
-  const nPhotos = photos.length;
 
   return (
     <Layout>
@@ -93,18 +78,7 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
       <p className="py-4 mb-4 md:text-lg">
         {album.description}
       </p>
-      <ColumnsLayout nColumns={Math.min(4, Math.floor(width / 300))}>
-        {photos.map(({ url }, index) => (
-          <button
-            type="button"
-            onClick={() => {
-              setPhotoIndex(index);
-              setOverlayOpen(true);
-            }}>
-            <img alt={`From ${album.name} album`} src={url} key={url} />
-          </button>
-        ))}
-      </ColumnsLayout>
+      <AlbumPhotos albumId={album.id} albumName={album.name} />
       <div className="flex flex-row py-12 justify-evenly">
         {album.photographer && (
           <DescribedAvatar
@@ -121,16 +95,6 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
           roleAs="Model"
         />
       </div>
-      {nPhotos > 0 && isOverlayOpen && (
-        <Lightbox
-          mainSrc={photos[photoIndex].url}
-          nextSrc={photos[(photoIndex + 1) % nPhotos].url}
-          prevSrc={photos[(photoIndex + nPhotos - 1) % nPhotos].url}
-          onCloseRequest={() => setOverlayOpen(false)}
-          onMovePrevRequest={() => setPhotoIndex((photoIndex + nPhotos - 1) % nPhotos)}
-          onMoveNextRequest={() => setPhotoIndex((photoIndex + 1) % nPhotos)}
-        />
-      )}
     </Layout>
   );
 };
