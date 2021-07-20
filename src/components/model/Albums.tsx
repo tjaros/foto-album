@@ -9,7 +9,7 @@ interface AlbumsProps {
   modelId: number;
 }
 
-interface AlbumInterface {
+export interface AlbumInterface {
   id: number;
   name: string;
   slug: string;
