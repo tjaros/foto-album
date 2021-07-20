@@ -4,7 +4,7 @@ import Footer from './Footer';
 import '../../css/style.css';
 
 interface LayoutProps {
-  className?:string;
+  className?: string;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => (
