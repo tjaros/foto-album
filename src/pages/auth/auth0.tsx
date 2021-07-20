@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
 import { useSetRecoilState } from 'recoil';
-import { setToken } from '../../auth/cookies';
+import { getLastLocation, setToken } from '../../auth/cookies';
 import { authentication } from '../../auth/store';
 import { AuthUser } from '../../auth/models';
 
@@ -28,10 +28,9 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
         setToken(res.jwt);
         setAuthData({ isLoggedIn: true, ...res });
       })
-      .then(() => navigate('/'))
-      .catch((err) => {
+      .then(() => navigate(getLastLocation()))
+      .catch(() => {
         setCorrectAuth(false);
-        console.log('Failed to authenticate', err);
       });
   }, [location.search, setAuthData]);
 
