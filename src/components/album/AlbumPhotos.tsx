@@ -38,7 +38,7 @@ const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName, className
 
   if (loading || error || !data) {
     return (
-      <div className={`flex w-full content-center items-center ${className}`}>
+      <div className={`flex w-full text-2xl text-center content-center items-center ${className}`}>
         <span>{loading ? 'Loading...' : 'Could not load data :('}</span>
       </div>
     );

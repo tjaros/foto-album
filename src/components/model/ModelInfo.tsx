@@ -19,15 +19,21 @@ const ModelInfo: React.FC<ModelInfoProps> = ({
   description,
   stats
 }) => (
-  <div className="flex flex-col">
+  <div className="flex flex-col min-w-max">
     <AboutMe
       name={name}
       location={location}
       avatar={<Avatar name={name} avatarLink={avatarLink} />}
     />
     <div className="flex flex-col gap-2 pt-12 text-lg md:flex-row-reverse">
-      <Stats stats={stats} className="pb-3 border-b-2 border-black md:border-b-0 md:border-l-4 md:pb-0" />
-      <Bio text={description} className="flex flex-col px-4 pb-8 md:pb-0 md:w-4/5 md:pl-0 md:pr-8" />
+      <Stats
+        stats={stats}
+        className="pb-3 border-b-2 border-black md:border-b-0 md:border-l-4 md:pb-0"
+      />
+      <Bio
+        text={description}
+        className="flex flex-col px-4 pb-8 md:pb-0 md:w-4/5 md:pl-0 md:pr-8"
+      />
     </div>
   </div>
 );

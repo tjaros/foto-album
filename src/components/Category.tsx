@@ -16,8 +16,8 @@ const Category: React.FC<CategoryProps> = ({ children, className, categoryName }
     <TableGrid className="grid-cols-2 gap-2 md:grid-cols-4">
       {children}
     </TableGrid>
-    <Link to="/into-the-unknown" className="flex items-center justify-center w-32 h-12 mt-4 text-black transition-all border-2 border-black border-solid rounded-md hover:text-white hover:bg-black">
-      <span className="text-lg">All</span>
+    <Link to="/into-the-unknown" className="btn-white">
+      <span className="text-base md:text-lg">All</span>
     </Link>
   </div>
 );

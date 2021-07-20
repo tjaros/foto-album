@@ -19,5 +19,12 @@ a {
   @apply text-blue-600;
 }
 
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn-white {
+    @apply flex items-center justify-center w-32 h-12 mt-4 text-black transition-all border-2 border-black border-solid rounded-md hover:text-white hover:bg-black text-lg
+  }
+}

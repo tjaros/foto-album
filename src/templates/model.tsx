@@ -6,10 +6,7 @@ import { Albums, ModelInfo, WorkedWith } from '../components/model';
 import PageNav, { NavItem } from '../components/PageNav';
 import modelCurrentTabAtom from '../recoil/model';
 
-const navItems: NavItem[] = [
-  { text: 'Albums' },
-  { text: 'Worked With' }
-];
+const navItems: NavItem[] = [{ text: 'Albums' }, { text: 'Worked With' }];
 
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
@@ -64,7 +61,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
   };
 
   return (
-    <Layout className="m-auto max-w-7xl">
+    <Layout className="pb-20 mx-auto max-w-7xl">
       <ModelInfo name={name} avatarLink={url} location={location} description={bio} stats={stats} />
       <PageNav navItems={navItems} recoilState={modelCurrentTabAtom} />
       {renderSwitch(currentTab, id)}
