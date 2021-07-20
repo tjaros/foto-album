@@ -5,20 +5,20 @@ export enum Tokens {
   NSFW = 'nsfw-allowed'
 }
 
-const isBrowser = () => typeof window !== undefined;
+const isBrowser = typeof window !== 'undefined';
 
 /** Saves data to persistent storage. */
 export const storeData = (token: Tokens, value: string): void => {
-  if (isBrowser()) localStorage.setItem(token, value);
+  if (isBrowser) localStorage.setItem(token, value);
 };
 
 /** Removes token from local storage. */
 export const clearData = (token: Tokens): void => {
-  if (isBrowser()) localStorage.removeItem(token);
+  if (isBrowser) localStorage.removeItem(token);
 };
 
 /** Access token from local storage. */
 export const getData = (token: Tokens): string | null => {
-  if (isBrowser()) return localStorage.getItem(token);
+  if (isBrowser) return localStorage.getItem(token);
   return null;
 };
