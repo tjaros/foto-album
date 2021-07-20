@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
 import { useSetRecoilState } from 'recoil';
-import { getLastLocation, setToken } from '../../auth/cookies';
-import { authentication } from '../../auth/store';
+import { clearData, getData, storeData, Tokens } from '../../auth/cookies';
+import isLoggedInState from '../../auth/store';
 import { AuthUser } from '../../auth/models';
 
 interface StrapiAuthResponse {
@@ -11,7 +11,7 @@ interface StrapiAuthResponse {
 }
 
 const Auth0: React.FC<PageProps> = ({ location }) => {
-  const setAuthData = useSetRecoilState(authentication);
+  const setLogged = useSetRecoilState(isLoggedInState);
   const [correctAuth, setCorrectAuth] = useState<boolean>(true);
 
   useEffect(() => {
@@ -25,14 +25,18 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
       })
       .then((res) => res.json())
       .then((res: StrapiAuthResponse) => {
-        setToken(res.jwt);
-        setAuthData({ isLoggedIn: true, ...res });
+        storeData(Tokens.JWT, res.jwt);
+        storeData(Tokens.USER, JSON.stringify(res.user));
+        setLogged(true);
+        navigate(getData(Tokens.LAST_LOCATION) || '/');
       })
-      .then(() => navigate(getLastLocation()))
       .catch(() => {
+        setLogged(false);
+        clearData(Tokens.JWT);
+        clearData(Tokens.USER);
         setCorrectAuth(false);
       });
-  }, [location.search, setAuthData]);
+  }, [location.search, setLogged]);
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen">

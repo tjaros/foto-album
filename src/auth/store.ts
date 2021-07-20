@@ -1,10 +1,9 @@
 import { atom } from 'recoil';
-import { AuthData } from './models';
+import { getData, Tokens } from './cookies';
 
-/** Carries authentication state. */
-export const authentication = atom<AuthData>({
-  key: 'authentication',
-  default: { isLoggedIn: false }
+const isLoggedInState = atom({
+  key: 'isLoggedInState',
+  default: !!getData(Tokens.JWT)
 });
 
-export default authentication;
+export default isLoggedInState;
