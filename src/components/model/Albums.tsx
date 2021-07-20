@@ -42,7 +42,12 @@ const Albums: React.FC<AlbumsProps> = ({ modelId }) => {
     <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-3">
       {data?.albums.map((album: AlbumInterface) => (
         <Link to={!isLoggedIn ? '#horny' : `/albums/${album.slug}`}>
-          <Album key={album.id} name={album.name} photos={album.photos} locked={!isLoggedIn} />
+          <Album
+            key={album.id}
+            name={album.name}
+            photo={album.photos[0].url}
+            locked={!isLoggedIn}
+          />
         </Link>
       ))}
     </div>

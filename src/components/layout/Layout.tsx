@@ -18,13 +18,13 @@ const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {
   };
 
   return (
-    <div className={!consent ? 'h-screen overflow-hidden' : ''}>
-      <Header />
+    <div>
       {!consent && <ConsentForm onClick={giveConsent} />}
-      <main className={`${className} ${consent ? '' : 'filter blur-sm brightness-75'}`}>
-        {children}
-      </main>
-      <Footer />
+      <div className={!consent ? 'h-screen overflow-hidden filter blur-sm brightness-75' : ''}>
+        <Header />
+        <main className={className}>{children}</main>
+        <Footer />
+      </div>
     </div>
   );
 };

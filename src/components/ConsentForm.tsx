@@ -6,7 +6,7 @@ interface ConsentFormProps {
 }
 
 const ConsentForm: React.FC<ConsentFormProps> = ({ onClick }) => (
-  <div className="fixed z-10 flex items-center justify-center w-full h-full">
+  <div className="fixed z-50 flex items-center justify-center w-screen h-screen filter backdrop-blur-md">
     <div className="flex flex-col max-w-xs gap-5 pb-6 mx-6 bg-white justify-items-center">
       <div className="bg-black">
         <img src={logo} alt="ModAg logo" className="h-16 p-2 m-auto" />

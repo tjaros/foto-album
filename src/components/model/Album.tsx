@@ -4,13 +4,11 @@ import { Link } from 'gatsby';
 
 export interface AlbumProps {
   name: string;
-  photos: {
-    url: string;
-  };
+  photo: string;
   locked: boolean;
 }
 
-const Album: React.FC<AlbumProps> = ({ name, photos, locked }) => (
+const Album: React.FC<AlbumProps> = ({ name, photo, locked }) => (
   <div
     className={'relative flex flex-col p-2 m-2 '.concat(
       locked ? 'cursor-not-allowed ' : 'hover:shadow-lg'
@@ -29,13 +27,11 @@ const Album: React.FC<AlbumProps> = ({ name, photos, locked }) => (
           </button>
         </Link>
       </div>
-    ) : (
-      {}
-    )}
+    ) : null}
 
     <img
       className="z-20 object-cover w-full transition-all rounded-sm h-96 "
-      srcSet={photos[0].url}
+      src={photo}
       alt={`From album: ${name}`}
     />
     <span className="py-2 text-3xl font-medium">{name}</span>

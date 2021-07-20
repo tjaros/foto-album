@@ -18,7 +18,7 @@ const Header: React.FC<HeaderProps> = ({ showSearchbar = true }) => {
   // when on small screens, determines wheter users see hamburger menu or it is expanded
   const [isExpanded, toggleExpansion] = useState(false);
   return (
-    <header className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
+    <header className="sticky top-0 z-30 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
         <button
           type="button"
