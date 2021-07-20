@@ -8,7 +8,9 @@ import { useAuth } from '../../hooks';
  */
 const UserLogin: React.FC = () => {
   const [expanded, setExpanded] = useState(false);
-  const { isLoggedIn, login, logout, user } = useAuth();
+  const {
+    isLoggedIn, login, logout, user
+  } = useAuth();
 
   const ActionButton: React.FC<{ className: string }> = ({ className }) => (
     <button

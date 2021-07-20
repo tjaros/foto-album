@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { navigate, PageProps } from 'gatsby';
 import { useSetRecoilState } from 'recoil';
-import { clearData, getData, storeData, Tokens } from '../../auth/cookies';
+import {
+  clearData, getData, storeData, Tokens
+} from '../../auth/cookies';
 import isLoggedInState from '../../auth/store';
 import { AuthUser } from '../../auth/models';
 
