@@ -24,9 +24,9 @@ const Header: React.FC = () => {
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
-      <div className="flex items-center text-white">
+      <Link to="/" className="flex items-center text-white">
         <img src={logo} alt="ModAg logo" style={{ height: 'calc(1em + 1rem)' }} />
-      </div>
+      </Link>
       <div className="lg:hidden">
         <SearchBar />
       </div>

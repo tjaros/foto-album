@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { useForm } from 'react-hook-form';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 
 const SearchBar: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { register, handleSubmit } = useForm();
   // eslint-disable-next-line no-console
-  const onSubmit = (data: unknown): void => console.log(data);
+  const onSubmit = (data: unknown): void => {
+    navigate('/search?s='.concat(data.search));
+  };
 
   return (
     <div
@@ -15,12 +17,12 @@ const SearchBar: React.FC = () => {
         isExpanded ? 'bg-white text-black' : 'bg-transparent text-white'
       } flex rounded-md`}>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row">
-        <label htmlFor="header-search-bar" className="hidden text-lg text-white lg:text-2xl">
+        <label htmlFor="search" className="hidden text-lg text-white lg:text-2xl">
           Search
         </label>
         <input
           // eslint-disable-next-line react/jsx-props-no-spreading
-          {...register('header-search-bar')}
+          {...register('search')}
           type="text"
           className={`${isExpanded ? 'flex' : 'hidden'} w-64 px-4 bg-transparent`}
           placeholder="Type your search"
