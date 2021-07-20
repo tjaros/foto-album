@@ -19,15 +19,15 @@ module.exports = {
       }
     },
     {
-      resolve: "gatsby-source-graphql",
+      resolve: 'gatsby-source-graphql',
       options: {
         // This type will contain remote schema Query type
-        typeName: "STRAPI",
+        typeName: 'STRAPI',
         // This is the field under which it's accessible
-        fieldName: "strapi",
+        fieldName: 'strapi',
         // URL to query from
-        url: process.env.STRAPI_GRAPHQL_ENDPOINT,
-      },
+        url: process.env.STRAPI_GRAPHQL_ENDPOINT
+      }
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -36,6 +36,8 @@ module.exports = {
         path: `${__dirname}/src/`
       }
     },
+    `gatsby-plugin-image`,
+    `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     {
       resolve: `gatsby-plugin-sharp`,
@@ -86,4 +88,4 @@ module.exports = {
     },
     `gatsby-plugin-typescript`
   ]
-}
+};

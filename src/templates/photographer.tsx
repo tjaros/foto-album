@@ -44,7 +44,9 @@ interface PhotograpgerData {
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
   const currentTab = useRecoilValue(photographerCurrentTabAtom);
-  const { name, location, bio, avatar, id } = pageContext as PhotograpgerData;
+  const {
+    name, location, bio, avatar, id
+  } = pageContext as PhotograpgerData;
   return (
     <Layout className="m-auto max-w-7xl">
       <AuthorInfo

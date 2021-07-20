@@ -9,8 +9,12 @@ export interface AlbumProps {
 
 const Album: React.FC<AlbumProps> = ({ name, photos }) => (
   <div className="flex flex-col">
-    <img className="w-full h-96 object-cover" srcSet={photos[0].url} alt={`From album: ${name}`} />
-    <span className="text-3xl font-medium pb-2">{name}</span>
+    <img
+      className="z-20 object-cover w-full h-96"
+      srcSet={photos[0].url}
+      alt={`From album: ${name}`}
+    />
+    <span className="pb-2 text-3xl font-medium">{name}</span>
   </div>
 );
 

@@ -13,7 +13,6 @@ const headerLinks = [
 const Header: React.FC = () => {
   // when on small screens, determines wheter users see hamburger menu or it is expanded
   const [isExpanded, toggleExpansion] = useState(false);
-
   return (
     <header className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-2 py-2 bg-black lg:py-4 lg:px-8">
       <div className="block lg:hidden">
@@ -24,9 +23,9 @@ const Header: React.FC = () => {
           {isExpanded ? <FaTimes /> : <FaBars />}
         </button>
       </div>
-      <div className="flex items-center text-white">
+      <Link to="/" className="flex items-center text-white">
         <img src={logo} alt="ModAg logo" style={{ height: 'calc(1em + 1rem)' }} />
-      </div>
+      </Link>
       <div className="lg:hidden">
         <SearchBar />
       </div>

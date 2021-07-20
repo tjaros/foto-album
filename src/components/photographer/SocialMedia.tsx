@@ -1,5 +1,7 @@
 import React from 'react';
-import { FaFacebook, FaInstagram, FaGlobe, FaPhone } from 'react-icons/fa';
+import {
+  FaFacebook, FaInstagram, FaGlobe, FaPhone
+} from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 
 export enum SocialMediaType {
