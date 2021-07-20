@@ -1,5 +1,7 @@
 import { useRecoilState } from 'recoil';
-import { storeData, getData, clearData, Tokens } from '../auth/cookies';
+import {
+  storeData, getData, clearData, Tokens
+} from '../auth/cookies';
 import { Auth } from '../auth/models';
 import isLoggedInState from '../auth/store';
 

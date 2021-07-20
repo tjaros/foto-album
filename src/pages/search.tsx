@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link, graphql } from 'gatsby';
+import { graphql } from 'gatsby';
 import * as JsSearch from 'js-search';
-import { StaticImage } from 'gatsby-plugin-image';
-import { MetaData, Layout, ColumnsLayout, Portrait } from '../components';
+import {
+  MetaData, Layout, ColumnsLayout, Portrait
+} from '../components';
 
 const Search: React.FC = ({ data, location }) => {
   const [query, setQuery] = useState(new URLSearchParams(location.search).get('s'));
-  const [filter, setFilter] = useState();
+  // const [filter, setFilter] = useState();
   const search = new JsSearch.Search('slug');
 
   search.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();
@@ -15,11 +16,10 @@ const Search: React.FC = ({ data, location }) => {
   search.addDocuments(data.strapi.models);
 
   const [models, setModels] = useState(query === '' ? data.strapi.models : search.search(query));
-  const handleSearch = event => {
+  const handleSearch = (event) => {
     setQuery(event.target.value);
     setModels(event.target.value === '' ? data.strapi.models : search.search(event.target.value));
   };
-  console.log(models);
   // const curColors: Set[string] = new Set();
   // const curHair = new Set();
   // data.strapi.models?.forEach(({ hairColor, eyeColor }) => {
@@ -64,7 +64,7 @@ const Search: React.FC = ({ data, location }) => {
 
         {models.length > 0 ? (
           <ColumnsLayout>
-            {models.map(model => (
+            {models.map((model) => (
               <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
             ))}
           </ColumnsLayout>
