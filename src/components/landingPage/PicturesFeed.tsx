@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { FaTruckLoading } from 'react-icons/fa';
-import { Link } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import { ColumnsLayout, Image } from '..';
+import LoadMoreHider from './LoadMoreHider';
 
 const MODELS_QUERY = gql`
   query GET_ALL_AVATARS($offset: Int!, $limit: Int!) {
@@ -34,59 +35,52 @@ const distinct = (models: Model[]): Model[] => {
 };
 
 export const PicturesFeed: React.FC = () => {
+  const [hasMore, setHasMore] = useState(true);
+  const limit = 9;
+
   const {
     loading, error, data, fetchMore
   } = useQuery<ModelsData>(MODELS_QUERY, {
     variables: {
       offset: 0,
-      limit: 6
+      limit
     }
   });
 
-  useEffect(() => {
-    const onLoadMore = () => {
-      if (data) {
-        fetchMore({
-          variables: { offset: data.models.length },
-          updateQuery: (prev, { fetchMoreResult }) => {
-            if (!fetchMoreResult || fetchMoreResult.models === prev.models) return prev;
-            const newData = {
-              ...prev,
-              models: [...prev.models, ...fetchMoreResult.models]
-            };
-            return newData;
-          }
-        });
-      }
-    };
+  const onLoadMore = () => {
+    if (data && hasMore) {
+      fetchMore({
+        variables: { offset: data.models.length },
+        updateQuery: (prev, { fetchMoreResult }) => {
+          if (!fetchMoreResult || fetchMoreResult.models === prev.models) return prev;
+          const newData = {
+            ...prev,
+            models: [...prev.models, ...fetchMoreResult.models]
+          };
+          if (fetchMoreResult?.models?.length < limit) setHasMore(false);
+          return newData;
+        },
+      });
+    }
+  };
+  const onNavigate = () => navigate('/search');
 
-    const handleOnScroll = () => {
-      const docEl = document.documentElement;
-      const scrollTop = (docEl && docEl.scrollTop) || document.body.scrollTop;
-      const scrollHeight = (docEl && docEl.scrollHeight) || document.body.scrollHeight;
-      const clientHeight = docEl.clientHeight || window.innerHeight;
-      const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-      if (scrolledToBottom) {
-        onLoadMore();
-      }
-    };
-    window.addEventListener('scroll', handleOnScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleOnScroll);
-  }, [data, fetchMore]);
-
-  if (error) return <div>Failed to load image</div>;
   if (loading) return <FaTruckLoading />;
+  if (error) return <div>Failed to load image</div>;
+  if (!data) return <FaTruckLoading />;
 
   return (
-    <ColumnsLayout>
-      {data
-        && distinct(data.models).map((model) => (
-          <Link to={`model/${model.slug}`} key={model.slug}>
-            <Image src={model.avatar.url} name={model.name} className="w-full" />
-          </Link>
-        ))}
-    </ColumnsLayout>
+    <div className="flex flex-col w-full relative overflow-hidden">
+      <ColumnsLayout className="w-full h-auto -mb-96">
+        {data
+          && distinct(data.models).map((model) => (
+            <Link to={`model/${model.slug}`} key={model.slug}>
+              <Image src={model.avatar.url} name={model.name} className="w-full" />
+            </Link>
+          ))}
+      </ColumnsLayout>
+      <LoadMoreHider onClick={(hasMore) ? onLoadMore : onNavigate} />
+    </div>
   );
 };
 
