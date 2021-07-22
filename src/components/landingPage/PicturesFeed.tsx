@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
-import { FaTruckLoading } from 'react-icons/fa';
 import { Link, navigate } from 'gatsby';
 import { ColumnsLayout, Image } from '..';
 import LoadMoreHider from './LoadMoreHider';
+import Loader from '../Loader';
+import Error from '../Error';
+import StatusMessage from '../StatusMessage';
 
 const MODELS_QUERY = gql`
   query GET_ALL_AVATARS($offset: Int!, $limit: Int!) {
@@ -59,27 +61,34 @@ export const PicturesFeed: React.FC = () => {
           };
           if (fetchMoreResult?.models?.length < limit) setHasMore(false);
           return newData;
-        },
+        }
       });
     }
   };
+
   const onNavigate = () => navigate('/search');
 
-  if (loading) return <FaTruckLoading />;
-  if (error) return <div>Failed to load image</div>;
-  if (!data) return <FaTruckLoading />;
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the pictures." description="Try again later." />;
+
+  if (!data?.models?.length) {
+    return (
+      <StatusMessage>
+        <span>Seems like there are no pictures yet.</span>
+      </StatusMessage>
+    );
+  }
 
   return (
     <div className="flex flex-col w-full relative overflow-hidden">
       <ColumnsLayout className="-mb-100">
-        {data
-          && distinct(data.models).map((model) => (
-            <Link to={`model/${model.slug}`} key={model.slug}>
-              <Image src={model.avatar.url} name={model.name} className="w-full" />
-            </Link>
-          ))}
+        {data && distinct(data.models).map((model) => (
+          <Link to={`model/${model.slug}`} key={model.slug}>
+            <Image src={model.avatar.url} name={model.name} className="w-full" />
+          </Link>
+        ))}
       </ColumnsLayout>
-      <LoadMoreHider onClick={(hasMore) ? onLoadMore : onNavigate} />
+      <LoadMoreHider onClick={hasMore ? onLoadMore : onNavigate} />
     </div>
   );
 };

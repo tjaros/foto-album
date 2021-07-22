@@ -3,6 +3,9 @@ import { useQuery, gql } from '@apollo/client';
 import { useRecoilValue } from 'recoil';
 import { Portrait, ColumnsLayout } from '..';
 import photographerCurrentTabAtom from '../../recoil/photographer';
+import StatusMessage from '../StatusMessage';
+import Error from '../Error';
+import Loader from '../Loader';
 
 interface WorkedWithProps {
   photographerId: number;
@@ -66,8 +69,16 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
     variables: { photographerId },
   });
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Could not load albums</div>;
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the collaborators." description="Try again later." />;
+
+  if (!data?.albums?.length) {
+    return (
+      <StatusMessage>
+        <span>Seems like there are no official collaborators yet.</span>
+      </StatusMessage>
+    );
+  }
 
   return (
     <ColumnsLayout className={`${currentTab === 'Worked With' ? '' : 'hidden'}`}>
