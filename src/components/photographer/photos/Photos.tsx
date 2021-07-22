@@ -30,9 +30,7 @@ const GET_PHOTOS_IN_ALBUMS = gql`
 
 const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
   const { isLoggedIn } = useAuth();
-  const {
-    loading, error, fetchMore, data
-  } = useQuery(GET_PHOTOS_IN_ALBUMS, {
+  const { loading, error, fetchMore, data } = useQuery(GET_PHOTOS_IN_ALBUMS, {
     variables: {
       offset: 0,
       limit: 3,
@@ -40,45 +38,40 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
     }
   });
 
-  const onLoadMore = () => {
-    if (data) {
-      fetchMore({
-        variables: {
-          offset: data.albums.length,
-          photographerId
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult || fetchMoreResult.albums === prev.albums) return prev;
-          const newData = {
-            ...prev,
-            albums: [...prev.albums, ...fetchMoreResult.albums]
-          };
-          return newData;
-        }
-      });
-    }
-  };
-
-  const handleOnScroll = () => {
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop)
-     || document.body.scrollTop;
-    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight)
-      || document.body.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-    const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-    if (scrolledToBottom) {
-      onLoadMore();
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener('scroll', handleOnScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener('scroll', handleOnScroll);
+    const onLoadMore = () => {
+      if (data) {
+        fetchMore({
+          variables: {
+            offset: data.albums.length,
+            photographerId
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult || fetchMoreResult.albums === prev.albums) return prev;
+            const newData = {
+              ...prev,
+              albums: [...prev.albums, ...fetchMoreResult.albums]
+            };
+            return newData;
+          }
+        });
+      }
     };
-  }, [data]);
+
+    const handleOnScroll = () => {
+      const docElement = document.documentElement;
+      const scrollTop = docElement?.scrollTop || document.body.scrollTop;
+      const scrollHeight = docElement?.scrollHeight || document.body.scrollHeight;
+      const clientHeight = docElement.clientHeight || window.innerHeight;
+      const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+      if (scrolledToBottom) {
+        onLoadMore();
+      }
+    };
+    window.addEventListener('scroll', handleOnScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleOnScroll);
+  }, [data, fetchMore, photographerId]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load the photots...</div>;
