@@ -44,9 +44,7 @@ interface ReviewsProps {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
-  const {
-    data, loading, error, fetchMore
-  } = useQuery(REVIEWS_QUERY, {
+  const { data, loading, error, fetchMore } = useQuery(REVIEWS_QUERY, {
     variables: {
       offset: 0,
       limit: 3,
@@ -54,45 +52,41 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
     }
   });
 
-  const onLoadMore = () => {
-    if (data) {
-      fetchMore({
-        variables: {
-          offset: data.reviews.length,
-          photographerId
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult || fetchMoreResult.reviews === prev.reviews) return prev;
-          const newData = {
-            ...prev,
-            reviews: [...prev.reviews, ...fetchMoreResult.reviews]
-          };
-          return newData;
-        }
-      });
-    }
-  };
-
-  const handleOnScroll = () => {
-    const scrollTop = (document.documentElement && document.documentElement.scrollTop)
-      || document.body.scrollTop;
-    const scrollHeight = (document.documentElement && document.documentElement.scrollHeight)
-      || document.body.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight || window.innerHeight;
-    const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-    if (scrolledToBottom) {
-      onLoadMore();
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener('scroll', handleOnScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleOnScroll);
+    const onLoadMore = () => {
+      if (data) {
+        fetchMore({
+          variables: {
+            offset: data.reviews.length,
+            photographerId
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult || fetchMoreResult.reviews === prev.reviews) return prev;
+            const newData = {
+              ...prev,
+              reviews: [...prev.reviews, ...fetchMoreResult.reviews]
+            };
+            return newData;
+          }
+        });
+      }
     };
-  }, [data]);
+
+    const handleOnScroll = () => {
+      const docElement = document.documentElement;
+      const scrollTop = docElement?.scrollTop || document.body.scrollTop;
+      const scrollHeight = docElement?.scrollHeight || document.body.scrollHeight;
+      const clientHeight = docElement.clientHeight || window.innerHeight;
+      const scrolledToBottom = Math.ceil(scrollTop + clientHeight) >= scrollHeight;
+
+      if (scrolledToBottom) {
+        onLoadMore();
+      }
+    };
+
+    window.addEventListener('scroll', handleOnScroll);
+    return () => window.removeEventListener('scroll', handleOnScroll);
+  }, [data, fetchMore, photographerId]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Could not load the reviews</div>;
