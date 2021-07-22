@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { FaTimes, FaCaretDown } from 'react-icons/fa';
 import { RecoilState, useRecoilState } from 'recoil';
-import { useAuth } from '../hooks';
+import { useAuth } from '../../hooks';
 
 export type NavItem = {
   text: string;
