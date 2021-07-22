@@ -36,7 +36,7 @@ const distinct = (models: Model[]): Model[] => {
 
 export const PicturesFeed: React.FC = () => {
   const [hasMore, setHasMore] = useState(true);
-  const limit = 9;
+  const limit = 12;
 
   const {
     loading, error, data, fetchMore
@@ -48,7 +48,7 @@ export const PicturesFeed: React.FC = () => {
   });
 
   const onLoadMore = () => {
-    if (data && hasMore) {
+    if (data && fetchMore && hasMore) {
       fetchMore({
         variables: { offset: data.models.length },
         updateQuery: (prev, { fetchMoreResult }) => {
@@ -71,7 +71,7 @@ export const PicturesFeed: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full relative overflow-hidden">
-      <ColumnsLayout className="w-full h-auto -mb-96">
+      <ColumnsLayout className="-mb-100">
         {data
           && distinct(data.models).map((model) => (
             <Link to={`model/${model.slug}`} key={model.slug}>
