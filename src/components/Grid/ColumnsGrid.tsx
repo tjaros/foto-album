@@ -1,16 +1,23 @@
 import React from 'react';
+import { range } from 'lodash';
 
-const range = (end: number): Array<number> => [...Array(end).keys()];
-
-interface ColumnsLayoutProps {
+/**
+ * Parameters for columns grid.
+ *
+ * Use @field nColumns to specify number of columns to render data to,
+ * and @field className to apply style to outer container. */
+interface ColumnsGridProps {
   nColumns?: number;
   className?: string;
 }
 
 /**
- * Organise children into columns with same width.
+ * Organise children into columns with the same width.
+ *
+ * Split its children to groups in row-major order. The y-position within
+ * a columns is determined only by the height of elements inside this columns.
  */
-const ColumnsLayout: React.FC<ColumnsLayoutProps> = ({ nColumns = 3, className = '', children }) => {
+const ColumnsGrid: React.FC<ColumnsGridProps> = ({ nColumns = 3, className = '', children }) => {
   const childrenArray = React.Children.toArray(children);
   const columsChildren = range(nColumns).map((whichColumn) => (
     childrenArray.filter((_, idx) => idx % nColumns === whichColumn)
@@ -27,4 +34,4 @@ const ColumnsLayout: React.FC<ColumnsLayoutProps> = ({ nColumns = 3, className =
   );
 };
 
-export default ColumnsLayout;
+export default ColumnsGrid;
