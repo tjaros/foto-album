@@ -31,7 +31,7 @@ const renderSwitch = (state: string, id: number) => {
     case 'Worked With':
       return <WorkedWith photographerId={id} />;
     default:
-      return <Albums query={GET_ALBUMS} options={{ variables: { id }}} />;
+      return <Albums query={GET_ALBUMS} options={{ variables: { id } }} />;
   }
 };
 
