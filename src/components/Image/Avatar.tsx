@@ -6,6 +6,13 @@ export interface AvatarProps {
   className?: string;
 }
 
+/**
+ * Rounded image of one's profile picture.
+ *
+ * Use @property className to specify width and height of
+ * the avatar. @property name is used as alternative text
+ * for the avatar. @property avatarLink is url to the image.
+ */
 const Avatar: React.FC<AvatarProps> = ({
   name = '',
   avatarLink,
