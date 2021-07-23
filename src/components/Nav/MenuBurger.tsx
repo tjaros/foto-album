@@ -1,13 +1,13 @@
 import React from 'react';
 import { FaCaretDown, FaTimes } from 'react-icons/fa';
 
-interface ExpandButtonProps {
+interface MenuBurgerProps {
   className?: string;
   isExpanded: boolean;
   onClick: () => void;
 }
 
-const ExpandButton: React.FC<ExpandButtonProps> = ({
+const MenuBurger: React.FC<MenuBurgerProps> = ({
   className = 'p-4 ml-auto',
   onClick,
   isExpanded
@@ -17,4 +17,4 @@ const ExpandButton: React.FC<ExpandButtonProps> = ({
   </button>
 );
 
-export default ExpandButton;
+export default MenuBurger;

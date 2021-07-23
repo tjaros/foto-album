@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks';
-import ExpandButton from './ExpandButton';
+import MenuBurger from './MenuBurger';
 import NavItem, { NavItemData } from './NavItem';
 
 /**
@@ -35,11 +35,10 @@ const Nav: React.FC<NavProps> = ({ navItems, currentIndex = 0, className = '' })
   const showCurrent = isLoggedIn || !currentItem.onlyAuthenticated;
 
   return (
-    <nav
-      className={`flex flex-col items-center justify-center w-full bg-black rounded md:flex-row ${className}`}>
+    <nav className={`flex flex-col items-center justify-center w-full bg-black rounded md:flex-row ${className}`}>
       <div className="flex flex-row items-center w-full pl-4 md:hidden">
         {showCurrent && <span className="font-semibold text-white">{currentItem.text}</span>}
-        <ExpandButton isExpanded={isMobileExpanded} onClick={() => setIsExpanded((old) => !old)} />
+        <MenuBurger isExpanded={isMobileExpanded} onClick={() => setIsExpanded((old) => !old)} />
       </div>
       {shownItems.map((item) => (
         /* eslint-disable-next-line react/jsx-props-no-spreading */
