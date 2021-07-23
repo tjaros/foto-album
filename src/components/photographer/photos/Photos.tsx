@@ -4,6 +4,9 @@ import { Link } from 'gatsby';
 import { useAuth } from '../../../hooks';
 import { AlbumInterface } from '../../model/Albums';
 import Album from '../../model/Album';
+import StatusMessage from '../../StatusMessage';
+import Loader from '../../Loader';
+import Error from '../../Error';
 
 interface PhotosProps {
   photographerId: number;
@@ -29,18 +32,21 @@ const GET_PHOTOS_IN_ALBUMS = gql`
 `;
 
 const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
+  const limit = 9;
   const { isLoggedIn } = useAuth();
-  const { loading, error, fetchMore, data } = useQuery(GET_PHOTOS_IN_ALBUMS, {
+  const {
+    loading, error, fetchMore, data
+  } = useQuery(GET_PHOTOS_IN_ALBUMS, {
     variables: {
       offset: 0,
-      limit: 3,
+      limit,
       photographerId
     }
   });
 
   useEffect(() => {
     const onLoadMore = () => {
-      if (data) {
+      if (data && fetchMore) {
         fetchMore({
           variables: {
             offset: data.albums.length,
@@ -73,15 +79,22 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
     return () => window.removeEventListener('scroll', handleOnScroll);
   }, [data, fetchMore, photographerId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Could not load the photots...</div>;
-  if (!data) return <div>Loading...</div>;
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the photos." description="Try again later." />;
+
+  if (!data?.albums?.length) {
+    return (
+      <StatusMessage>
+        <span>Seems like there are no photos yet.</span>
+      </StatusMessage>
+    );
+  }
 
   return (
     <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-3">
-      {data?.albums.map((album: AlbumInterface) => (
-        <Link to={!isLoggedIn ? '#horny' : `/albums/${album.slug}`}>
-          <Album key={album.id} name={album.name} photos={album.photos} locked={!isLoggedIn} />
+      {data && data.albums.map((album: AlbumInterface) => (
+        <Link key={album.id} to={!isLoggedIn ? '#horny' : `/albums/${album.slug}`}>
+          <Album name={album.name} photo={album.photos[0].url} locked={!isLoggedIn} />
         </Link>
       ))}
     </div>

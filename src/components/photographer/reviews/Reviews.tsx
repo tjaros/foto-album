@@ -1,9 +1,12 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
+import Loader from '../../Loader';
+import StatusMessage from '../../StatusMessage';
+import Error from '../../Error';
 import Review from './Review';
 
 const REVIEWS_QUERY = gql`
-  query Reviews($offset: Int!, $limit: Int!,$photographerId: ID! ) {
+  query Reviews($offset: Int!, $limit: Int!, $photographerId: ID!) {
     reviews(
       start: $offset
       limit: $limit
@@ -44,7 +47,9 @@ interface ReviewsProps {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
-  const { data, loading, error, fetchMore } = useQuery(REVIEWS_QUERY, {
+  const {
+    data, loading, error, fetchMore
+  } = useQuery(REVIEWS_QUERY, {
     variables: {
       offset: 0,
       limit: 3,
@@ -54,7 +59,7 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
 
   useEffect(() => {
     const onLoadMore = () => {
-      if (data) {
+      if (data && fetchMore) {
         fetchMore({
           variables: {
             offset: data.reviews.length,
@@ -88,21 +93,29 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
     return () => window.removeEventListener('scroll', handleOnScroll);
   }, [data, fetchMore, photographerId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Could not load the reviews</div>;
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the reviews." description="Try again later." />;
+
+  if (!data?.reviews?.length) {
+    return (
+      <StatusMessage>
+        <span>Seems like there are no reviews yet.</span>
+      </StatusMessage>
+    );
+  }
 
   return (
     <div className="flex flex-col items-center w-full">
-      {data
-        && data.reviews.map((review: ReviewItem) => (
-          <Review
-            modelName={review.model.name}
-            avatarUrl={review.model.avatar.url}
-            stars={review.stars}
-            date={review.updated_at}
-            comment={review.comment}
-          />
-        ))}
+      {data && data.reviews.map((review: ReviewItem) => (
+        <Review
+          key={review.id}
+          modelName={review.model.name}
+          avatarUrl={review.model.avatar.url}
+          stars={review.stars}
+          date={review.updated_at}
+          comment={review.comment}
+        />
+      ))}
     </div>
   );
 };

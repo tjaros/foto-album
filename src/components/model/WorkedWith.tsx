@@ -1,6 +1,9 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Portrait, ColumnsLayout } from '..';
+import Error from '../Error';
+import StatusMessage from '../StatusMessage';
+import Loader from '../Loader';
 
 interface WorkedWithProps {
   modelId: number;
@@ -37,25 +40,36 @@ const distinct = (albumModels: PhotographerInfo[]) => {
   return output;
 };
 
-const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
-  const GET_PHOTOGRAPHERS = gql`
-    query GetCollaborators($modelId: ID!) {
-      model(id: $modelId) {
-        albums {
-          photographer {
-            id
-            name
-            avatar {
-              url
-            }
+const GET_PHOTOGRAPHERS = gql`
+  query GetCollaborators($modelId: ID!) {
+    model(id: $modelId) {
+      albums {
+        photographer {
+          id
+          name
+          avatar {
+            url
           }
         }
       }
     }
-  `;
+  }
+`;
+
+const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
   const { loading, error, data } = useQuery(GET_PHOTOGRAPHERS, { variables: { modelId } });
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Could not load albums</div>;
+
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the collaborators." description="Try again later." />;
+
+  if (!data?.model?.albums?.length) {
+    return (
+      <StatusMessage>
+        <span>Seems like there are no official collaborators yet.</span>
+      </StatusMessage>
+    );
+  }
+
   return (
     <ColumnsLayout>
       {data

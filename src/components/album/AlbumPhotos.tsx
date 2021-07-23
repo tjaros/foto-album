@@ -4,6 +4,9 @@ import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import { ColumnsLayout } from '..';
 import { useWindowSize } from '../../hooks';
+import Error from '../Error';
+import Loader from '../Loader';
+import StatusMessage from '../StatusMessage';
 
 /** Shape of returned data.  */
 interface AlbumPhotosData {
@@ -25,10 +28,9 @@ const ALBUM_PHOTOS = gql`
 interface AlbumPhotosProps {
   albumId: number;
   albumName: string;
-  className?: string;
 }
 
-const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName, className = '' }) => {
+const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName }) => {
   const [isOverlayOpen, setOverlayOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [width] = useWindowSize();
@@ -36,15 +38,18 @@ const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName, className
     variables: { albumId }
   });
 
-  if (loading || error || !data) {
+  if (loading) return <Loader />;
+  if (error) return <Error title="Could not load the photos." description="Try again later." />;
+
+  const photos = data?.collection?.[0]?.photos;
+  if (!photos?.length) {
     return (
-      <div className={`flex w-full text-2xl text-center content-center items-center ${className}`}>
-        <span>{loading ? 'Loading...' : 'Could not load data :('}</span>
-      </div>
+      <StatusMessage>
+        <span>Seems like there are no photos yet.</span>
+      </StatusMessage>
     );
   }
 
-  const { photos } = data.collection[0];
   return (
     <>
       <ColumnsLayout nColumns={Math.min(4, Math.floor(width / 300))}>
@@ -58,9 +63,8 @@ const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName, className
             <img alt={`From ${albumName} album`} src={url} key={url} />
           </button>
         ))}
-        {error && <h2>Could not load images</h2>}
       </ColumnsLayout>
-      {photos.length > 0 && isOverlayOpen && (
+      {photos?.length > 0 && isOverlayOpen && (
         <Lightbox
           mainSrc={photos[photoIndex].url}
           nextSrc={photos[(photoIndex + 1) % photos.length].url}
