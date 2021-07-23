@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import { Layout, MetaData } from '../components';
-import DescribedAvatar from '../components/album/DescribedAvatar';
-import Error from '../components/Error';
 import { useAuth } from '../hooks';
 import AlbumPhotos from '../components/album/AlbumPhotos';
+import { Error } from '../components/Status';
+import { DescribedAvatar } from '../components/Image';
 
 interface AlbumPageProps extends PageProps {
   data: {

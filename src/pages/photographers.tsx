@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import {
-  MetaData, Layout, ColumnsLayout, Portrait
-} from '../components';
+import { MetaData, Layout } from '../components';
+import { TableGrid } from '../components/Grid';
+import { Portrait } from '../components/Image';
 
 export const pageQuery = graphql`
   query GetPhotographers {
@@ -74,7 +74,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
         </div>
 
         {photographers.length > 0 ? (
-          <ColumnsLayout>
+          <TableGrid>
             {photographers.map((photographer) => (
               <Link to={`/photographer/${photographer.slug}`} key={photographer.slug}>
                 <Portrait
@@ -84,7 +84,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
                 />
               </Link>
             ))}
-          </ColumnsLayout>
+          </TableGrid>
         ) : (
           <h1 className="w-full text-3xl font-bold text-center uppercase">No photographers found</h1>
         )}

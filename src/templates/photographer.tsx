@@ -1,13 +1,11 @@
 import { PageProps } from 'gatsby';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
 import { Layout } from '../components';
-import PageNav, { NavItem } from '../components/PageNav';
+import Nav, { NavItemData } from '../components/Nav';
 import {
   AuthorInfo, Photos, Reviews, WorkedWith
 } from '../components/photographer';
-import { SocialMediaLink, SocialMediaType } from '../components/photographer/SocialMedia';
-import photographerCurrentTabAtom from '../recoil/photographer';
+import { SocialMediaLink, SocialMediaType } from '../components/SocialMedia';
 
 const links: SocialMediaLink[] = [
   { url: 'https://instagram.com', type: SocialMediaType.INSTAGRAM },
@@ -17,8 +15,6 @@ const links: SocialMediaLink[] = [
 
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
-    case 'Photos':
-      return <Photos photographerId={id} />;
     case 'Reviews':
       return <Reviews photographerId={id} />;
     case 'Worked With':
@@ -27,12 +23,6 @@ const renderSwitch = (state: string, id: number) => {
       return <Photos photographerId={id} />;
   }
 };
-
-const navItems: NavItem[] = [
-  { text: 'Albums' },
-  { text: 'Reviews', auth: true },
-  { text: 'Worked With' }
-];
 
 interface PhotograpgerData {
   id: number;
@@ -43,10 +33,17 @@ interface PhotograpgerData {
 }
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
-  const currentTab = useRecoilValue(photographerCurrentTabAtom);
   const {
     name, location, bio, avatar, id
   } = pageContext as PhotograpgerData;
+  const [currentTab, changeTab] = useState('Albums');
+
+  const navItems: NavItemData[] = [
+    { text: 'Albums', onClick: () => changeTab('Albums') },
+    { text: 'Reviews', onClick: () => changeTab('Reviews'), onlyAuthenticated: true },
+    { text: 'Worked With', onClick: () => changeTab('Worked With') }
+  ];
+
   return (
     <Layout className="m-auto max-w-7xl">
       <AuthorInfo
@@ -56,7 +53,7 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
         imageLink={avatar[0]?.url}
         socialMediaLinks={links}
       />
-      <PageNav navItems={navItems} recoilState={photographerCurrentTabAtom} />
+      <Nav navItems={navItems} />
       {renderSwitch(currentTab, id)}
     </Layout>
   );

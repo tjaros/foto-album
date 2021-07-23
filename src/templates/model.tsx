@@ -1,18 +1,16 @@
 import { PageProps } from 'gatsby';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { useState } from 'react';
 import { Layout } from '../components';
 import { Albums, ModelInfo, WorkedWith } from '../components/model';
-import PageNav, { NavItem } from '../components/PageNav';
-import modelCurrentTabAtom from '../recoil/model';
+import Nav, { NavItemData } from '../components/Nav';
 
-const navItems: NavItem[] = [{ text: 'Albums' }, { text: 'Worked With' }];
+enum NavTexts {
+  ALBUMS = 'Albums', WORKED_WITH = 'Worked With'
+}
 
-const renderSwitch = (state: string, id: number) => {
-  switch (state) {
-    case 'Albums':
-      return <Albums modelId={id} />;
-    case 'Worked With':
+const renderSwitch = (tabText: string, id: number) => {
+  switch (tabText) {
+    case NavTexts.WORKED_WITH:
       return <WorkedWith modelId={id} />;
     default:
       return <Albums modelId={id} />;
@@ -36,35 +34,27 @@ interface PageContextData {
 
 const Model: React.FC<PageProps> = ({ pageContext }) => {
   const {
-    id,
-    name,
-    age,
-    location,
-    bio,
-    avatar: { url },
-    height,
-    eyeColor,
-    hairColor,
-    bustLine,
-    waistLine,
-    hipLine
+    id, name, age, location, bio, avatar: { url },
+    height, eyeColor, hairColor,
+    bustLine, waistLine, hipLine
   } = pageContext as PageContextData;
-  const currentTab = useRecoilValue(modelCurrentTabAtom);
+
+  const [currentTabIdx, changeCurrentTab] = useState(0);
+  const navTextItems = [NavTexts.ALBUMS as string, NavTexts.WORKED_WITH];
+  const navItems: NavItemData[] = navTextItems.map((text, idx) => ({
+    text,
+    onClick: () => changeCurrentTab(idx)
+  }));
+
   const stats = {
-    age,
-    height,
-    eyeColor,
-    hairColor,
-    bustLine,
-    waistLine,
-    hipLine
+    age, height, eyeColor, hairColor, bustLine, waistLine, hipLine
   };
 
   return (
     <Layout className="w-full pb-20 mx-auto max-w-7xl">
       <ModelInfo name={name} avatarLink={url} location={location} description={bio} stats={stats} />
-      <PageNav navItems={navItems} recoilState={modelCurrentTabAtom} />
-      {renderSwitch(currentTab, id)}
+      <Nav navItems={navItems} currentIndex={currentTabIdx} />
+      {renderSwitch(navTextItems[currentTabIdx], id)}
     </Layout>
   );
 };

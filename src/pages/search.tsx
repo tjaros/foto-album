@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import {
-  MetaData, Layout, ColumnsLayout, Portrait
-} from '../components';
+import { MetaData, Layout } from '../components';
+import { TableGrid } from '../components/Grid';
+import { Portrait } from '../components/Image';
 
 export const pageQuery = graphql`
   query Models {
@@ -117,13 +117,13 @@ const Search: React.FC<SearchPageProps> = ({ data, location }) => {
         </select> */}
 
         {models.length > 0 ? (
-          <ColumnsLayout>
+          <TableGrid>
             {models.map((model) => (
               <Link to={`/model/${model.slug}`}>
                 <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
               </Link>
             ))}
-          </ColumnsLayout>
+          </TableGrid>
         ) : (
           <h1 className="w-full text-3xl font-bold text-center uppercase">No models found</h1>
         )}

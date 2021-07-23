@@ -1,8 +1,7 @@
 import { graphql, Link, PageProps } from 'gatsby';
 import React from 'react';
-import {
-  Layout, MetaData, Category, Portrait
-} from '../components';
+import { Layout, MetaData, Category } from '../components';
+import { Portrait } from '../components/Image';
 
 export const query = graphql`
   query GetModelsForCategories {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { MetaData, Layout } from '../components';
-import Error from '../components/Error';
+import { Error } from '../components/Status';
 
 const NotFoundPage: React.FC = () => (
   <Layout>

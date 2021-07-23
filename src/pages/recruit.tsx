@@ -1,6 +1,6 @@
 import React from 'react';
+import { RecruitForm } from '../components/Form';
 import Layout from '../components/layout/Layout';
-import RecruitForm from '../components/recruitPage/RecruitForm';
 
 const recruit: React.FC = () => (
   <Layout>
