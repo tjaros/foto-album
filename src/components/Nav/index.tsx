@@ -43,10 +43,11 @@ const Nav: React.FC<NavProps> = ({ navItems, currentIndex = 0, className = '' })
       </div>
       {shownItems.map((item) => (
         /* eslint-disable-next-line react/jsx-props-no-spreading */
-        <NavItem {...item} className={isMobileExpanded ? 'block' : 'hidden'} />
+        <NavItem key={item.text} {...item} className={isMobileExpanded ? 'block' : 'hidden'} />
       ))}
     </nav>
   );
 };
 
+export { NavItemData };
 export default Nav;

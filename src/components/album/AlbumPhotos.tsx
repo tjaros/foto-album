@@ -2,11 +2,11 @@ import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { ColumnsLayout } from '..';
 import { useWindowSize } from '../../hooks';
 import Error from '../Error';
 import Loader from '../Loader';
 import StatusMessage from '../StatusMessage';
+import { ColumnsGrid } from '../Grid';
 
 /** Shape of returned data.  */
 interface AlbumPhotosData {
@@ -52,19 +52,21 @@ const AlbumPhotos: React.FC<AlbumPhotosProps> = ({ albumId, albumName }) => {
 
   return (
     <>
-      <ColumnsLayout nColumns={Math.min(4, Math.floor(width / 300))}>
+      <ColumnsGrid nColumns={Math.min(4, Math.floor(width / 300))}>
         {photos?.map(({ url }, index) => (
           <button
             type="button"
             onClick={() => {
               setPhotoIndex(index);
               setOverlayOpen(true);
-            }}>
-            <img alt={`From ${albumName} album`} src={url} key={url} />
+            }}
+            key={url}>
+            <img alt={`From ${albumName} album`} src={url} />
           </button>
         ))}
-      </ColumnsLayout>
-      {photos?.length > 0 && isOverlayOpen && (
+        {error && <h2>Could not load images</h2>}
+      </ColumnsGrid>
+      {photos && photos.length > 0 && isOverlayOpen && (
         <Lightbox
           mainSrc={photos[photoIndex].url}
           nextSrc={photos[(photoIndex + 1) % photos.length].url}

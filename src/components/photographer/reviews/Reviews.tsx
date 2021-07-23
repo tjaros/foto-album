@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import Loader from '../../Loader';
 import StatusMessage from '../../StatusMessage';
 import Error from '../../Error';
-import Review from './Review';
+import Review from '../../Review';
 
 const REVIEWS_QUERY = gql`
   query Reviews($offset: Int!, $limit: Int!, $photographerId: ID!) {
@@ -106,7 +106,7 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
 
   return (
     <div className="flex flex-col items-center w-full">
-      {data && data.reviews.map((review: ReviewItem) => (
+      {data?.reviews.map((review: ReviewItem) => (
         <Review
           key={review.id}
           modelName={review.model.name}

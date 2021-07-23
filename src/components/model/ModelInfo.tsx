@@ -1,7 +1,6 @@
 import React from 'react';
-import AboutMe from '../AboutMe';
-import Avatar from '../Avatar';
-import Bio from '../Bio';
+import { Avatar } from '../Image';
+import { AboutMe, Bio } from '../Person';
 import Stats, { ModelStats } from './Stats';
 
 export interface ModelInfoProps {

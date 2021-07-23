@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { TableGrid } from './grid';
+import { TableGrid } from '../Grid';
 
 interface CategoryProps {
   className?: string;

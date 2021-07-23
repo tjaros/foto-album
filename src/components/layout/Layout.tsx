@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import '../../css/style.css';
-import ConsentForm from '../ConsentForm';
+import { ConsentForm } from '../Form';
 import { getData, storeData, Tokens } from '../../auth/cookies';
 
 interface LayoutProps {

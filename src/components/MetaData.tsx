@@ -48,9 +48,7 @@ const MetaData: React.FC<MetaDataProps> = ({
 
   return (
     <Helmet
-      htmlAttributes={{
-        lang
-      }}
+      htmlAttributes={{ lang }}
       title={title}
       titleTemplate={defaultTitle && `%s | ${defaultTitle}`}
       meta={baseMetaData.concat(meta)}

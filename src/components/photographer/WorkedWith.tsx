@@ -1,46 +1,31 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { useRecoilValue } from 'recoil';
-import { Portrait, ColumnsLayout } from '..';
-import photographerCurrentTabAtom from '../../recoil/photographer';
 import StatusMessage from '../StatusMessage';
 import Error from '../Error';
 import Loader from '../Loader';
+import { uniqBy } from 'lodash';
+import { Portrait } from '../Image';
+import { TableGrid } from '../Grid';
 
 interface WorkedWithProps {
   photographerId: number;
 }
 
-interface ModelInfoFlattened {
-  id: number;
-  url: string;
-  name: string;
-}
-
 interface ModelInfo {
-  model: {
-    id: number;
-    name: string;
-    avatar: {
-      url: string;
-    };
+  id: number;
+  name: string;
+  avatar: {
+    url: string;
   };
 }
 
-const distinct = (albumModels: ModelInfo[]) => {
-  const output: ModelInfoFlattened[] = [];
-  albumModels.forEach((item: ModelInfo) => {
-    const obj = {
-      id: item.model.id,
-      url: item.model.avatar.url,
-      name: item.model.name
-    };
-    if (!output.some((x) => x.id === obj.id)) {
-      output.push(obj);
-    }
-  });
-  return output;
-};
+interface AlbumsModels {
+  albums: {
+    id: number;
+    name: number;
+    model: ModelInfo;
+  }[]
+}
 
 const GET_MODELS = gql`
   query ModelsFromAlbums($photographerId: ID!) {
@@ -62,11 +47,8 @@ const GET_MODELS = gql`
 `;
 
 const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
-  const currentTab = useRecoilValue(photographerCurrentTabAtom);
-  const {
-    loading, error, data
-  } = useQuery(GET_MODELS, {
-    variables: { photographerId },
+  const { loading, error, data } = useQuery<AlbumsModels>(GET_MODELS, {
+    variables: { photographerId }
   });
 
   if (loading) return <Loader />;
@@ -80,13 +62,15 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
     );
   }
 
+  const allModels = data?.albums.map((album) => album.model);
+  const uniqModels = uniqBy(allModels, 'id');
+
   return (
-    <ColumnsLayout className={`${currentTab === 'Worked With' ? '' : 'hidden'}`}>
-      {data
-        && distinct(data.albums).map((item: ModelInfoFlattened) => (
-          <Portrait key={item.id} imageLink={item.url} personName={item.name} />
-        ))}
-    </ColumnsLayout>
+    <TableGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+      {uniqModels.map((model) => (
+        <Portrait key={model.id} imageLink={model.avatar.url} personName={model.name} />
+      ))}
+    </TableGrid>
   );
 };
 

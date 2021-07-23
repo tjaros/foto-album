@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  FaFacebook, FaInstagram, FaGlobe, FaPhone
+  FaFacebook, FaInstagram, FaGlobe, FaPhone, FaYoutube
 } from 'react-icons/fa';
 import { IconType } from 'react-icons/lib';
 
@@ -8,14 +8,16 @@ export enum SocialMediaType {
   FACEBOOK,
   INSTAGRAM,
   WEBSITE,
-  PHONE
+  PHONE,
+  YOUTUBE
 }
 
 const socialsIcon: Record<SocialMediaType, IconType> = {
   [SocialMediaType.FACEBOOK]: FaFacebook,
   [SocialMediaType.INSTAGRAM]: FaInstagram,
   [SocialMediaType.WEBSITE]: FaGlobe,
-  [SocialMediaType.PHONE]: FaPhone
+  [SocialMediaType.PHONE]: FaPhone,
+  [SocialMediaType.YOUTUBE]: FaYoutube
 };
 
 export interface SocialMediaLink {
@@ -30,12 +32,14 @@ export enum Orientation {
 
 interface SocialsProps {
   links: SocialMediaLink[];
+  linkClassName?: string;
   className?: string;
   orientation?: Orientation;
 }
 
 const SocialMedia: React.FC<SocialsProps> = ({
   links,
+  linkClassName = 'px-4 pt-4 text-black hover:text-gray-700',
   className = '',
   orientation = Orientation.HORIZONTAL
 }) => (
@@ -46,7 +50,7 @@ const SocialMedia: React.FC<SocialsProps> = ({
     {links.map((link) => {
       const Icon = socialsIcon[link.type] || FaGlobe;
       return (
-        <a key={link.url} href={link.url} className="px-4 pt-4 text-black no-underline">
+        <a key={`${link.url}-${link.type}`} href={link.url} className={`no-underline transition-all ${linkClassName}`}>
           <Icon size="3rem" />
         </a>
       );

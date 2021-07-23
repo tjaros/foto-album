@@ -3,10 +3,10 @@ import { useQuery, gql } from '@apollo/client';
 import { Link } from 'gatsby';
 import { useAuth } from '../../../hooks';
 import { AlbumInterface } from '../../model/Albums';
-import Album from '../../model/Album';
 import StatusMessage from '../../StatusMessage';
 import Loader from '../../Loader';
 import Error from '../../Error';
+import AlbumCard from '../../AlbumCard';
 
 interface PhotosProps {
   photographerId: number;
@@ -92,9 +92,9 @@ const Photos: React.FC<PhotosProps> = ({ photographerId }) => {
 
   return (
     <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-3">
-      {data && data.albums.map((album: AlbumInterface) => (
-        <Link key={album.id} to={!isLoggedIn ? '#horny' : `/albums/${album.slug}`}>
-          <Album name={album.name} photo={album.photos[0].url} locked={!isLoggedIn} />
+      {data?.albums.map((album: AlbumInterface) => (
+        <Link to={!isLoggedIn ? '#horny' : `/albums/${album.slug}`} key={album.id}>
+          <AlbumCard name={album.name} photo={album.photos[0].url} locked={!isLoggedIn} />
         </Link>
       ))}
     </div>

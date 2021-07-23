@@ -1,8 +1,7 @@
 import React from 'react';
-import SocialMedia, { Orientation, SocialMediaLink } from './SocialMedia';
-import AboutMe from '../AboutMe';
-import Avatar from '../Avatar';
-import Bio from '../Bio';
+import { Avatar } from '../Image';
+import { AboutMe, Bio } from '../Person';
+import SocialMedia, { Orientation, SocialMediaLink } from '../SocialMedia';
 
 export interface AuthorProps {
   name: string;

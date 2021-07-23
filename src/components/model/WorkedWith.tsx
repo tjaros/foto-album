@@ -1,44 +1,31 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import { Portrait, ColumnsLayout } from '..';
+import { uniqBy } from 'lodash';
 import Error from '../Error';
 import StatusMessage from '../StatusMessage';
 import Loader from '../Loader';
+import { TableGrid } from '../Grid';
+import { Portrait } from '../Image';
 
 interface WorkedWithProps {
   modelId: number;
 }
 
 interface PhotographerInfo {
-  photographer: {
-    id: number;
-    name: string;
-    avatar: {
-      url: string;
-    };
+  id: number;
+  name: string;
+  avatar: {
+    url: string;
   };
 }
 
-interface PhotographerInfoFlattened {
-  id: number;
-  name: string;
-  url: string;
+interface ModelPhotographers {
+  model: {
+    albums: {
+      photographer: PhotographerInfo;
+    }[];
+  };
 }
-
-const distinct = (albumModels: PhotographerInfo[]) => {
-  const output: PhotographerInfoFlattened[] = [];
-  albumModels.forEach((item: PhotographerInfo) => {
-    const obj = {
-      id: item.photographer.id,
-      url: item.photographer.avatar[0].url,
-      name: item.photographer.name
-    };
-    if (!output.some((x) => x.id === obj.id)) {
-      output.push(obj);
-    }
-  });
-  return output;
-};
 
 const GET_PHOTOGRAPHERS = gql`
   query GetCollaborators($modelId: ID!) {
@@ -57,7 +44,9 @@ const GET_PHOTOGRAPHERS = gql`
 `;
 
 const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
-  const { loading, error, data } = useQuery(GET_PHOTOGRAPHERS, { variables: { modelId } });
+  const { loading, error, data } = useQuery<ModelPhotographers>(GET_PHOTOGRAPHERS, {
+    variables: { modelId }
+  });
 
   if (loading) return <Loader />;
   if (error) return <Error title="Could not load the collaborators." description="Try again later." />;
@@ -70,17 +59,19 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
     );
   }
 
+  const allPhotographers = data?.model.albums.map((album) => album.photographer);
+  const uniqPhotographers = uniqBy(allPhotographers, 'id');
+
   return (
-    <ColumnsLayout>
-      {data
-        && distinct(data.model.albums).map((photographer: PhotographerInfoFlattened) => (
-          <Portrait
-            key={photographer.id}
-            personName={photographer.name}
-            imageLink={photographer.url}
-          />
-        ))}
-    </ColumnsLayout>
+    <TableGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+      {uniqPhotographers.map((photographer) => (
+        <Portrait
+          key={photographer.id}
+          personName={photographer.name}
+          imageLink={photographer.avatar.url}
+        />
+      ))}
+    </TableGrid>
   );
 };
 

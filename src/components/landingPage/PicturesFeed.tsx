@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link, navigate } from 'gatsby';
-import { ColumnsLayout, Image } from '..';
 import LoadMoreHider from './LoadMoreHider';
 import Loader from '../Loader';
 import Error from '../Error';
 import StatusMessage from '../StatusMessage';
+import { ColumnsGrid } from '../Grid';
+import { ModelImage } from '../Image';
 
 const MODELS_QUERY = gql`
   query GET_ALL_AVATARS($offset: Int!, $limit: Int!) {
@@ -80,15 +81,16 @@ export const PicturesFeed: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col w-full relative overflow-hidden">
-      <ColumnsLayout className="-mb-100">
-        {data && distinct(data.models).map((model) => (
-          <Link to={`model/${model.slug}`} key={model.slug}>
-            <Image src={model.avatar.url} name={model.name} className="w-full" />
-          </Link>
-        ))}
-      </ColumnsLayout>
-      <LoadMoreHider onClick={hasMore ? onLoadMore : onNavigate} />
+    <div className="relative flex flex-col w-full overflow-hidden">
+      <ColumnsGrid className="w-full h-auto -mb-96">
+        {data
+          && distinct(data.models).map((model) => (
+            <Link to={`model/${model.slug}`} key={model.slug}>
+              <ModelImage src={model.avatar.url} name={model.name} className="w-full" />
+            </Link>
+          ))}
+      </ColumnsGrid>
+      <LoadMoreHider onClick={(hasMore) ? onLoadMore : onNavigate} />
     </div>
   );
 };

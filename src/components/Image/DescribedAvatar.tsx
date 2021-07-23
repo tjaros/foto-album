@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import Avatar, { AvatarProps } from '../Avatar';
+import Avatar, { AvatarProps } from './Avatar';
 
 interface DescribedAvatarProps extends AvatarProps {
   roleAs: string;
@@ -16,9 +16,9 @@ const DescribedAvatar: React.FC<DescribedAvatarProps> = ({
 }) => (
   <Link to={slug} className="text-black">
     <div className={`flex flex-col items-center ${className}`}>
-      <p className="font-bold text-center">{roleAs}</p>
+      <span className="font-bold">{roleAs}</span>
       <Avatar name={name} avatarLink={avatarLink} className="w-20 h-20" />
-      <p className="text-center">{name}</p>
+      <span>{name}</span>
     </div>
   </Link>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Image: React.FC = ({
+const ModelImage: React.FC = ({
   avatarSrc, src, name, nsfw = false, className
 }) => {
   const nsfwAcc = true;
@@ -34,4 +34,4 @@ const Image: React.FC = ({
   );
 };
 
-export default Image;
+export default ModelImage;

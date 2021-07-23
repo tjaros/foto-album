@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaFacebook, FaInstagram, FaGlobe } from 'react-icons/fa';
-import { IconType } from 'react-icons/lib';
+import SocialMedia, { SocialMediaType as SMType } from '../SocialMedia';
 
 const footerLinks = [
   { url: '', description: 'Contact Us' },
@@ -9,16 +8,10 @@ const footerLinks = [
   { url: '', description: 'Terms Of Use' }
 ];
 
-const socialIcons: Record<string, IconType> = {
-  facebook: FaFacebook,
-  instagram: FaInstagram,
-  website: FaGlobe
-};
-
 const socialMedia = [
-  { url: '', type: 'instagram' },
-  { url: '', type: 'facebook' },
-  { url: '', type: 'website' }
+  { url: '', type: SMType.INSTAGRAM },
+  { url: '', type: SMType.FACEBOOK },
+  { url: '', type: SMType.YOUTUBE }
 ];
 
 const Footer: React.FC = () => (
@@ -33,16 +26,7 @@ const Footer: React.FC = () => (
         </a>
       ))}
     </nav>
-    <nav className="flex flex-row justify-center w-full bg-black md:pt-8">
-      {socialMedia.map(({ url, type }) => {
-        const Icon = socialIcons[type] || FaGlobe;
-        return (
-          <a key={type} href={url} className="px-4 text-white no-underline">
-            <Icon size="3rem" />
-          </a>
-        );
-      })}
-    </nav>
+    <SocialMedia links={socialMedia} linkClassName="text-white hover:text-gray-200" />
     <p className="w-full px-4 py-12 text-center break-words bg-black md:pt-14">
       All content Copyright © 2000-2021 ModAg, Inc. made with big pepee by us.
     </p>
