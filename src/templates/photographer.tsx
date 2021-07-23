@@ -1,10 +1,12 @@
+import { gql } from '@apollo/client';
 import { PageProps } from 'gatsby';
 import React, { useState } from 'react';
 import { Layout } from '../components';
+import Albums, { ALBUM_FIELDS } from '../components/Dynamic/AlbumsPreview';
+import { Reviews, WorkedWith } from '../components/Dynamic/Photographer';
+import { Avatar } from '../components/Image';
 import Nav, { NavItemData } from '../components/Nav';
-import {
-  AuthorInfo, Photos, Reviews, WorkedWith
-} from '../components/photographer';
+import PersonInfo from '../components/Person';
 import { SocialMediaLink, SocialMediaType } from '../components/SocialMedia';
 
 const links: SocialMediaLink[] = [
@@ -13,6 +15,15 @@ const links: SocialMediaLink[] = [
   { url: 'https://google.com', type: SocialMediaType.WEBSITE }
 ];
 
+const GET_ALBUMS = gql`
+  ${ALBUM_FIELDS}
+  query AlbumsByPhotographer($id: ID!) {
+    albums(where: { photographer: { id_eq: $id } } ) {
+      ...AlbumFields
+    }
+  }
+`;
+
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
     case 'Reviews':
@@ -20,7 +31,7 @@ const renderSwitch = (state: string, id: number) => {
     case 'Worked With':
       return <WorkedWith photographerId={id} />;
     default:
-      return <Photos photographerId={id} />;
+      return <Albums query={GET_ALBUMS} options={{ variables: { id }}} />;
   }
 };
 
@@ -46,11 +57,11 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
 
   return (
     <Layout className="m-auto max-w-7xl">
-      <AuthorInfo
+      <PersonInfo
         name={name}
         availableLocation={location}
         bio={bio}
-        imageLink={avatar[0]?.url}
+        avatar={<Avatar name={name} avatarLink={avatar[0].url} />}
         socialMediaLinks={links}
       />
       <Nav navItems={navItems} />

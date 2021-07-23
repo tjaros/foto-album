@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { gql, useQuery } from '@apollo/client';
 import { Link, navigate } from 'gatsby';
 import LoadMoreHider from './LoadMoreHider';
-import Loader from '../Loader';
-import Error from '../Error';
-import StatusMessage from '../StatusMessage';
 import { ColumnsGrid } from '../Grid';
 import { ModelImage } from '../Image';
+import { Loader, StatusMessage, Error } from '../Status';
 
 const MODELS_QUERY = gql`
   query GET_ALL_AVATARS($offset: Int!, $limit: Int!) {

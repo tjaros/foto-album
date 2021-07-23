@@ -1,9 +1,7 @@
 import { gql, useQuery } from '@apollo/client';
 import React, { useEffect } from 'react';
-import Loader from '../../Loader';
-import StatusMessage from '../../StatusMessage';
-import Error from '../../Error';
 import Review from '../../Review';
+import { Loader, StatusMessage, Error } from '../../Status';
 
 const REVIEWS_QUERY = gql`
   query Reviews($offset: Int!, $limit: Int!, $photographerId: ID!) {

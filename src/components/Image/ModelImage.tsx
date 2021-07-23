@@ -1,13 +1,21 @@
 import React from 'react';
 
-const ModelImage: React.FC = ({
-  avatarSrc, src, name, nsfw = false, className
+interface ModelImageProps {
+  avatarSrc?: string;
+  src: string;
+  name: string;
+  nsfw?: boolean;
+  className?: string;
+}
+
+const ModelImage: React.FC<ModelImageProps> = ({
+  avatarSrc, src, name, nsfw = false, className = ''
 }) => {
   const nsfwAcc = true;
 
   return (
     <div className="py-1">
-      <div className={'relative '.concat(className)}>
+      <div className={`relative ${className}`}>
         {nsfwAcc && nsfw ? (
           <div className="absolute z-10 flex flex-col items-center justify-center w-full h-full backdrop-filter backdrop-blur-md">
             <span className="text-4xl font-bold">NSFW</span>

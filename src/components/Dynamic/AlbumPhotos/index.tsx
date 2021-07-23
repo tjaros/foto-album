@@ -2,11 +2,9 @@ import { gql, useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import { useWindowSize } from '../../hooks';
-import Error from '../Error';
-import Loader from '../Loader';
-import StatusMessage from '../StatusMessage';
-import { ColumnsGrid } from '../Grid';
+import { useWindowSize } from '../../../hooks';
+import { ColumnsGrid } from '../../Grid';
+import { Loader, StatusMessage, Error } from '../../Status';
 
 /** Shape of returned data.  */
 interface AlbumPhotosData {

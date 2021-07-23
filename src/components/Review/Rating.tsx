@@ -1,15 +1,16 @@
 import { range } from 'lodash';
 import React from 'react';
 import { IconType } from 'react-icons';
-import { FaStar } from 'react-icons/fa';
+import { FaRegStar, FaStar } from 'react-icons/fa';
 
 interface RatingProps {
   maxStars?: number;
   stars: number;
   className?: string;
+  Icon?: IconType;
+  EmptyIcon?: IconType;
   fillColor?: string;
   emptyColor?: string;
-  Icon?: IconType;
   size?: string;
 }
 
@@ -23,17 +24,19 @@ const Rating: React.FC<RatingProps> = ({
   maxStars = 5,
   stars,
   className = '',
-  fillColor = 'black',
-  emptyColor,
   size = '2rem',
-  Icon = FaStar
+  Icon = FaStar,
+  EmptyIcon = FaRegStar,
+  fillColor = 'black',
+  emptyColor
 }) => {
   if (stars > maxStars || stars < 0) return null;
   return (
     <div className={`flex flex-row ${className}`}>
-      {range(maxStars).map((position) => (
-        <Icon key={position} fill={stars < position ? fillColor : emptyColor} size={size} />
-      ))}
+      {range(maxStars).map((position) => {
+        if (position < stars) return <Icon key={position} fill={fillColor} size={size} />;
+        return <EmptyIcon key={position} fill={emptyColor} size={size} />;
+      })}
     </div>
   );
 };

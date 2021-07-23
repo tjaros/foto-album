@@ -2,11 +2,9 @@ import React, { useEffect } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { Link } from 'gatsby';
 import { useAuth } from '../../../hooks';
-import { AlbumInterface } from '../../model/Albums';
-import StatusMessage from '../../StatusMessage';
-import Loader from '../../Loader';
-import Error from '../../Error';
 import AlbumCard from '../../AlbumCard';
+import { Loader, StatusMessage, Error } from '../../Status';
+import { AlbumInterface } from '../Model/Albums';
 
 interface PhotosProps {
   photographerId: number;

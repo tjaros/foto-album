@@ -1,12 +1,9 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-
 import { Link } from 'gatsby';
-import { useAuth } from '../../hooks';
-import StatusMessage from '../StatusMessage';
-import Error from '../Error';
-import Loader from '../Loader';
-import AlbumCard from '../AlbumCard';
+import { useAuth } from '../../../hooks';
+import AlbumCard from '../../AlbumCard';
+import { Loader, StatusMessage, Error } from '../../Status';
 
 interface AlbumsProps {
   modelId: number;

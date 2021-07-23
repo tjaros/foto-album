@@ -1,11 +1,9 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
-import StatusMessage from '../StatusMessage';
-import Error from '../Error';
-import Loader from '../Loader';
 import { uniqBy } from 'lodash';
-import { Portrait } from '../Image';
-import { TableGrid } from '../Grid';
+import { Portrait } from '../../Image';
+import { TableGrid } from '../../Grid';
+import { Loader, StatusMessage, Error } from '../../Status';
 
 interface WorkedWithProps {
   photographerId: number;

@@ -1,19 +1,39 @@
+import { gql } from '@apollo/client';
 import { PageProps } from 'gatsby';
 import React, { useState } from 'react';
 import { Layout } from '../components';
-import { Albums, ModelInfo, WorkedWith } from '../components/model';
+import Albums, { ALBUM_FIELDS } from '../components/Dynamic/AlbumsPreview';
+import { WorkedWith } from '../components/Dynamic/Model';
+import { Avatar } from '../components/Image';
 import Nav, { NavItemData } from '../components/Nav';
+import PersonInfo from '../components/Person';
+import { SocialMediaLink, SocialMediaType } from '../components/SocialMedia';
+
+const links: SocialMediaLink[] = [
+  { url: 'https://instagram.com', type: SocialMediaType.INSTAGRAM },
+  { url: 'https://facebook.com', type: SocialMediaType.FACEBOOK },
+  { url: 'https://google.com', type: SocialMediaType.WEBSITE }
+];
 
 enum NavTexts {
   ALBUMS = 'Albums', WORKED_WITH = 'Worked With'
 }
+
+const GET_ALBUMS = gql`
+  ${ALBUM_FIELDS}
+  query AlbumsByModelId($id: ID!) {
+    albums(where: { model: { id_eq: $id } }) {
+      ...AlbumFields
+    }
+  }
+`;
 
 const renderSwitch = (tabText: string, id: number) => {
   switch (tabText) {
     case NavTexts.WORKED_WITH:
       return <WorkedWith modelId={id} />;
     default:
-      return <Albums modelId={id} />;
+      return <Albums query={GET_ALBUMS} options={{ variables: { id } }} />;
   }
 };
 
@@ -52,7 +72,14 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
 
   return (
     <Layout className="w-full pb-20 mx-auto max-w-7xl">
-      <ModelInfo name={name} avatarLink={url} location={location} description={bio} stats={stats} />
+      <PersonInfo
+        name={name}
+        avatar={<Avatar name={name} avatarLink={url} />}
+        availableLocation={location}
+        bio={bio}
+        stats={stats}
+        socialMediaLinks={links}
+      />
       <Nav navItems={navItems} currentIndex={currentTabIdx} />
       {renderSwitch(navTextItems[currentTabIdx], id)}
     </Layout>
