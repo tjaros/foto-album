@@ -9,11 +9,15 @@ import { useAuth } from '../hooks';
 const IndexPage: React.FC = () => {
   const { isLoggedIn } = useAuth();
   return (
-    <Layout>
+    <Layout className="flex flex-col justify-center">
       <LandingPictureMain />
-      {isLoggedIn ? <RegisteredLandingNavPanel /> : <UnregisteredLandingNavPanel />}
-      <PicturesFeed />
-      <RecruitComponent />
+      {isLoggedIn ? (
+        <RegisteredLandingNavPanel className="my-2 layout--menu" />
+      ) : (
+        <UnregisteredLandingNavPanel className="my-2 layout--add" />
+      )}
+      <PicturesFeed className="layout--content" />
+      <RecruitComponent className="layout--add" />
     </Layout>
   );
 };

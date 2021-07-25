@@ -35,7 +35,11 @@ const distinct = (models: Model[]): Model[] => {
   return Array.from(distinctSet);
 };
 
-export const PicturesFeed: React.FC = () => {
+interface PicturesFeedProps {
+  className?: string;
+}
+
+export const PicturesFeed: React.FC<PicturesFeedProps> = ({ className }) => {
   const [hasMore, setHasMore] = useState(true);
   const limit = 12;
 
@@ -79,7 +83,7 @@ export const PicturesFeed: React.FC = () => {
   }
 
   return (
-    <div className="relative flex flex-col w-full overflow-hidden">
+    <div className={`relative flex flex-col w-full overflow-hidden ${className}`}>
       <ColumnsGrid className="w-full h-auto -mb-96">
         {data
           && distinct(data.models).map((model) => (
