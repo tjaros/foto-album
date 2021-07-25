@@ -31,9 +31,11 @@ const GET_ALBUMS = gql`
 const renderSwitch = (tabText: string, id: number) => {
   switch (tabText) {
     case NavTexts.WORKED_WITH:
-      return <WorkedWith modelId={id} />;
+      return <WorkedWith modelId={id} className="layout--content" />;
     default:
-      return <Albums query={GET_ALBUMS} options={{ variables: { id } }} />;
+      return (
+        <Albums query={GET_ALBUMS} options={{ variables: { id } }} className="layout--content" />
+      );
   }
 };
 
@@ -79,8 +81,9 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
         bio={bio}
         stats={stats}
         socialMediaLinks={links}
+        className="layout--add"
       />
-      <Nav navItems={navItems} currentIndex={currentTabIdx} />
+      <Nav navItems={navItems} currentIndex={currentTabIdx} className="layout--menu" />
       {renderSwitch(navTextItems[currentTabIdx], id)}
     </Layout>
   );

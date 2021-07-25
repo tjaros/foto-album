@@ -39,4 +39,8 @@ a {
   .layout-add {
     @apply max-w-6xl mx-auto
   }
+
+  .table-grid--4 {
+    @apply grid-cols-2 gap-2 md:grid-cols-4
+  }
 }

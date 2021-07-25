@@ -6,7 +6,7 @@ interface LoaderProps {
 }
 
 const Loader: React.FC<LoaderProps> = ({ className }) => (
-  <div className={`flex flex-col w-full h-full text-2xl text-center content-center items-center ${className}`}>
+  <div className={`flex flex-col w-full h-full text-2xl content-center items-center ${className}`}>
     <FaSpinner className={`animate-spin ${className}`} />
   </div>
 );

@@ -13,7 +13,7 @@ interface CategoryProps {
 const Category: React.FC<CategoryProps> = ({ children, className, categoryName }) => (
   <div className={`flex flex-col items-center capitalize ${className}`}>
     <h1 className="pb-10 text-5xl font-semibold">{categoryName}</h1>
-    <TableGrid className="grid-cols-2 gap-2 md:grid-cols-4">
+    <TableGrid className="table-grid--4">
       {children}
     </TableGrid>
     <Link to="/search" className="btn-white">

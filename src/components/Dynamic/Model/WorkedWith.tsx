@@ -1,20 +1,23 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { uniqBy } from 'lodash';
+import { Link } from 'gatsby';
 import { TableGrid } from '../../Grid';
 import { Portrait } from '../../Image';
 import { Loader, StatusMessage, Error } from '../../Status';
 
 interface WorkedWithProps {
   modelId: number;
+  className?: string;
 }
 
 interface PhotographerInfo {
   id: number;
   name: string;
+  slug: string;
   avatar: {
     url: string;
-  };
+  }[];
 }
 
 interface ModelPhotographers {
@@ -32,6 +35,7 @@ const GET_PHOTOGRAPHERS = gql`
         photographer {
           id
           name
+          slug
           avatar {
             url
           }
@@ -41,7 +45,7 @@ const GET_PHOTOGRAPHERS = gql`
   }
 `;
 
-const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
+const WorkedWith: React.FC<WorkedWithProps> = ({ modelId, className = '' }) => {
   const { loading, error, data } = useQuery<ModelPhotographers>(GET_PHOTOGRAPHERS, {
     variables: { modelId }
   });
@@ -61,13 +65,15 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId }) => {
   const uniqPhotographers = uniqBy(allPhotographers, 'id');
 
   return (
-    <TableGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+    <TableGrid className={`table-grid--4 mt-5 ${className}`}>
       {uniqPhotographers.map((photographer) => (
-        <Portrait
-          key={photographer.id}
-          personName={photographer.name}
-          imageLink={photographer.avatar.url}
-        />
+        <Link to={`/photographer/${photographer.slug}`}>
+          <Portrait
+            key={photographer.id}
+            personName={photographer.name}
+            imageLink={photographer.avatar[0].url}
+          />
+        </Link>
       ))}
     </TableGrid>
   );

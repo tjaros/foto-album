@@ -6,7 +6,7 @@ interface BioProps {
 }
 
 const Bio: React.FC<BioProps> = ({ className = '', text }) => (
-  <p className={`flex-grow ${className}`}>{text}</p>
+  <p className={`flex-grow px-2 whitespace-pre-wrap ${className}`}>{text}</p>
 );
 
 export default Bio;
