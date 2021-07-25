@@ -7,6 +7,7 @@ interface PortraitProps {
   className?: string;
 }
 
+/** Rectangular image of model with model's name and hover effects. */
 const Portrait: React.FC<PortraitProps> = ({
   imageLink,
   personName,
