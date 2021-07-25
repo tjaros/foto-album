@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, PageProps } from 'gatsby';
+import { graphql, Link, PageProps } from 'gatsby';
 import { Layout, MetaData } from '../components';
 import { useAuth } from '../hooks';
 import { Error } from '../components/Status';
@@ -72,26 +72,28 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   return (
     <Layout className="container mx-auto max-w-7xl">
       <MetaData title={`Album ${album.name}`} />
-      <h1 className="py-6 mb-4 text-3xl font-medium border-b border-gray-800 md:text-5xl lg:text-6xl ">
+      <h1 className="px-2 py-6 mb-4 text-3xl font-medium border-b border-gray-800 md:text-5xl lg:text-6xl ">
         {album.name}
       </h1>
-      <p className="py-4 mb-4 md:text-lg">{album.description}</p>
+      <p className="px-2 py-4 mb-4 md:text-lg">{album.description}</p>
       <AlbumPhotos albumId={album.id} albumName={album.name} />
       <div className="flex flex-row py-12 justify-evenly">
         {album.photographer && (
-          <DescribedAvatar
-            slug={`/photographer/${album.photographer.slug}`}
-            avatarLink={album.photographer.avatar[0].url}
-            name={album.photographer.name}
-            roleAs="Photographer"
-          />
+          <Link to={`/photographer/${album.photographer.slug}`}>
+            <DescribedAvatar
+              avatarLink={album.photographer.avatar[0].url}
+              name={album.photographer.name}
+              roleAs="Photographer"
+            />
+          </Link>
         )}
-        <DescribedAvatar
-          slug={`/model/${album.model.slug}`}
-          avatarLink={album.model.avatar.url}
-          name={album.model.name}
-          roleAs="Model"
-        />
+        <Link to={`/model/${album.model.slug}`}>
+          <DescribedAvatar
+            avatarLink={album.model.avatar.url}
+            name={album.model.name}
+            roleAs="Model"
+          />
+        </Link>
       </div>
     </Layout>
   );

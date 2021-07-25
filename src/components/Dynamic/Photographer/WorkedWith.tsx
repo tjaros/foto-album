@@ -1,6 +1,7 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { uniqBy } from 'lodash';
+import { Link } from 'gatsby';
 import { Portrait } from '../../Image';
 import { TableGrid } from '../../Grid';
 import { Loader, StatusMessage, Error } from '../../Status';
@@ -12,6 +13,7 @@ interface WorkedWithProps {
 interface ModelInfo {
   id: number;
   name: string;
+  slug: string;
   avatar: {
     url: string;
   };
@@ -36,6 +38,7 @@ const GET_MODELS = gql`
       model {
         id
         name
+        slug
         avatar {
           url
         }
@@ -66,7 +69,9 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
   return (
     <TableGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
       {uniqModels.map((model) => (
-        <Portrait key={model.id} imageLink={model.avatar.url} personName={model.name} />
+        <Link key={model.id} to={`/model/${model.slug}`}>
+          <Portrait imageLink={model.avatar.url} personName={model.name} />
+        </Link>
       ))}
     </TableGrid>
   );

@@ -74,7 +74,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
         </div>
 
         {photographers.length > 0 ? (
-          <TableGrid>
+          <TableGrid className="table-grid--4 layout--content">
             {photographers.map((photographer) => (
               <Link to={`/photographer/${photographer.slug}`} key={photographer.slug}>
                 <Portrait
