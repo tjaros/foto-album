@@ -1,7 +1,7 @@
 import { Link } from 'gatsby';
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import SearchBar from './SearchBar';
+import SearchBar, { SearchIcon } from './SearchBar';
 import UserLogin from './UserLogin';
 import { Logo } from '../Image';
 
@@ -31,9 +31,9 @@ const Header: React.FC<HeaderProps> = ({ showSearchbar = true }) => {
         <Logo style={{ height: 'calc(1em + 1rem)' }} />
       </Link>
       {showSearchbar && (
-        <div className="lg:hidden">
-          <SearchBar />
-        </div>
+        <Link to="/search" className="items-center px-3 py-2 text-white no-underline lg:hidden">
+          <SearchIcon title="Go to search" />
+        </Link>
       )}
       <div
         className={`${
@@ -48,11 +48,7 @@ const Header: React.FC<HeaderProps> = ({ showSearchbar = true }) => {
               {description}
             </Link>
           ))}
-          {showSearchbar && (
-            <div className="hidden lg:inline-block">
-              <SearchBar />
-            </div>
-          )}
+          {showSearchbar && <SearchBar className="hidden lg:inline-block" />}
           <div className="pt-4 mr-4 lg:pt-0">
             <UserLogin />
           </div>

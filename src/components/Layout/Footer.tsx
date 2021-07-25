@@ -9,14 +9,14 @@ const footerLinks = [
 ];
 
 const socialMedia = [
-  { url: '', type: SMType.INSTAGRAM },
-  { url: '', type: SMType.FACEBOOK },
-  { url: '', type: SMType.YOUTUBE }
+  { url: 'www.instagram.com', type: SMType.INSTAGRAM },
+  { url: 'www.facebook.com', type: SMType.FACEBOOK },
+  { url: 'youtube.com', type: SMType.YOUTUBE }
 ];
 
 const Footer: React.FC = () => (
   <footer className="flex flex-col items-center mt-auto text-white bg-black">
-    <nav className="flex flex-col items-center py-12 md:flex-row justify-evenly md:pb-0">
+    <nav className="flex flex-col items-center py-4 md:py-7 lg:py-9 md:flex-row justify-evenly md:pb-0">
       {footerLinks.map(({ url, description }) => (
         <a
           href={url}
@@ -26,8 +26,8 @@ const Footer: React.FC = () => (
         </a>
       ))}
     </nav>
-    <SocialMedia links={socialMedia} linkClassName="text-white hover:text-gray-200" />
-    <p className="w-full px-4 py-12 text-center break-words bg-black md:pt-14">
+    <SocialMedia links={socialMedia} linkClassName="p-2 mx-2 my-6 text-white hover:text-gray-200" />
+    <p className="w-full px-4 py-6 text-center break-words bg-black md:pt-8">
       All content Copyright © 2000-2021 ModAg, Inc. made with big pepee by us.
     </p>
   </footer>
