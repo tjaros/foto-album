@@ -4,9 +4,7 @@ import { Layout } from '../components';
 
 const recruit: React.FC = () => (
   <Layout>
-    <div className="flex justify-center my-40">
-      <RegisterForm />
-    </div>
+    <RegisterForm className="layout--content" />
   </Layout>
 );
 

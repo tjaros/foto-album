@@ -26,7 +26,11 @@ const schema = yup.object().shape({
     .required('Purpose is required')
 });
 
-const RecruitForm: React.FC = () => {
+interface RegistertFormPros {
+  className?: string;
+}
+
+const RecruitForm: React.FC<RegistertFormPros> = ({ className }) => {
   const {
     register,
     handleSubmit,
@@ -43,9 +47,14 @@ const RecruitForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full border-black h-1/4 md:w-1/2 md:border-y-2">
+    <div className={`flex items-center justify-center w-full border-black h-1/4 md:w-1/2 md:border-y-2 md:my-6 ${className}`}>
       <div className="w-full p-8 bg-white shadow-lg">
-        <h2 className="block w-full mb-6 text-center text-grey-darkest">Join us!</h2>
+        <h1 className="block w-full mb-6 text-3xl text-center text-grey-darkest">
+          Join us!
+        </h1>
+        <span className="block w-full mb-6 text-center text-grey-darkest">
+          Fill in information about you and have a change to become one of your models.
+        </span>
         <form
           onSubmit={handleSubmit(onSubmitHandler)}
           className="mb-4 space-y-4 text-xs md:flex md:flex-wrap md:justify-between">
@@ -96,7 +105,7 @@ const RecruitForm: React.FC = () => {
               Self Description
             </label>
             <textarea
-              className="w-full px-3 py-2 border border-black focus:outline-none bg-gray-200"
+              className="w-full px-3 py-2 bg-gray-200 border border-black focus:outline-none"
               rows={4}
               {...register('self_description')}
             />

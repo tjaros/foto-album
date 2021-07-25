@@ -22,7 +22,11 @@ const schema = yup.object().shape({
     .required('Purpose is required')
 });
 
-const RecruitForm: React.FC = () => {
+interface RecruitFormPros {
+  className?: string;
+}
+
+const RecruitForm: React.FC<RecruitFormPros> = ({ className }) => {
   const {
     register,
     handleSubmit,
@@ -39,11 +43,11 @@ const RecruitForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center w-full my-20 border-black h-1/4 md:w-1/2 md:border-y-2">
+    <div className={`flex items-center justify-center w-full border-black h-1/4 md:w-1/2 md:border-y-2 md:my-6 ${className}`}>
       <div className="w-full p-8 bg-white shadow-lg">
-        <h2 className="block w-full mb-6 text-3xl text-center text-grey-darkest">
+        <h1 className="block w-full mb-6 text-3xl text-center text-grey-darkest">
           Exclusive content is within your reach!
-        </h2>
+        </h1>
         <span className="block w-full mb-6 text-center text-grey-darkest">
           Fill in the form and wait for confirmation email with your credentials
         </span>
