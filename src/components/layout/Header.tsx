@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SearchBar from './SearchBar';
 import UserLogin from './UserLogin';
-import logo from '../../images/logo--light.svg';
+import { Logo } from '../Image';
 
 const headerLinks = [
   { description: 'Models', url: '/categories' },
@@ -28,7 +28,7 @@ const Header: React.FC<HeaderProps> = ({ showSearchbar = true }) => {
         </button>
       </div>
       <Link to="/" className="flex items-center text-white">
-        <img src={logo} alt="ModAg logo" style={{ height: 'calc(1em + 1rem)' }} />
+        <Logo style={{ height: 'calc(1em + 1rem)' }} />
       </Link>
       {showSearchbar && (
         <div className="lg:hidden">
