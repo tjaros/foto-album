@@ -18,7 +18,7 @@ const links: SocialMediaLink[] = [
 const GET_ALBUMS = gql`
   ${ALBUM_FIELDS}
   query AlbumsByPhotographer($id: ID!) {
-    albums(where: { photographer: { id_eq: $id } } ) {
+    albums(where: { photographer: { id_eq: $id } }) {
       ...AlbumFields
     }
   }
@@ -44,9 +44,7 @@ interface PhotograpgerData {
 }
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
-  const {
-    name, location, bio, avatar, id
-  } = pageContext as PhotograpgerData;
+  const { name, location, bio, avatar, id } = pageContext as PhotograpgerData;
   const [currentTab, changeTab] = useState('Albums');
 
   const navItems: NavItemData[] = [
@@ -61,7 +59,7 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
         name={name}
         availableLocation={location}
         bio={bio}
-        avatar={<Avatar name={name} avatarLink={avatar[0].url} />}
+        avatar={<Avatar name={name} avatarLink={avatar.url} />}
         socialMediaLinks={links}
       />
       <Nav navItems={navItems} />

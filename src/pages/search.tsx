@@ -117,7 +117,7 @@ const Search: React.FC<SearchPageProps> = ({ data, location }) => {
         </select> */}
 
         {models.length > 0 ? (
-          <TableGrid>
+          <TableGrid className="table-grid--4 layout--content">
             {models.map((model) => (
               <Link to={`/model/${model.slug}`} key={model.id}>
                 <Portrait personName={model.name} imageLink={model.avatar.url} />

@@ -51,7 +51,8 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId, className = '' }) => {
   });
 
   if (loading) return <Loader />;
-  if (error) return <Error title="Could not load the collaborators." description="Try again later." />;
+  if (error)
+    return <Error title="Could not load the collaborators." description="Try again later." />;
 
   if (!data?.model?.albums?.length) {
     return (
@@ -61,17 +62,17 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId, className = '' }) => {
     );
   }
 
-  const allPhotographers = data?.model.albums.map((album) => album.photographer);
+  const allPhotographers = data?.model.albums.map(album => album.photographer);
   const uniqPhotographers = uniqBy(allPhotographers, 'id');
 
   return (
     <TableGrid className={`table-grid--4 mt-5 ${className}`}>
-      {uniqPhotographers.map((photographer) => (
+      {uniqPhotographers.map(photographer => (
         <Link to={`/photographer/${photographer.slug}`}>
           <Portrait
             key={photographer.id}
             personName={photographer.name}
-            imageLink={photographer.avatar[0].url}
+            imageLink={photographer.avatar.url}
           />
         </Link>
       ))}
