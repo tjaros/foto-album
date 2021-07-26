@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout } from '../components';
+import { Layout, MetaData } from '../components';
 import {
   RegisteredLandingNavPanel, UnregisteredLandingNavPanel, LandingPictureMain, RecruitComponent
 } from '../components/landingPage';
@@ -10,6 +10,10 @@ const IndexPage: React.FC = () => {
   const { isLoggedIn } = useAuth();
   return (
     <Layout className="flex flex-col justify-center">
+      <MetaData
+        title="ModAg | Modelling Agency"
+        description="Wide range of models and photographers at your hand."
+      />
       <LandingPictureMain />
       {isLoggedIn ? (
         <RegisteredLandingNavPanel className="my-2 layout--menu" />

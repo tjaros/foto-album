@@ -63,7 +63,7 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
   if (!isLoggedIn) {
     return (
       <Layout>
-        <MetaData title="Access Forbidden" />
+        <MetaData title="Access Forbidden" description="You must be logged in to view the content." />
         <Error title="Access Forbidden" description="You must be logged in to see this content" />
       </Layout>
     );
@@ -71,7 +71,7 @@ const AlbumPageTemplate: React.FC<AlbumPageProps> = ({
 
   return (
     <Layout className="container mx-auto max-w-7xl">
-      <MetaData title={`Album ${album.name}`} />
+      <MetaData title={`Album | ${album.name}`} description={`View content of album: ${album.name}`} />
       <h1 className="px-2 py-6 mb-4 text-3xl font-medium border-b border-gray-800 md:text-5xl lg:text-6xl ">
         {album.name}
       </h1>

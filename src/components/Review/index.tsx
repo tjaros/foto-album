@@ -23,13 +23,13 @@ const Review: React.FC<ReviewProps> = ({
   const dateString = format(parseISO(date), 'd. MMMM y');
   return (
     <div className={`flex flex-col w-full px-10 ${className}`}>
-      <div className="flex flex-row items-center justify-between pt-5 pb-10">
+      <div className="flex flex-row items-center pt-5 pb-10">
         <Avatar avatarLink={avatarUrl} name={modelName} className="w-16 h-16" />
-        <h2 className="pl-3 text-lg font-semibold md:text-3xl lg:text-5xl">{modelName}</h2>
-        <Rating maxStars={5} stars={stars} className="justify-self-end" />
+        <h2 className="pl-3 text-lg font-semibold md:text-xl lg:text-2xl">{modelName}</h2>
+        <Rating maxStars={5} stars={stars} className="ml-auto" />
       </div>
-      <p className="md:text-lg lg:text-2xl">{comment}</p>
-      <p className="pt-6 text-base italic">{dateString}</p>
+      <p className="lg:text-xl">{comment}</p>
+      <p className="pt-6 italic">{dateString}</p>
     </div>
   );
 };

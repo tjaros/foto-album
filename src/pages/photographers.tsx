@@ -60,7 +60,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
 
   return (
     <Layout showSearchbar={false}>
-      <MetaData title={'Search for: '.concat(query || '')} />
+      <MetaData title={`Search for ${query || ''}`} description="Search for photographers" />
       <div className="max-w-5xl py-20 mx-auto">
         <div className="flex flex-col items-center justify-between pb-20 md:flex-row">
           <h1 className="py-2 pl-2 text-4xl font-semibold">Photographers</h1>

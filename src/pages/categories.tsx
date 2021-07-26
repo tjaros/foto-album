@@ -41,7 +41,7 @@ const Categories: React.FC<CategoryPageProps> = ({
   }
 }) => (
   <Layout>
-    <MetaData title="Categories" />
+    <MetaData title="Models | Categories" description="Overview of categories of models." />
     <div className="flex flex-col">
       {categories.map(({ name, models }) => (
         <Category categoryName={name} key={name} className="pb-8 mt-8 md:pb-12 lg:pb-16">
