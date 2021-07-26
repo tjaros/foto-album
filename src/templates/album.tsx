@@ -21,7 +21,7 @@ interface AlbumPageProps extends PageProps {
         photographer?: {
           name: string;
           slug: string;
-          avatar: { url: string }[];
+          avatar: { url: string };
         };
       };
     };

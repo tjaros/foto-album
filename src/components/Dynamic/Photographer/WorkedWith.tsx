@@ -24,15 +24,12 @@ interface AlbumsModels {
     id: number;
     name: number;
     model: ModelInfo;
-  }[]
+  }[];
 }
 
 const GET_MODELS = gql`
   query ModelsFromAlbums($photographerId: ID!) {
-    albums(
-      sort: "id:desc"
-      where: { photographer: { id_eq: $photographerId } }
-    ) {
+    albums(sort: "id:desc", where: { photographer: { id_eq: $photographerId } }) {
       id
       name
       model {
@@ -53,21 +50,17 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
   });
 
   if (loading) return <Loader />;
-  if (error) return <Error title="Could not load the collaborators." description="Try again later." />;
+  if (error) { return <Error title="Could not load the collaborators." description="Try again later." />; }
 
   if (!data?.albums?.length) {
-    return (
-      <StatusMessage>
-        <span>Seems like there are no official collaborators yet.</span>
-      </StatusMessage>
-    );
+    return <StatusMessage>Seems like there are no official collaborators yet.</StatusMessage>;
   }
 
   const allModels = data?.albums.map((album) => album.model);
   const uniqModels = uniqBy(allModels, 'id');
 
   return (
-    <TableGrid className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+    <TableGrid className="grid-cols-2 py-6 sm:grid-cols-3 md:grid-cols-4">
       {uniqModels.map((model) => (
         <Link key={model.id} to={`/model/${model.slug}`}>
           <Portrait imageLink={model.avatar.url} personName={model.name} />

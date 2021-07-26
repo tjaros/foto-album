@@ -14,7 +14,7 @@ const Portrait: React.FC<PortraitProps> = ({
   className = '',
   imageClass = 'h-80 w-72'
 }) => (
-  <div className={`flex flex-col items-center ${className}`}>
+  <div className={`flex flex-col py-2 items-center ${className}`}>
     <div className="flex flex-row transition-all hover:shadow-lg">
       <img
         srcSet={imageLink}

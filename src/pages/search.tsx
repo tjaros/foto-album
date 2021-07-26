@@ -4,6 +4,7 @@ import * as JsSearch from 'js-search';
 import { MetaData, Layout } from '../components';
 import { TableGrid } from '../components/Grid';
 import { Portrait } from '../components/Image';
+import { StatusMessage } from '../components/Status';
 
 export const pageQuery = graphql`
   query Models {
@@ -125,7 +126,7 @@ const Search: React.FC<SearchPageProps> = ({ data, location }) => {
             ))}
           </TableGrid>
         ) : (
-          <p className="w-full text-3xl font-bold text-center uppercase">No models found</p>
+          <StatusMessage>No models found</StatusMessage>
         )}
       </div>
     </Layout>

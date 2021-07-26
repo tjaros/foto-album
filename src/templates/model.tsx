@@ -16,7 +16,8 @@ const links: SocialMediaLink[] = [
 ];
 
 enum NavTexts {
-  ALBUMS = 'Albums', WORKED_WITH = 'Worked With'
+  ALBUMS = 'Albums',
+  WORKED_WITH = 'Worked With'
 }
 
 const GET_ALBUMS = gql`
@@ -56,9 +57,18 @@ interface PageContextData {
 
 const Model: React.FC<PageProps> = ({ pageContext }) => {
   const {
-    id, name, age, location, bio, avatar: { url },
-    height, eyeColor, hairColor,
-    bustLine, waistLine, hipLine
+    id,
+    name,
+    age,
+    location,
+    bio,
+    avatar: { url },
+    height,
+    eyeColor,
+    hairColor,
+    bustLine,
+    waistLine,
+    hipLine
   } = pageContext as PageContextData;
 
   const [currentTabIdx, changeCurrentTab] = useState(0);
@@ -69,11 +79,17 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
   }));
 
   const stats = {
-    age, height, eyeColor, hairColor, bustLine, waistLine, hipLine
+    age,
+    height,
+    eyeColor,
+    hairColor,
+    bustLine,
+    waistLine,
+    hipLine
   };
 
   return (
-    <Layout className="w-full pb-20 mx-auto max-w-7xl">
+    <Layout className="w-full pb-20 mx-auto max-w-7xl container">
       <PersonInfo
         name={name}
         avatar={<Avatar name={name} avatarLink={url} />}
@@ -83,7 +99,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
         socialMediaLinks={links}
         className="layout--add"
       />
-      <Nav navItems={navItems} currentIndex={currentTabIdx} className="layout--menu" />
+      <Nav navItems={navItems} currentIndex={currentTabIdx} />
       {renderSwitch(navTextItems[currentTabIdx], id)}
     </Layout>
   );

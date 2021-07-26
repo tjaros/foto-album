@@ -20,7 +20,10 @@ const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {
   return (
     <>
       {!consent && <ConsentForm onClick={giveConsent} />}
-      <div className={!consent ? 'h-screen overflow-hidden filter blur-sm brightness-75' : ''}>
+      <div
+        className={`transition-all ${
+          !consent ? 'h-screen overflow-hidden filter blur-sm brightness-75 ' : ''
+        }`}>
         <Header />
         <main className={className}>{children}</main>
         <Footer />

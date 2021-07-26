@@ -16,8 +16,8 @@ const AlbumCard: React.FC<AlbumCardProps> = ({
   return (
     <Target>
       <div
-        className={`relative flex flex-col p-2 m-2 ${
-          locked ? 'cursor-not-allowed ' : 'hover:shadow-lg'
+        className={`relative flex flex-col p-3 m-2 ${
+          locked ? 'cursor-not-allowed ' : 'hover:shadow transition-all  '
         }`}>
         {locked && <RegisterOverlay />}
         <img
