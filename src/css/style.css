@@ -36,7 +36,7 @@ a {
     @apply max-w-4xl mx-auto
   }
 
-  .layout-add {
+  .layout--add {
     @apply max-w-6xl mx-auto
   }
 
