@@ -1,6 +1,11 @@
 import React from 'react';
 import {
-  useQuery, gql, OperationVariables, TypedDocumentNode, DocumentNode, QueryHookOptions
+  useQuery,
+  gql,
+  OperationVariables,
+  TypedDocumentNode,
+  DocumentNode,
+  QueryHookOptions
 } from '@apollo/client';
 import { useAuth } from '../../../hooks';
 import AlbumCard from '../../AlbumCard';
@@ -10,7 +15,7 @@ interface AlbumData {
   id: number;
   name: string;
   slug: string;
-  photos: { url: string; }[];
+  photos: { url: string }[];
 }
 
 export const ALBUM_FIELDS = gql`
@@ -29,9 +34,9 @@ interface QueriedAlbum {
   albums: AlbumData[];
 }
 
-interface AlbumsProps<TData = any, TVariables = OperationVariables> {
+interface AlbumsProps<TData = string, TVariables = OperationVariables> {
   query: DocumentNode | TypedDocumentNode<TData, TVariables>;
-  options?: QueryHookOptions<TData, TVariables> | undefined;
+  options?: QueryHookOptions<QueriedAlbum, TVariables> | undefined;
   className?: string;
 }
 
