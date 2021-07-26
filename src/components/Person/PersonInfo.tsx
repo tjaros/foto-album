@@ -28,14 +28,14 @@ const PersonInfo: React.FC<PersonInfoProps> = ({
       <AboutMe name={name} location={availableLocation} avatar={avatar} />
       <SocialMedia links={socialMediaLinks} orientation={Orientation.HORIZONTAL} />
     </div>
-    <div className="flex flex-col gap-2 pt-12 text-lg md:flex-row-reverse">
+    <div className="flex flex-col gap-2 pt-4 text-lg md:flex-row-reverse">
       {stats && (
         <Stats
           stats={stats}
           className="pb-3 border-b-2 border-black md:border-b-0 md:border-l-4 md:pb-0"
         />
       )}
-      <Bio text={bio} className="pt-4 lg:pt-8" />
+      <Bio text={bio} />
     </div>
   </div>
 );

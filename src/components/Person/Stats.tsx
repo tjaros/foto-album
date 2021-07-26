@@ -27,7 +27,7 @@ const Stats: React.FC<StatsProps> = ({ stats, className = '' }) => {
   ];
 
   return (
-    <div className={`flex flex-col px-4 pt-4 md:pt-0 ${className}`}>
+    <div className={`flex flex-col px-4 md:pt-0 ${className}`} style={{ minWidth: '250px' }}>
       <table>
         <tbody>
           {characteristics.map(
