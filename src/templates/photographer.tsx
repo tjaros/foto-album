@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 import { PageProps } from 'gatsby';
 import React, { useState } from 'react';
-import { Layout } from '../components';
+import { Layout, MetaData } from '../components';
 import Albums, { ALBUM_FIELDS } from '../components/Dynamic/AlbumsPreview';
 import { Reviews, WorkedWith } from '../components/Dynamic/Photographer';
 import { Avatar } from '../components/Image';
@@ -63,6 +63,7 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
 
   return (
     <Layout className="container m-auto max-w-7xl">
+      <MetaData title={`Photographer | ${name}`} description="Contact our photographers." />
       <PersonInfo
         name={name}
         availableLocation={location}
