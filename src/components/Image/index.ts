@@ -4,4 +4,6 @@ import DescribedAvatar from './DescribedAvatar';
 import ModelImage from './ModelImage';
 import Logo from './Logo';
 
-export { Portrait, Avatar, DescribedAvatar, ModelImage, Logo };
+export {
+  Portrait, Avatar, DescribedAvatar, ModelImage, Logo
+};

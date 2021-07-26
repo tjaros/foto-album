@@ -1,5 +1,7 @@
 import React from 'react';
-import { useQuery, gql, OperationVariables, TypedDocumentNode, DocumentNode, QueryHookOptions } from '@apollo/client';
+import {
+  useQuery, gql, OperationVariables, TypedDocumentNode, DocumentNode, QueryHookOptions
+} from '@apollo/client';
 import { useAuth } from '../../../hooks';
 import AlbumCard from '../../AlbumCard';
 import { Loader, StatusMessage, Error } from '../../Status';

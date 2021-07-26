@@ -9,7 +9,9 @@ export interface AlbumCardProps {
   albumSlug: string;
 }
 
-const AlbumCard: React.FC<AlbumCardProps> = ({ name, photo, locked, albumSlug }) => {
+const AlbumCard: React.FC<AlbumCardProps> = ({
+  name, photo, locked, albumSlug
+}) => {
   const Target: React.FC = ({ children }) => (locked ? <>{children}</> : <GLink to={`/albums/${albumSlug}`}>{children}</GLink>);
   return (
     <Target>

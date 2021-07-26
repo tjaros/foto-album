@@ -40,11 +40,13 @@ interface PhotograpgerData {
   name: string;
   location: string;
   bio: string;
-  avatar: { url: string }[];
+  avatar: { url: string };
 }
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
-  const { name, location, bio, avatar, id } = pageContext as PhotograpgerData;
+  const {
+    name, location, bio, avatar, id
+  } = pageContext as PhotograpgerData;
   const [currentTab, changeTab] = useState('Albums');
 
   const navItems: NavItemData[] = [
@@ -54,7 +56,7 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
   ];
 
   return (
-    <Layout className="m-auto max-w-7xl">
+    <Layout className="container m-auto max-w-7xl">
       <PersonInfo
         name={name}
         availableLocation={location}
