@@ -6,7 +6,7 @@ import {
 } from '../../auth/cookies';
 import isLoggedInState from '../../auth/store';
 import { AuthUser } from '../../auth/models';
-import logo from '../../images/logo--light.svg';
+import { Logo } from '../../components/Image';
 
 interface StrapiAuthResponse {
   jwt: string;
@@ -49,7 +49,7 @@ const Auth0: React.FC<PageProps> = ({ location }) => {
     <div className="flex flex-col items-center justify-center w-screen h-screen">
       <div className="flex flex-col pb-4 mx-6 border shadow justify-items-center">
         <div className="bg-black">
-          <img src={logo} alt="ModAg logo" className="h-16 p-2 m-auto" />
+          <Logo className="h-16 p-2 m-auto" />
         </div>
         <p className="m-6 text-xl text-center">
           {correctAuth

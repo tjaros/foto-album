@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import {
-  MetaData, Layout, ColumnsLayout, Portrait
-} from '../components';
+import { MetaData, Layout } from '../components';
+import { TableGrid } from '../components/Grid';
+import { Portrait } from '../components/Image';
 
 export const pageQuery = graphql`
   query GetPhotographers {
@@ -62,8 +62,8 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
     <Layout showSearchbar={false}>
       <MetaData title={'Search for: '.concat(query || '')} />
       <div className="max-w-5xl py-20 mx-auto">
-        <div className="flex justify-between pb-20">
-          <h1 className="text-4xl font-semibold">Photographers</h1>
+        <div className="flex flex-col items-center justify-between pb-20 md:flex-row">
+          <h1 className="py-2 pl-2 text-4xl font-semibold">Photographers</h1>
           <input
             type="text"
             className="w-64 p-2 px-4 bg-gray-100 border-gray-500 rounded"
@@ -74,7 +74,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
         </div>
 
         {photographers.length > 0 ? (
-          <ColumnsLayout>
+          <TableGrid className="table-grid--4 layout--content">
             {photographers.map((photographer) => (
               <Link to={`/photographer/${photographer.slug}`} key={photographer.slug}>
                 <Portrait
@@ -84,9 +84,9 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
                 />
               </Link>
             ))}
-          </ColumnsLayout>
+          </TableGrid>
         ) : (
-          <h1 className="w-full text-3xl font-bold text-center uppercase">No photographers found</h1>
+          <p className="w-full text-3xl font-bold text-center uppercase">No photographers found</p>
         )}
       </div>
     </Layout>

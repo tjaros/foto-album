@@ -27,6 +27,7 @@
     "gatsby-transformer-sharp": "^3.7.1",
     "graphql": "^15.5.0",
     "js-search": "^2.0.0",
+    "lodash": "^4.17.21",
     "mailgun-js": "^0.22.0",
     "mailgun.js": "^3.5.1",
     "postcss": "^8.3.5",

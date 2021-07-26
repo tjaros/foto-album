@@ -1,13 +1,10 @@
 import React from 'react';
-import Layout from '../components/layout/Layout';
-import RecruitForm from '../components/recruitPage/RecruitForm';
+import { RecruitForm } from '../components/Form';
+import { Layout } from '../components';
 
 const recruit: React.FC = () => (
   <Layout>
-    <div className="flex justify-center">
-      <RecruitForm />
-
-    </div>
+    <RecruitForm className="layout--content" />
   </Layout>
 );
 

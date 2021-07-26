@@ -27,4 +27,20 @@ a {
   .btn-white {
     @apply flex items-center justify-center w-32 h-12 mt-4 text-black transition-all border-2 border-black border-solid rounded-md hover:text-white hover:bg-black text-lg
   }
+
+  .layout--menu {
+    @apply max-w-5xl mx-auto
+  }
+
+  .layout--content {
+    @apply max-w-4xl mx-auto
+  }
+
+  .layout--add {
+    @apply max-w-6xl mx-auto
+  }
+
+  .table-grid--4 {
+    @apply grid-cols-2 gap-2 md:grid-cols-4
+  }
 }

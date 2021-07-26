@@ -26,7 +26,8 @@ module.exports = {
         // This is the field under which it's accessible
         fieldName: 'strapi',
         // URL to query from
-        url: process.env.STRAPI_GRAPHQL_ENDPOINT
+        url: process.env.STRAPI_GRAPHQL_ENDPOINT,
+        batch: true,
       }
     },
     {

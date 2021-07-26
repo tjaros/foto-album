@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { graphql, Link, PageProps } from 'gatsby';
 import * as JsSearch from 'js-search';
-import {
-  MetaData, Layout, ColumnsLayout, Portrait
-} from '../components';
+import { MetaData, Layout } from '../components';
+import { TableGrid } from '../components/Grid';
+import { Portrait } from '../components/Image';
+import { StatusMessage } from '../components/Status';
 
 export const pageQuery = graphql`
   query Models {
@@ -93,8 +94,8 @@ const Search: React.FC<SearchPageProps> = ({ data, location }) => {
     <Layout showSearchbar={false}>
       <MetaData title={'Search for: '.concat(query || '')} />
       <div className="max-w-5xl py-20 mx-auto">
-        <div className="flex justify-between pb-20">
-          <h1 className="text-4xl font-semibold">Model search</h1>
+        <div className="flex flex-col items-center justify-between pb-20 md:flex-row">
+          <h1 className="py-2 pl-2 text-4xl font-semibold">Models</h1>
           <input
             type="text"
             className="w-64 p-2 px-4 bg-gray-100 border-gray-500 rounded"
@@ -117,15 +118,15 @@ const Search: React.FC<SearchPageProps> = ({ data, location }) => {
         </select> */}
 
         {models.length > 0 ? (
-          <ColumnsLayout>
+          <TableGrid className="table-grid--4 layout--content">
             {models.map((model) => (
-              <Link to={`/model/${model.slug}`}>
-                <Portrait key={model.id} personName={model.name} imageLink={model.avatar.url} />
+              <Link to={`/model/${model.slug}`} key={model.id}>
+                <Portrait personName={model.name} imageLink={model.avatar.url} />
               </Link>
             ))}
-          </ColumnsLayout>
+          </TableGrid>
         ) : (
-          <h1 className="w-full text-3xl font-bold text-center uppercase">No models found</h1>
+          <StatusMessage>No models found</StatusMessage>
         )}
       </div>
     </Layout>
