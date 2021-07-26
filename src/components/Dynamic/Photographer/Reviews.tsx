@@ -42,9 +42,10 @@ interface ReviewItem {
 
 interface ReviewsProps {
   photographerId: number;
+  className?: string;
 }
 
-const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
+const Reviews: React.FC<ReviewsProps> = ({ photographerId, className = '' }) => {
   const {
     data, loading, error, fetchMore
   } = useQuery(REVIEWS_QUERY, {
@@ -103,7 +104,7 @@ const Reviews: React.FC<ReviewsProps> = ({ photographerId }) => {
   }
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className={`flex flex-col gap-3 lg:gap-5 items-center w-full ${className}`}>
       {data?.reviews.map((review: ReviewItem) => (
         <Review
           key={review.id}

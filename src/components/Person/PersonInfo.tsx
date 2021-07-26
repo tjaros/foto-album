@@ -23,7 +23,7 @@ const PersonInfo: React.FC<PersonInfoProps> = ({
   stats,
   className = ''
 }) => (
-  <div className={`flex flex-col pb-20 ${className}`}>
+  <div className={`flex flex-col p-2 md:p-5 lg:p-7 pb-7 ${className}`}>
     <div className="flex flex-col items-center justify-between gap-1 md:flex-row">
       <AboutMe name={name} location={availableLocation} avatar={avatar} />
       <SocialMedia links={socialMediaLinks} orientation={Orientation.HORIZONTAL} />

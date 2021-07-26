@@ -97,7 +97,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
         bio={bio}
         stats={stats}
         socialMediaLinks={links}
-        className="p-2 layout--add md:p-5 lg:p-7"
+        className="layout--add"
       />
       <Nav navItems={navItems} currentIndex={currentTabIdx} />
       {renderSwitch(navTextItems[currentTabIdx], id)}

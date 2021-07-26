@@ -15,6 +15,12 @@ const links: SocialMediaLink[] = [
   { url: 'https://google.com', type: SocialMediaType.WEBSITE }
 ];
 
+enum NavTexts {
+  ALBUMS = 'Albums',
+  REVIEWS = 'Reviews',
+  WORKED_WITH = 'Worked With'
+}
+
 const GET_ALBUMS = gql`
   ${ALBUM_FIELDS}
   query AlbumsByPhotographer($id: ID!) {
@@ -26,12 +32,12 @@ const GET_ALBUMS = gql`
 
 const renderSwitch = (state: string, id: number) => {
   switch (state) {
-    case 'Reviews':
-      return <Reviews photographerId={id} />;
-    case 'Worked With':
-      return <WorkedWith photographerId={id} />;
+    case NavTexts.REVIEWS:
+      return <Reviews photographerId={id} className="pb-8 layout--content" />;
+    case NavTexts.WORKED_WITH:
+      return <WorkedWith photographerId={id} className="px-2 layout--content" />;
     default:
-      return <Albums query={GET_ALBUMS} options={{ variables: { id } }} />;
+      return <Albums query={GET_ALBUMS} options={{ variables: { id } }} className="layout--content" />;
   }
 };
 
@@ -47,12 +53,12 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
   const {
     name, location, bio, avatar, id
   } = pageContext as PhotograpgerData;
-  const [currentTab, changeTab] = useState('Albums');
 
+  const [currentTabIndex, changeCurrentTab] = useState(0);
   const navItems: NavItemData[] = [
-    { text: 'Albums', onClick: () => changeTab('Albums') },
-    { text: 'Reviews', onClick: () => changeTab('Reviews'), onlyAuthenticated: true },
-    { text: 'Worked With', onClick: () => changeTab('Worked With') }
+    { text: NavTexts.ALBUMS, onClick: () => changeCurrentTab(0) },
+    { text: NavTexts.REVIEWS, onClick: () => changeCurrentTab(1), onlyAuthenticated: true },
+    { text: NavTexts.WORKED_WITH, onClick: () => changeCurrentTab(2) }
   ];
 
   return (
@@ -63,9 +69,10 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
         bio={bio}
         avatar={<Avatar name={name} avatarLink={avatar[0].url} />}
         socialMediaLinks={links}
+        className="layout--add"
       />
-      <Nav navItems={navItems} />
-      {renderSwitch(currentTab, id)}
+      <Nav navItems={navItems} currentIndex={currentTabIndex} />
+      {renderSwitch(navItems[currentTabIndex].text, id)}
     </Layout>
   );
 };

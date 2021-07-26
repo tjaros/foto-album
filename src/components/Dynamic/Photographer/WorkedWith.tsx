@@ -8,6 +8,7 @@ import { Loader, StatusMessage, Error } from '../../Status';
 
 interface WorkedWithProps {
   photographerId: number;
+  className?: string;
 }
 
 interface ModelInfo {
@@ -44,7 +45,7 @@ const GET_MODELS = gql`
   }
 `;
 
-const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
+const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId, className = '' }) => {
   const { loading, error, data } = useQuery<AlbumsModels>(GET_MODELS, {
     variables: { photographerId }
   });
@@ -60,7 +61,7 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ photographerId }) => {
   const uniqModels = uniqBy(allModels, 'id');
 
   return (
-    <TableGrid className="grid-cols-2 py-6 sm:grid-cols-3 md:grid-cols-4">
+    <TableGrid className={`table-grid--4 mt-5 ${className}`}>
       {uniqModels.map((model) => (
         <Link key={model.id} to={`/model/${model.slug}`}>
           <Portrait imageLink={model.avatar.url} personName={model.name} />

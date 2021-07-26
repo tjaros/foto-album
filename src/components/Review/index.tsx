@@ -25,10 +25,10 @@ const Review: React.FC<ReviewProps> = ({
     <div className={`flex flex-col w-full px-10 ${className}`}>
       <div className="flex flex-row items-center justify-between pt-5 pb-10">
         <Avatar avatarLink={avatarUrl} name={modelName} className="w-16 h-16" />
-        <h2 className="pl-3 text-5xl font-semibold">{modelName}</h2>
+        <h2 className="pl-3 text-lg font-semibold md:text-3xl lg:text-5xl">{modelName}</h2>
         <Rating maxStars={5} stars={stars} className="justify-self-end" />
       </div>
-      <p className="text-2xl">{comment}</p>
+      <p className="md:text-lg lg:text-2xl">{comment}</p>
       <p className="pt-6 text-base italic">{dateString}</p>
     </div>
   );
