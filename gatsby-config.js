@@ -82,8 +82,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-purgecss`,
       options: {
+        ignore: ['AlbumPhotos/'],
         printRejected: false,
-        develop: false,
+        develop: true,
         tailwind: true
       }
     },
