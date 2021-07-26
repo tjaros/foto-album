@@ -32,7 +32,7 @@ const GET_ALBUMS = gql`
 const renderSwitch = (tabText: string, id: number) => {
   switch (tabText) {
     case NavTexts.WORKED_WITH:
-      return <WorkedWith modelId={id} className="layout--content" />;
+      return <WorkedWith modelId={id} className="px-2 layout--content" />;
     default:
       return (
         <Albums query={GET_ALBUMS} options={{ variables: { id } }} className="layout--content" />
