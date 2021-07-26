@@ -25,7 +25,7 @@ const Layout: React.FC<LayoutProps> = ({ children, className = '' }) => {
           !consent ? 'h-screen overflow-hidden filter blur-sm brightness-75 ' : ''
         }`}>
         <Header />
-        <main className={className}>{children}</main>
+        <main className={`min-h-screen ${className}`}>{children}</main>
         <Footer />
       </div>
     </>
