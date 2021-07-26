@@ -30,7 +30,7 @@ const ColumnsGrid: React.FC<ColumnsGridProps> = ({
     childrenArray.filter((_, idx) => idx % nColumns === whichColumn)
   ));
   return (
-    <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 md:mr-4 md:ml-4 ${className}`}>
+    <div className={`flex flex-row gap-0 sm:gap-1 lg:gap-2 ${className}`}>
       {columsChildren.map((column, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <div className={`flex-1 ${columnClassName}`} key={index}>

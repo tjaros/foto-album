@@ -89,7 +89,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
   };
 
   return (
-    <Layout className="w-full pb-20 mx-auto max-w-7xl container">
+    <Layout className="container w-full pb-20 mx-auto max-w-7xl">
       <PersonInfo
         name={name}
         avatar={<Avatar name={name} avatarLink={url} />}
@@ -97,7 +97,7 @@ const Model: React.FC<PageProps> = ({ pageContext }) => {
         bio={bio}
         stats={stats}
         socialMediaLinks={links}
-        className="layout--add"
+        className="p-2 layout--add md:p-5 lg:p-7"
       />
       <Nav navItems={navItems} currentIndex={currentTabIdx} />
       {renderSwitch(navTextItems[currentTabIdx], id)}

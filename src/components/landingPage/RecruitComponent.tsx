@@ -13,7 +13,7 @@ interface RecruitProps {
 }
 
 const RecruitComponent: React.FC<RecruitProps> = ({ className }) => (
-  <div className={`grid items-center py-2 my-4 bg-black md:ml-4 md:mr-4 h-1/4 md:grid-cols-5 md:my-10 ${className}`}>
+  <div className={`w-full grid items-center px-2 py-4 my-4 bg-black md:grid-cols-5 md:my-10 ${className}`}>
     <div className="space-y-3 text-sm text-white md:text-xl md:mr-4 md:col-end-4 md:col-span-3">
       {textLines.map((text) => <p key={text} className="text-center md:text-right">{text}</p>)}
     </div>

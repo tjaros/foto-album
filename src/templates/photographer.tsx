@@ -40,7 +40,7 @@ interface PhotograpgerData {
   name: string;
   location: string;
   bio: string;
-  avatar: { url: string };
+  avatar: { url: string }[];
 }
 
 const Photographer: React.FC<PageProps> = ({ pageContext }) => {
@@ -61,7 +61,7 @@ const Photographer: React.FC<PageProps> = ({ pageContext }) => {
         name={name}
         availableLocation={location}
         bio={bio}
-        avatar={<Avatar name={name} avatarLink={avatar.url} />}
+        avatar={<Avatar name={name} avatarLink={avatar[0].url} />}
         socialMediaLinks={links}
       />
       <Nav navItems={navItems} />

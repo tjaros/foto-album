@@ -1,5 +1,5 @@
-import { StaticImage } from 'gatsby-plugin-image';
 import React from 'react';
+import { Logo } from '../Image';
 
 interface ConsentFormProps {
   onClick: () => void;
@@ -8,8 +8,8 @@ interface ConsentFormProps {
 const ConsentForm: React.FC<ConsentFormProps> = ({ onClick }) => (
   <div className="fixed z-50 flex items-center justify-center w-screen h-screen filter backdrop-blur-md">
     <div className="flex flex-col max-w-xs gap-5 pb-6 mx-6 bg-white justify-items-center">
-      <div className="bg-black">
-        <StaticImage src="../../images/logo--light.svg" alt="ModAg logo" className="h-16 p-2 m-auto" />
+      <div className="p-2 bg-black">
+        <Logo className="h-10 mx-auto" />
       </div>
       <p className="px-2 text-4xl font-bold text-center">This site may contain explicit content.</p>
       <button

@@ -67,11 +67,10 @@ const WorkedWith: React.FC<WorkedWithProps> = ({ modelId, className = '' }) => {
   return (
     <TableGrid className={`table-grid--4 mt-5 ${className}`}>
       {uniqPhotographers.map((photographer) => (
-        <Link to={`/photographer/${photographer.slug}`}>
+        <Link key={photographer.id} to={`/photographer/${photographer.slug}`}>
           <Portrait
-            key={photographer.id}
             personName={photographer.name}
-            imageLink={photographer.avatar.url}
+            imageLink={photographer.avatar[0].url}
           />
         </Link>
       ))}

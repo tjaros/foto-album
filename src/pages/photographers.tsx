@@ -26,7 +26,7 @@ interface Photographer {
   slug: string;
   name: string;
   location: string;
-  avatar: { url: string };
+  avatar: { url: string }[];
 }
 
 interface SearchPageProps extends PageProps {
@@ -80,7 +80,7 @@ const Photographers: React.FC<SearchPageProps> = ({ data, location }) => {
                 <Portrait
                   key={photographer.id}
                   personName={photographer.name}
-                  imageLink={photographer.avatar.url}
+                  imageLink={photographer.avatar[0].url}
                 />
               </Link>
             ))}
