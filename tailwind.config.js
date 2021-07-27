@@ -5,16 +5,16 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'landingPicture': "url('../images/landingPicture.png')"
+        landingPicture: "url('../images/landingPicture.png')"
       }),
       fontFamily: {
-        secondary: ['Qwigley'],
+        secondary: ['Qwigley']
       },
       margin: {
         '-100': '-45rem'
       }
-    },
+    }
   },
   variants: {},
-  plugins: [],
-}
+  plugins: []
+};
