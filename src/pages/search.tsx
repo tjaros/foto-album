@@ -55,16 +55,17 @@ interface SearchPageProps extends PageProps {
   };
 }
 
+interface FilterState { values: string[] }
+
 const Search: React.FC<SearchPageProps> = ({ data, location }) => {
   const [query, setQuery] = useState(new URLSearchParams(location.search).get('s'));
   const categoryURL = new URLSearchParams(location.search).get('c');
   const categories = ['hostess', 'escort', 'female', 'male'];
-  const [categoryFilter, setCategoryFilter] = useState({
-    values: categoryURL !== null && categories.includes(categoryURL) ? [categoryURL] : [],
-    isOpen: false
+  const [categoryFilter, setCategoryFilter] = useState<FilterState>({
+    values: categoryURL !== null && categories.includes(categoryURL) ? [categoryURL] : []
   });
-  const [hairFilter, setHairFilter] = useState({ values: [] });
-  const [eyeFilter, setEyeFilter] = useState({ values: [] });
+  const [hairFilter, setHairFilter] = useState<FilterState>({ values: [] });
+  const [eyeFilter, setEyeFilter] = useState<FilterState>({ values: [] });
   const search = new JsSearch.Search('slug');
 
   search.indexStrategy = new JsSearch.AllSubstringsIndexStrategy();

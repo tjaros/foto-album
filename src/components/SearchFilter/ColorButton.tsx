@@ -30,7 +30,7 @@ const ColorButton: React.FC<ColorButtonProps> = ({
       <button
         type="button"
         className={`btn-white ${filter.values.length > 0 && 'bg-black text-white hover:bg-gray-700'
-          }`}>
+        }`}>
         {name}
       </button>
       <div className="absolute grid invisible w-32 grid-cols-4 gap-1 py-2 transition-all duration-300 origin-top-right transform bg-white shadow-lg opacity-0 justify-items-center dropdown-menu ">
@@ -39,9 +39,9 @@ const ColorButton: React.FC<ColorButtonProps> = ({
             key={color}
             type="button"
             className={`h-5 w-5 bg-${colors[color]
-              } border-2 capitalize  hover:border-gray-200  ${filter.values.includes(color)
+            } border-2 capitalize  hover:border-gray-200  ${filter.values.includes(color)
               && 'border-black text-white hover:border-gray-700'
-              }`}
+            }`}
             onClick={() => {
               const index = filter.values.indexOf(color);
               setFilter((prev) => {
