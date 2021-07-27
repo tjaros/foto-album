@@ -27,7 +27,7 @@ module.exports = {
         fieldName: 'strapi',
         // URL to query from
         url: process.env.STRAPI_GRAPHQL_ENDPOINT,
-        batch: true,
+        batch: true
       }
     },
     {
@@ -79,15 +79,7 @@ module.exports = {
         postCssPlugins: [require('tailwindcss'), require('autoprefixer'), require(`cssnano`)]
       }
     },
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        ignore: ['AlbumPhotos/'],
-        printRejected: false,
-        develop: true,
-        tailwind: true
-      }
-    },
+
     `gatsby-plugin-typescript`
   ]
 };
