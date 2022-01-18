@@ -1,6 +1,6 @@
 # Fotoalbum 
 
-Seminar project for *PB138* course. The aim of this project was to create a fullstack photo album website. This is the **frontend** of the created site. The built site is available at: [https://xhrodek1.pages.fi.muni.cz/pb138-foto-album/](https://xhrodek1.pages.fi.muni.cz/pb138-foto-album/).
+Seminar project for *PB138* course. The aim of this project was to create a fullstack photo album website. This is the **frontend** of the created site. The built site is available at: [https://foto-album.vercel.app/](https://foto-album.vercel.app/).
 
 ## ✍️ Authors
 
@@ -59,3 +59,5 @@ In order to run this applications, you need to have installed:
     ```
 
 3.  Your site is now running at `http://localhost:8000`!
+
+4.  (Optional) To make login work, go to Strapi>Settings>Providers>Auth0 and change "The redirect URL to your front-end app" to "http://localhost:8000/auth/auth0"
